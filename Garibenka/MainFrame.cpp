@@ -123,7 +123,9 @@ MainFrame::MainFrame(const wxString& title)
 {
 	CreateControls();
 	BindEventHandlers();
-	FileLoader::RunPythonScript();
+
+	const char* path[1] = { "D:/Projects/Garibenk/Garibenka/Garibenka/Tables.py" };
+	FileLoader::RunPythonScript(1, path);
 
 
 	this->Centre(wxBOTH);
