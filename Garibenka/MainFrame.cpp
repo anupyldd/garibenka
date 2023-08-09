@@ -1,4 +1,5 @@
 #include "MainFrame.h"
+#include "FileLoader.h"
 #include <wx/wx.h>
 
 
@@ -122,7 +123,7 @@ MainFrame::MainFrame(const wxString& title)
 {
 	CreateControls();
 	BindEventHandlers();
-
+	FileLoader::RunPythonScript();
 
 
 	this->Centre(wxBOTH);
