@@ -1,0 +1,62 @@
+ref	ru	en
+Files	Файлы	Files
+Open	Открыть	Open
+Import File	Загрузить Файл	Import File
+Pick Excel File	Выберите Excel файл:	Pick an Excel file:
+Select File	Выбрать Файл	Select File
+Browse	Просмотреть	Browse
+File Browser	Просмотр Файла	File Browser
+Study	Изучать	Study
+Menu	Меню	Menu
+Helper Bot	Бот-Помощник	Helper Bot
+		
+Profile	Профиль	Profile
+Name	Название	Name
+Stats	Статистика	Stats
+Profile Picture	Изображение Профиля	Profile Picture
+Change	Изменить	Change
+EnterNewName	Введите новое имя пользователя	Enter new username
+		
+Settings	Настройки	Settings
+Theme	Тема	Theme
+Language	Язык	Language
+RU	RU	RU
+EN	EN	EN
+NeedReload	(потребуется перезапуск)	(requires restart)
+		
+Greeting	Привет! Я твой бот-помощник в заучивании слов. Что ты хочешь изучить сегодня? 	Hello, I am your helper bot for studying language. What do you wish to study today?
+StartVocabChooseMode	Отлично! Сегодня будем изучать лексику, на чем хочешь сфокусироваться? 	Great! Today we will study vocabulary, what do you want to focus on?
+StartKanjiChooseMode	Отлично! Сегодня будем изучать кандзи, на чем хочешь сфокусироваться? 	Great! Today we will study kanji, what do you want to focus on?
+		
+CatWordHowAsk	Выбрана категория Слово, как мне тебя спрашивать? 	Word category is selected. What do you want me to ask you?
+CatReadHowAsk	Выбрана категория Чтение, как мне тебя спрашивать? 	Reading category is selected. What do you want me to ask you?
+CatMeanHowAsk	Выбрана категория Значение, как мне тебя спрашивать? 	Meaning category is selected. What do you want me to ask you?
+CatKanjiHowAsk	Выбрана категория Иероглиф, как мне тебя спрашивать? 	Kanji category is selected. What do you want me to ask you?
+		
+		
+StartWordByRead	Понял, буду спрашивать Слово по категории Чтение. Ну что, начнём?	Got it, I'll be asking you Words by Reading category. Should we start?
+StartWordByMean	Понял, буду спрашивать Слово по категории Значение. Ну что, начнём?	Got it, I'll be asking you Words by Meaning category. Should we start?
+StartReadByWord	Понял, буду спрашивать Чтение по категории Слово. Ну что, начнём?	Got it, I'll be asking you Reading by Word category. Should we start?
+StartReadByMean	Понял, буду спрашивать Чтение по категории Значение. Ну что, начнём?	Got it, I'll be asking you Reading by Meaning category. Should we start?
+StartKanjiByRead	Понял, буду спрашивать Иероглиф по категории Чтение. Ну что, начнём?	Got it, I'll be asking you Kanji by Reading category. Should we start?
+StartKanjiByMean	Понял, буду спрашивать Иероглиф по категории Значение. Ну что, начнём?	Got it, I'll be asking you Kanji by Meaning category. Should we start?
+StartMeanByRead	Понял, буду спрашивать Значение по категории Чтение. Ну что, начнём?	Got it, I'll be asking you Meaning by Reading category. Should we start?
+StartMeanByWord	Понял, буду спрашивать Значение по категории Слово. Ну что, начнём?	Got it, I'll be asking you Meaning by Word category. Should we start?
+StartMeanByKanji	Понял, буду спрашивать Значение по категории Иероглиф. Ну что, начнём?	Got it, I'll be asking you Meaning by Kanji category. Should we start?
+StartReadByKanji	Понял, буду спрашивать Чтение по категории Иероглиф. Ну что, начнём?	Got it, I'll be asking you Reading by Kanji category. Should we start?
+		
+		
+GivMeanNeedWord	Дано "Значение", напиши Слово.	
+GivReadNeedWord	Дано "Чтение", напиши Слово.	
+GivMeanNeedRead	Дано "Значение", напиши Чтение.	
+GivWordNeedRead	Дано "Слово", напиши Чтение.	
+GivReadNeedMean	Дано "Чтение", напиши Значение.	
+GivWordNeedMean	Дано "Слово", напиши Значение.	
+GivKanjiNeedRead	Дано "Иероглиф", напиши Чтение.	
+GivKanjiNeedMean	Дано "Иероглиф", напиши Значение.	
+GivMeanNeedKanji	Дано "Значение", напиши Иероглиф.	
+GivReadNeedKanji	Дано "Чтение", напиши Иероглиф.	
+		
+		
+WrongAnsw	Увы, ответ неверный.	Unfortunately, this answer is not correct.
+CorrectAnsw	Супер! Ответ верный.	Great, this is the correct answer!
