@@ -17,4 +17,5 @@ public:
 	static void RunPythonScript(int argc, const char* argv[]);
 	static void ReadTablesFile();
 
+	static void ReadUserSettingsFile();
 };

@@ -22,8 +22,14 @@ void FileLoader::RunPythonScript(int argc, const char* argv[])
 
 	Py_Initialize();
 
-	PyRun_SimpleString("exec('Tables.py')");
+	//PyRun_SimpleString("exec('Tables.py')");
 
+	PyObject* obj = Py_BuildValue("s", "Tables.py");
+	FILE* file = _Py_fopen_obj(obj, "r+");
+	if (file != NULL) 
+	{
+		PyRun_SimpleFile(file, "Tables.py");
+	}
 
 	if (Py_FinalizeEx() < 0)
 	{
@@ -32,4 +38,9 @@ void FileLoader::RunPythonScript(int argc, const char* argv[])
 
 	PyMem_RawFree(program);
 
+}
+
+
+void FileLoader::ReadUserSettingsFile()
+{
 }
