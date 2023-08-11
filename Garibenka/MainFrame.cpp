@@ -8,114 +8,144 @@ void MainFrame::CreateControls()
 	wxInitAllImageHandlers();
 
 	
-	GenBoxSizer = new wxBoxSizer(wxVERTICAL);
-	SetSizerAndFit(GenBoxSizer);
+	this->SetSizeHints(wxDefaultSize, wxDefaultSize);
 
-	GenPanel = new wxPanel(this, 3, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
-	GenPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
+	wxBoxSizer* genSizer;
+	genSizer = new wxBoxSizer(wxVERTICAL);
 
-	
-	SizerScreenSplit = new wxBoxSizer(wxHORIZONTAL);
+	wxBoxSizer* mainSizer;
+	mainSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	
-	LeftPanelSizer = new wxBoxSizer(wxVERTICAL);
+	leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(80, -1), wxTAB_TRAVERSAL);
+	leftPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
 
-	BotBtn = new wxBitmapButton(GenPanel, 4, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	wxBoxSizer* leftPanelSizer;
+	leftPanelSizer = new wxBoxSizer(wxVERTICAL);
 
-	BotBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.xpm"), wxBITMAP_TYPE_ANY));
-	LeftPanelSizer->Add(BotBtn, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 0);
+	leftPanelSizer->SetMinSize(wxSize(80, -1));
+	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
-	ProfileBtn = new wxBitmapButton(GenPanel, 5, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
+	leftPanelSizer->Add(botBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);
 
-	ProfileBtn->SetBitmap(wxBitmap(wxT("Icons/ProfileBtn.xpm"), wxBITMAP_TYPE_ANY));
-	LeftPanelSizer->Add(ProfileBtn, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 0);
+	profileBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
-	FileBtn = new wxBitmapButton(GenPanel, 6, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	profileBtn->SetBitmap(wxBitmap(wxT("Icons/ProfileBtn.png"), wxBITMAP_TYPE_ANY));
+	leftPanelSizer->Add(profileBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);
 
-	FileBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.xpm"), wxBITMAP_TYPE_ANY));
-	LeftPanelSizer->Add(FileBtn, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 0);
+	filesBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
-	LeftPanelFillerPanel = new wxPanel(GenPanel, wxID_ANY, wxDefaultPosition, wxSize(80, -1), wxTAB_TRAVERSAL);
-	LeftPanelFillerPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
+	filesBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.png"), wxBITMAP_TYPE_ANY));
+	leftPanelSizer->Add(filesBtn, 0, wxALL, 5);
 
-	LeftPanelSizer->Add(LeftPanelFillerPanel, 1, wxEXPAND | wxTOP, 5);
+	fillerLabel = new wxStaticText(leftPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	fillerLabel->Wrap(-1);
+	leftPanelSizer->Add(fillerLabel, 1, wxALL | wxEXPAND, 0);
 
-	SettingsBtn = new wxBitmapButton(GenPanel, 7, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	settingsBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
-	SettingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.xpm"), wxBITMAP_TYPE_ANY));
-	LeftPanelSizer->Add(SettingsBtn, 0, wxALL, 5);
-
-
-	SizerScreenSplit->Add(LeftPanelSizer, 0, wxEXPAND | wxTOP, 5);
-
-	
-	MainWorkingAreaSizer = new wxBoxSizer(wxVERTICAL);
-
-	
-	BotScreenSizer = new wxBoxSizer(wxVERTICAL);
-
-	
-	ChatAreaSizer = new wxBoxSizer(wxHORIZONTAL);
-
-	ChatListBox = new wxListBox(GenPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0);
-	ChatAreaSizer->Add(ChatListBox, 1, wxEXPAND | wxRIGHT | wxTOP, 5);
+	settingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.png"), wxBITMAP_TYPE_ANY));
+	leftPanelSizer->Add(settingsBtn, 0, wxALL, 5);
 
 
-	BotScreenSizer->Add(ChatAreaSizer, 1, wxEXPAND, 0);
+	leftPanel->SetSizer(leftPanelSizer);
+	leftPanel->Layout();
+	mainSizer->Add(leftPanel, 0, wxEXPAND | wxALL, 0);
 
-	
-	AnswerAreaSizer = new wxBoxSizer(wxHORIZONTAL);
+	genWorkingAreaBook = new wxSimplebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
+	genWorkingAreaBook->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
 
-	AnswerAreaSizer->SetMinSize(wxSize(-1, 80));
-	AnswerFieldTextCtrl = new wxTextCtrl(GenPanel, 11, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
-	AnswerFieldTextCtrl->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+	chatWorkingAreaPanel = new wxPanel(genWorkingAreaBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	wxBoxSizer* chatAreaSizer;
+	chatAreaSizer = new wxBoxSizer(wxVERTICAL);
 
-	AnswerAreaSizer->Add(AnswerFieldTextCtrl, 1, wxBOTTOM | wxEXPAND | wxTOP, 5);
+	chatListBox = new wxListBox(chatWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0);
+	chatAreaSizer->Add(chatListBox, 1, wxALL | wxEXPAND, 0);
 
-	AnswerBtn = new wxBitmapButton(GenPanel, 10, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	wxBoxSizer* answerAreaSizer;
+	answerAreaSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	AnswerBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.xpm"), wxBITMAP_TYPE_ANY));
-	AnswerAreaSizer->Add(AnswerBtn, 0, wxALL, 5);
+	answerAreaSizer->SetMinSize(wxSize(-1, 80));
+	answerInputTextCtrl = new wxTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	answerAreaSizer->Add(answerInputTextCtrl, 1, wxALL | wxEXPAND, 5);
 
+	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
-	BotScreenSizer->Add(AnswerAreaSizer, 0, wxEXPAND, 0);
-
-
-	MainWorkingAreaSizer->Add(BotScreenSizer, 1, wxEXPAND, 0);
-
-
-	SizerScreenSplit->Add(MainWorkingAreaSizer, 1, wxEXPAND, 0);
+	answerSendBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.png"), wxBITMAP_TYPE_ANY));
+	answerAreaSizer->Add(answerSendBtn, 0, wxBOTTOM | wxRIGHT | wxTOP, 5);
 
 
-	GenPanel->SetSizer(SizerScreenSplit);
-	GenPanel->Layout();
-	SizerScreenSplit->Fit(GenPanel);
-	GenBoxSizer->Add(GenPanel, 1, wxEXPAND | wxALL, 0);
+	chatAreaSizer->Add(answerAreaSizer, 0, wxEXPAND, 5);
 
-	this->SetSizer(GenBoxSizer);
+
+	chatWorkingAreaPanel->SetSizer(chatAreaSizer);
+	chatWorkingAreaPanel->Layout();
+	chatAreaSizer->Fit(chatWorkingAreaPanel);
+	genWorkingAreaBook->AddPage(chatWorkingAreaPanel, wxT("a page"), false);
+	profileWorkingAreaPanel = new wxPanel(genWorkingAreaBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	genWorkingAreaBook->AddPage(profileWorkingAreaPanel, wxT("a page"), false);
+	filesWorkingAreaPanel = new wxPanel(genWorkingAreaBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	wxBoxSizer* filesAreaSizer;
+	filesAreaSizer = new wxBoxSizer(wxVERTICAL);
+
+	filesTitleLabel = new wxStaticText(filesWorkingAreaPanel, wxID_ANY, wxT("Files"), wxDefaultPosition, wxDefaultSize, 0);
+	filesTitleLabel->Wrap(-1);
+	filesTitleLabel->SetFont(wxFont(40, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+
+	filesAreaSizer->Add(filesTitleLabel, 0, wxALL | wxEXPAND, 5);
+
+	filesListBox = new wxListBox(filesWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0);
+	filesAreaSizer->Add(filesListBox, 1, wxALL | wxEXPAND, 0);
+
+
+	filesWorkingAreaPanel->SetSizer(filesAreaSizer);
+	filesWorkingAreaPanel->Layout();
+	filesAreaSizer->Fit(filesWorkingAreaPanel);
+	genWorkingAreaBook->AddPage(filesWorkingAreaPanel, wxT("a page"), false);
+
+	mainSizer->Add(genWorkingAreaBook, 1, wxEXPAND | wxALL, 0);
+
+
+	genSizer->Add(mainSizer, 1, wxEXPAND, 0);
+
+
+	this->SetSizer(genSizer);
 	this->Layout();
 }
 
 void MainFrame::BindEventHandlers()
 {
-	BotBtn->Bind(wxEVT_BUTTON,&MainFrame::TmpHdeSizer, this);
-	ProfileBtn->Bind(wxEVT_BUTTON, &MainFrame::TmpHdeSizer, this);
+	botBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToBot, this);
+	filesBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToFiles, this);
 }
 
-void MainFrame::TmpHdeSizer(wxCommandEvent& event)
+void MainFrame::ChangePageToBot(wxCommandEvent& event)
 {
-	MainWorkingAreaSizer->Show(BotScreenSizer, false);
-
-	//MainWorkingAreaSizer->Hide(BotScreenSizer, true);
-	//this->Layout();
+	genWorkingAreaBook->ChangeSelection(0);
 }
 
-// TODO FIX THIS SHIT IT DOES NOT SHOW SIZER BACK
-void MainFrame::TmpShowSizer(wxCommandEvent& event)
+void MainFrame::ChangePageToFiles(wxCommandEvent& event)
 {
-	//this->Layout();
-	MainWorkingAreaSizer->Show(BotScreenSizer, true);
+	genWorkingAreaBook->ChangeSelection(2);
 }
+
+//void MainFrame::TmpHdeSizer(wxCommandEvent& event)
+//{
+//	//MainWorkingAreaSizer->Show(BotScreenSizer, false);
+//
+//	this->Layout();
+//	MainWorkingAreaSizer->Hide(BotScreenSizer, true);
+//}
+//
+//// TODO FIX THIS SHIT IT DOES NOT SHOW SIZER BACK
+//void MainFrame::TmpShowSizer(wxCommandEvent& event)
+//{
+//	this->Layout();
+//	MainWorkingAreaSizer->Hide(BotScreenSizer, false);
+//
+//	MainWorkingAreaSizer->Show(BotScreenSizer, true);
+//	
+//}
 
 MainFrame::MainFrame(const wxString& title)
 	:

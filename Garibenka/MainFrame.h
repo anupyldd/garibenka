@@ -1,5 +1,6 @@
 #pragma once
 #include <wx/wx.h>
+#include <wx/simplebook.h>
 
 class MainFrame : public wxFrame
 {
@@ -7,26 +8,24 @@ private:
 	void CreateControls();
 	void BindEventHandlers();
 
-	void TmpHdeSizer(wxCommandEvent& event);
-	void TmpShowSizer(wxCommandEvent& event);
+	void ChangePageToBot(wxCommandEvent& event);
+	void ChangePageToFiles(wxCommandEvent& event);
 
-	wxBoxSizer* GenBoxSizer;
-	wxBoxSizer* SizerScreenSplit;
-	wxBoxSizer* LeftPanelSizer;
-	wxBoxSizer* MainWorkingAreaSizer;
-	wxBoxSizer* BotScreenSizer;
-	wxBoxSizer* ChatAreaSizer;
-	wxBoxSizer* AnswerAreaSizer;
-
-	wxPanel* GenPanel;
-	wxBitmapButton* BotBtn;
-	wxBitmapButton* ProfileBtn;
-	wxBitmapButton* FileBtn;
-	wxPanel* LeftPanelFillerPanel;
-	wxBitmapButton* SettingsBtn;
-	wxListBox* ChatListBox;
-	wxTextCtrl* AnswerFieldTextCtrl;
-	wxBitmapButton* AnswerBtn;
+	wxPanel* leftPanel;
+	wxBitmapButton* botBtn;
+	wxBitmapButton* profileBtn;
+	wxBitmapButton* filesBtn;
+	wxStaticText* fillerLabel;
+	wxBitmapButton* settingsBtn;
+	wxSimplebook* genWorkingAreaBook;
+	wxPanel* chatWorkingAreaPanel;
+	wxListBox* chatListBox;
+	wxTextCtrl* answerInputTextCtrl;
+	wxBitmapButton* answerSendBtn;
+	wxPanel* profileWorkingAreaPanel;
+	wxPanel* filesWorkingAreaPanel;
+	wxStaticText* filesTitleLabel;
+	wxListBox* filesListBox;
 
 public:
 	MainFrame(const wxString& title);
