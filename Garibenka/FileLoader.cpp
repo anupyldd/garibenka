@@ -44,3 +44,18 @@ void FileLoader::RunPythonScript(int argc, const char* argv[])
 void FileLoader::ReadUserSettingsFile()
 {
 }
+
+FileLoader::Symbol::Symbol(std::string inSymbol, std::string inReading, std::string inMeaning)
+	:
+	symbol(inSymbol),
+	reading(inReading),
+	meaning(inMeaning)
+{
+}
+
+FileLoader::Module::Module(std::string inFromFile, std::string inModuleName)
+	:
+	fromFile(inFromFile),
+	moduleName(inModuleName)
+{
+}
