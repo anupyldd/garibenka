@@ -155,8 +155,9 @@ MainFrame::MainFrame(const wxString& title)
 	BindEventHandlers();
 
 	const char* path[1] = { "D:/Projects/Garibenk/Garibenka/Garibenka/Tables.py" };
-	FileLoader::RunPythonScript(1, path);
+	FileHandler::RunPythonScript(1, path);
 
+	FileHandler::ReadTablesFile();
 
 	this->Centre(wxBOTH);
 	this->SetMinClientSize(wxSize(640, 480));
