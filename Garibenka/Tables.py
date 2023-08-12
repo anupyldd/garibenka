@@ -154,9 +154,9 @@ def OutputToFiles():
             textFile.write(f'#{module.GetFileName()}\n')
             textFile.write(f'@{module.GetModuleName()}\n')
             for word in module.GetWordList():
-                textFile.write(f'!{word.GetSymbol()}-{word.GetReading()}-{word.GetMeaning()}\n')
+                textFile.write(f'!{word.GetSymbol()}\t{word.GetReading()}\t{word.GetMeaning()}\n')
             for kanji in module.GetKanjiList():
-                textFile.write(f'?{kanji.GetSymbol()}-{kanji.GetReading()}-{kanji.GetMeaning()}\n')
+                textFile.write(f'?{kanji.GetSymbol()}\t{kanji.GetReading()}\t{kanji.GetMeaning()}\n')
 
 #Load everything
 
