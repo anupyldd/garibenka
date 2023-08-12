@@ -152,6 +152,7 @@ def OutputToFiles():
     with open(pathToDir, mode='w', encoding='utf-8') as textFile:
         for module in loadedModules:
             textFile.write(f'#{module.GetFileName()}\n')
+            textFile.write(f'@{module.GetModuleName()}\n')
             for word in module.GetWordList():
                 textFile.write(f'!{word.GetSymbol()}-{word.GetReading()}-{word.GetMeaning()}\n')
             for kanji in module.GetKanjiList():
