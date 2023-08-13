@@ -16,6 +16,8 @@
 
 #define PY_SSIZE_T_CLEAN
 
+
+
 class Symbol
 {
 private:
@@ -38,19 +40,24 @@ public:
 class Module
 {
 private:
-	std::string fromFile = "phFile";
-	std::string moduleName = "phModule";
+	std::wstring fromFile;
+	std::wstring moduleName;
 	std::vector<Symbol> wordList;
 	std::vector<Symbol> kanjiList;
 
 public:
-	Module(std::string inFromFile, std::string inModuleName);
+	Module() = default;
+	Module(std::wstring inModuleName);
+	Module(std::wstring inFromFile, std::wstring inModuleName);
 
 	void AddToWords(Symbol& inWord);
 	void AddToKanji(Symbol& inKanji);
 
-	std::string_view GetFileName();
-	std::string_view GetModuleName();
+	void SetFromFile(std::wstring& inFromFile);
+	void SetModuleName(std::wstring& inModuleName);
+
+	std::wstring& GetFileName();
+	std::wstring& GetModuleName();
 };
 
 
@@ -60,21 +67,16 @@ class FileHandler
 {
 
 public:
+	
 
 	static void RunPythonScript(int argc, const char* argv[]);
 
-	static void Split(const std::string& s, char delim, std::vector<std::string>& elems);
-	static void ReadTablesFile();
+	static void Split(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems);
+	static void ReadTablesFile(std::vector<Module>& modules);
 
 	static void ReadUserSettingsFile();
 
-	/*std::string_view GetSymbol();
-	std::string_view GetReading();
-	std::string_view GetMeaning();
-
-	void AddToWords();
-	void AddToKanji();
-
-	std::string_view GetFileName();
-	std::string_view GetModuleName();*/
+	
 };
+
+static std::vector<Module> moduleVector;
