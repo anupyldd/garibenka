@@ -12,7 +12,9 @@ private:
 	void BindEventHandlers();
 
 	void ChangePageToBot(wxCommandEvent& event);
+	void ChangePageToProfile(wxCommandEvent& event);
 	void ChangePageToFiles(wxCommandEvent& event);
+	void ChangePageToSettings(wxCommandEvent& event);
 
 	wxPanel* leftPanel;
 	wxBitmapButton* botBtn;
