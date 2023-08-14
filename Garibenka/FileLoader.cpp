@@ -109,7 +109,7 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 		
 		else if (allFileContents[i].at(0) == '?')
 		{
-			modules[moduleCounter].AddToWords(Symbol{ allFileContents[i].substr(1), 
+			modules[moduleCounter].AddToKanji(Symbol{ allFileContents[i].substr(1), 
 				allFileContents[i + 1],allFileContents[i + 2] });
 		}
 
@@ -120,19 +120,6 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 
 	}
 
-	/*for (auto entry : allFileContents)
-	{
-		if (entry.at(0) == '@')
-		{
-			modules.push_back(Module{ entry.substr(1) });
-		}
-		if (entry.at(0) == '#')
-		{
-			modules[moduleCounter].SetFromFile(entry.substr(1));
-		}
-
-
-	}*/
 
 }
 
