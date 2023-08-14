@@ -1,4 +1,5 @@
 #pragma once
+#include "FileLoader.h"
 #include <wx/wx.h>
 #include <wx/simplebook.h>
 

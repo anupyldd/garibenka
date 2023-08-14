@@ -11,6 +11,10 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
+#include "sutfcpplib/utf_string.h"
+
+using namespace std::literals;
+
 
 
 void FileHandler::RunPythonScript(int argc, const char* argv[])
@@ -44,11 +48,11 @@ void FileHandler::RunPythonScript(int argc, const char* argv[])
 
 }
 
-void FileHandler::Split(const std::string& s, char delim, std::vector<std::string>& elems)
+void FileHandler::Split(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems)
 {
-	std::stringstream sStream;
+	std::wstringstream sStream;
 	sStream.str(s);
-	std::string item;
+	std::wstring item;
 	while (std::getline(sStream, item, delim))
 	{
 		elems.push_back(item);
@@ -56,22 +60,33 @@ void FileHandler::Split(const std::string& s, char delim, std::vector<std::strin
 }
 
 
-void FileHandler::ReadTablesFile()
+void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 {
-	std::ifstream infile("./Tables/PyOutput.txt");
-	std::string line;
-	std::vector<std::string> allFileContents;
+	std::wifstream infile("./Tables/PyOutput.txt");
+	infile.imbue(std::locale("en_US.UTF8"));
+	std::wstring line;
+	//sutf::to_u8string(line);
+	std::vector<std::wstring> allFileContents;
 
 	while (std::getline(infile, line))
 	{
 		
 		Split(line, '\t', allFileContents);
 
-		for (auto v : allFileContents)
-			std::cout << v << ',';
+		
 
-		std::cout << std::endl;
 	}
+	
+	
+	for (auto entry : allFileContents)
+	{
+		if (entry.at(0) == '@')
+		{
+			modules.push_back(Module{ entry.substr(1) });
+		}
+
+	}
+
 }
 
 
@@ -108,7 +123,13 @@ void Symbol::SetIsLearnt(bool inIsLearnt)
 	isLearnt = inIsLearnt;
 }
 
-Module::Module(std::string inFromFile, std::string inModuleName)
+Module::Module(std::wstring inModuleName)
+	:
+	moduleName(inModuleName)
+{
+}
+
+Module::Module(std::wstring inFromFile, std::wstring inModuleName)
 	:
 	fromFile(inFromFile),
 	moduleName(inModuleName)
@@ -125,12 +146,22 @@ void Module::AddToKanji(Symbol& inKanji)
 	kanjiList.push_back(inKanji);
 }
 
-std::string_view Module::GetFileName()
+void Module::SetFromFile(std::wstring& inFromFile)
+{
+	fromFile = inFromFile;
+}
+
+void Module::SetModuleName(std::wstring& inModuleName)
+{
+	moduleName = inModuleName;
+}
+
+std::wstring& Module::GetFileName()
 {
 	return fromFile;
 }
 
-std::string_view Module::GetModuleName()
+std::wstring& Module::GetModuleName()
 {
 	return moduleName;
 }

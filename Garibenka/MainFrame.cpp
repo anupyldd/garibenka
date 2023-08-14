@@ -1,4 +1,4 @@
-#include "MainFrame.h"
+﻿#include "MainFrame.h"
 #include "FileLoader.h"
 #include <wx/wx.h>
 
@@ -129,23 +129,6 @@ void MainFrame::ChangePageToFiles(wxCommandEvent& event)
 	genWorkingAreaBook->ChangeSelection(2);
 }
 
-//void MainFrame::TmpHdeSizer(wxCommandEvent& event)
-//{
-//	//MainWorkingAreaSizer->Show(BotScreenSizer, false);
-//
-//	this->Layout();
-//	MainWorkingAreaSizer->Hide(BotScreenSizer, true);
-//}
-//
-//// TODO FIX THIS SHIT IT DOES NOT SHOW SIZER BACK
-//void MainFrame::TmpShowSizer(wxCommandEvent& event)
-//{
-//	this->Layout();
-//	MainWorkingAreaSizer->Hide(BotScreenSizer, false);
-//
-//	MainWorkingAreaSizer->Show(BotScreenSizer, true);
-//	
-//}
 
 MainFrame::MainFrame(const wxString& title)
 	:
@@ -157,8 +140,11 @@ MainFrame::MainFrame(const wxString& title)
 	const char* path[1] = { "D:/Projects/Garibenk/Garibenka/Garibenka/Tables.py" };
 	FileHandler::RunPythonScript(1, path);
 
-	FileHandler::ReadTablesFile();
+	FileHandler::ReadTablesFile(moduleVector);
+	wxString title9 = moduleVector[0].GetModuleName();
 
+	filesTitleLabel->SetLabel(title9);
+	
 	this->Centre(wxBOTH);
 	this->SetMinClientSize(wxSize(640, 480));
 }
