@@ -98,7 +98,7 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 }
 
 
-void FileHandler::ReadUserSettingsFile()
+void FileHandler::ReadUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings)
 {
 	std::ifstream infile("./Settings/settings.tsv");
 	std::string line;
@@ -145,19 +145,38 @@ void FileHandler::UpdateUserSettingsFile()
 	outfile.close();
 }
 
-void FileHandler::ReadLocFile()
-{
-	std::wifstream infile("./Settings/loc.tsv");
-	infile.imbue(std::locale("en_US.UTF8"));
-	std::wstring line;
-	std::vector<std::wstring> locFileContents;
-
-	while (std::getline(infile, line))
-	{
-		SplitWide(line, '\t', locFileContents);
-	}
-
-}
+//void FileHandler::ReadLocFile()
+//{
+//	std::wifstream infile("./Settings/loc.tsv");
+//	infile.imbue(std::locale("en_US.UTF8"));
+//	std::wstring line;
+//	std::vector<std::wstring> locFileContents;
+//
+//	while (std::getline(infile, line))
+//	{
+//		SplitWide(line, '\t', locFileContents);
+//	}
+//
+//	int size = locFileContents.size();
+//
+//	// loads lang according to settings, English by default
+//	if (userSettings["Language"] == "ru")
+//	{
+//		for (size_t i = 0; i < size; i += 3)
+//		{
+//			currentLang[locFileContents[i]] = locFileContents[i + 1];
+//		}
+//
+//	}
+//	else
+//	{
+//		for (size_t i = 0; i < size; i += 3)
+//		{
+//			currentLang[locFileContents[i]] = locFileContents[i + 2];
+//		}
+//	}
+//
+//}
 
 
 Symbol::Symbol(std::string inSymbol, std::string inReading, std::string inMeaning)
