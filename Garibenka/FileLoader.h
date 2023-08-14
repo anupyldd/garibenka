@@ -76,8 +76,13 @@ public:
 	static void ReadTablesFile(std::vector<Module>& modules);
 
 	static void ReadUserSettingsFile();
+	static void UpdateUserSettingsFile(std::string& inSetting, std::string& inOption); // inSetting - setting name, inOption - chosen option to replace
 
 	
 };
 
+//stores modules
 static std::vector<Module> moduleVector;
+
+//stores user settings
+static std::unordered_map<std::wstring, std::wstring> userSettings;

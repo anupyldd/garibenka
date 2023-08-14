@@ -73,8 +73,6 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 		
 		Split(line, '\t', allFileContents);
 
-		
-
 	}
 	
 	
@@ -92,6 +90,23 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 
 void FileHandler::ReadUserSettingsFile()
 {
+	std::wifstream infile("./Settings/settings.tsv");
+	std::wstring line;
+	std::vector<std::wstring> settingsFileContents;
+
+	while (std::getline(infile, line))
+	{
+
+		Split(line, '\t', settingsFileContents);
+
+	}
+	
+	int size = settingsFileContents.size();
+	for (size_t i = 0; i < size; i+=2)
+	{
+		userSettings[settingsFileContents[i]] = settingsFileContents[i + 1];
+	}
+
 }
 
 
