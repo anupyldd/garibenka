@@ -203,17 +203,49 @@ void MainFrame::CreateControls()
 void MainFrame::BindEventHandlers()
 {
 	botBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToBot, this);
+	profileBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToProfile, this);
 	filesBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToFiles, this);
+	settingsBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToSettings, this);
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
 {
 	genWorkingAreaBook->ChangeSelection(0);
+
+	botBtn->Disable();
+	profileBtn->Enable(true);
+	filesBtn->Enable(true);
+	settingsBtn->Enable(true);
+}
+
+void MainFrame::ChangePageToProfile(wxCommandEvent& event)
+{
+	genWorkingAreaBook->ChangeSelection(1);
+
+	botBtn->Enable(true);;
+	profileBtn->Disable();
+	filesBtn->Enable(true);
+	settingsBtn->Enable(true);
 }
 
 void MainFrame::ChangePageToFiles(wxCommandEvent& event)
 {
 	genWorkingAreaBook->ChangeSelection(2);
+
+	botBtn->Enable(true);
+	profileBtn->Enable(true);
+	filesBtn->Disable();
+	settingsBtn->Enable(true);
+}
+
+void MainFrame::ChangePageToSettings(wxCommandEvent& event)
+{
+	genWorkingAreaBook->ChangeSelection(3);
+
+	botBtn->Enable(true);;
+	profileBtn->Enable(true);
+	filesBtn->Enable(true);
+	settingsBtn->Disable();
 }
 
 
