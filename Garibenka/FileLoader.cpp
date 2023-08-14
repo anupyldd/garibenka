@@ -48,7 +48,18 @@ void FileHandler::RunPythonScript(int argc, const char* argv[])
 
 }
 
-void FileHandler::Split(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems)
+void FileHandler::Split(const std::string& s, char delim, std::vector<std::string>& elems)
+{
+	std::stringstream sStream;
+	sStream.str(s);
+	std::string item;
+	while (std::getline(sStream, item, delim))
+	{
+		elems.push_back(item);
+	}
+}
+
+void FileHandler::SplitWide(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems)
 {
 	std::wstringstream sStream;
 	sStream.str(s);
@@ -65,13 +76,12 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 	std::wifstream infile("./Tables/PyOutput.txt");
 	infile.imbue(std::locale("en_US.UTF8"));
 	std::wstring line;
-	//sutf::to_u8string(line);
 	std::vector<std::wstring> allFileContents;
 
 	while (std::getline(infile, line))
 	{
 		
-		Split(line, '\t', allFileContents);
+		SplitWide(line, '\t', allFileContents);
 
 	}
 	
@@ -90,9 +100,9 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 
 void FileHandler::ReadUserSettingsFile()
 {
-	std::wifstream infile("./Settings/settings.tsv");
-	std::wstring line;
-	std::vector<std::wstring> settingsFileContents;
+	std::ifstream infile("./Settings/settings.tsv");
+	std::string line;
+	std::vector<std::string> settingsFileContents;
 
 	while (std::getline(infile, line))
 	{
@@ -107,6 +117,32 @@ void FileHandler::ReadUserSettingsFile()
 		userSettings[settingsFileContents[i]] = settingsFileContents[i + 1];
 	}
 
+}
+
+void FileHandler::UpdateUserSettingsMap(std::string inSetting, std::string inOption)
+{
+	for (auto iter = userSettings.begin(); iter != userSettings.end(); ++iter)
+		if (iter->first == inSetting)
+		{
+			iter->second = inOption;
+		}
+	UpdateUserSettingsFile();
+}
+
+void FileHandler::UpdateUserSettingsFile()
+{
+	std::ofstream outfile;
+	outfile.open("./Settings/settings.tsv");
+
+	if (!outfile.fail())
+	{
+		for (auto iter = userSettings.begin(); iter != userSettings.end(); iter++)
+		{
+			outfile << iter->first << '\t' << iter->second << '\n';
+		}
+	}
+
+	outfile.close();
 }
 
 

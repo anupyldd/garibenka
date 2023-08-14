@@ -72,12 +72,13 @@ public:
 
 	static void RunPythonScript(int argc, const char* argv[]);
 
-	static void Split(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems);
+	static void Split(const std::string& s, char delim, std::vector<std::string>& elems);
+	static void SplitWide(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems);
 	static void ReadTablesFile(std::vector<Module>& modules);
 
 	static void ReadUserSettingsFile();
-	static void UpdateUserSettingsFile(std::string& inSetting, std::string& inOption); // inSetting - setting name, inOption - chosen option to replace
-
+	static void UpdateUserSettingsMap(std::string inSetting, std::string inOption); // inSetting - setting name, inOption - chosen option to replace
+	static void UpdateUserSettingsFile();
 	
 };
 
@@ -85,4 +86,4 @@ public:
 static std::vector<Module> moduleVector;
 
 //stores user settings
-static std::unordered_map<std::wstring, std::wstring> userSettings;
+static std::unordered_map<std::string, std::string> userSettings;
