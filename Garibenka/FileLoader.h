@@ -82,7 +82,7 @@ public:
 	static void LoadModuleStats();
 	static void UpdateModuleStatsFile();
 
-	static void ReadUserSettingsFile();
+	static void ReadUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings);
 	static void UpdateUserSettingsMap(std::string inSetting, std::string inOption); // inSetting - setting name, inOption - chosen option to replace
 	static void UpdateUserSettingsFile();
 
@@ -100,4 +100,4 @@ static std::unordered_map<std::string, std::string> userSettings;
 
 //LOC DATA
 //stores current selected language
-static std::unordered_map<std::string, std::string> currentLang;
+static std::unordered_map<std::wstring, std::wstring> currentLang;

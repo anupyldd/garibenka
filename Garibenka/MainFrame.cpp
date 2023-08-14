@@ -266,16 +266,16 @@ MainFrame::MainFrame(const wxString& title)
 	FileHandler::RunPythonScript(1, path);
 	FileHandler::ReadTablesFile(moduleVector);
 
-	FileHandler::ReadUserSettingsFile();
+	FileHandler::ReadUserSettingsFile(userSettings);
 
-	FileHandler::ReadLocFile();
+	//FileHandler::ReadLocFile();
 
 	// temp testing stuff, delete later
 	// 
 	//FileHandler::UpdateUserSettingsMap("Language", "jp");
 	//wxString title9 = moduleVector[0].GetModuleName();
 	//wxString t7 = userSettings["Language"];
-	//filesTitleLabel->SetLabel(title9);
+	//filesTitleLabel->SetLabel(t7);
 	// 
 	// end of temp stuff
 	
