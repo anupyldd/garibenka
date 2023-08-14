@@ -2,6 +2,8 @@
 #include "FileLoader.h"
 #include <wx/wx.h>
 #include <wx/simplebook.h>
+#include <wx/listctrl.h>
+
 
 class MainFrame : public wxFrame
 {
@@ -24,9 +26,19 @@ private:
 	wxTextCtrl* answerInputTextCtrl;
 	wxBitmapButton* answerSendBtn;
 	wxPanel* profileWorkingAreaPanel;
+	wxStaticText* userNameLabel;
+	wxBitmapButton* editNameBtn;
+	wxListCtrl* m_listCtrl2;
 	wxPanel* filesWorkingAreaPanel;
 	wxStaticText* filesTitleLabel;
-	wxListBox* filesListBox;
+	wxListCtrl* filesListCtrl;
+	wxButton* studyBtn;
+	wxButton* browseBtn;
+	wxPanel* settingsWorkingAreaPanel;
+	wxStaticText* languageOptionLabel;
+	wxChoice* langChoice;
+	wxStaticText* themeOptionLabel;
+	wxChoice* themeChoice;
 
 public:
 	MainFrame(const wxString& title);
