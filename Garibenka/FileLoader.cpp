@@ -145,6 +145,20 @@ void FileHandler::UpdateUserSettingsFile()
 	outfile.close();
 }
 
+void FileHandler::ReadLocFile()
+{
+	std::wifstream infile("./Settings/loc.tsv");
+	infile.imbue(std::locale("en_US.UTF8"));
+	std::wstring line;
+	std::vector<std::wstring> locFileContents;
+
+	while (std::getline(infile, line))
+	{
+		SplitWide(line, '\t', locFileContents);
+	}
+
+}
+
 
 Symbol::Symbol(std::string inSymbol, std::string inReading, std::string inMeaning)
 	:
