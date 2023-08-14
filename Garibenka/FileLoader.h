@@ -46,6 +46,9 @@ private:
 	std::vector<Symbol> wordList;
 	std::vector<Symbol> kanjiList;
 
+	int timesAsked = 0;			// how many symbols from module were asked
+	int answeredCorrectly = 0;	// how many of those symbols were answered correctly
+
 public:
 	Module() = default;
 	Module(std::wstring inModuleName);
@@ -79,6 +82,9 @@ public:
 	static void ReadUserSettingsFile();
 	static void UpdateUserSettingsMap(std::string inSetting, std::string inOption); // inSetting - setting name, inOption - chosen option to replace
 	static void UpdateUserSettingsFile();
+
+	static void LoadModuleStats();
+	static void UpdateModuleStatsFile();
 	
 };
 
