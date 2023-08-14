@@ -267,13 +267,16 @@ MainFrame::MainFrame(const wxString& title)
 	FileHandler::ReadTablesFile(moduleVector);
 
 	FileHandler::ReadUserSettingsFile();
-	FileHandler::UpdateUserSettingsMap("Language", "jp");
 
+	FileHandler::ReadLocFile();
 
 	// temp testing stuff, delete later
-	wxString title9 = moduleVector[0].GetModuleName();
-	wxString t7 = userSettings["Language"];
+	// 
+	//FileHandler::UpdateUserSettingsMap("Language", "jp");
+	//wxString title9 = moduleVector[0].GetModuleName();
+	//wxString t7 = userSettings["Language"];
 	//filesTitleLabel->SetLabel(title9);
+	// 
 	// end of temp stuff
 	
 	this->Centre(wxBOTH);

@@ -79,12 +79,16 @@ public:
 	static void SplitWide(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems);
 	static void ReadTablesFile(std::vector<Module>& modules);
 
+	static void LoadModuleStats();
+	static void UpdateModuleStatsFile();
+
 	static void ReadUserSettingsFile();
 	static void UpdateUserSettingsMap(std::string inSetting, std::string inOption); // inSetting - setting name, inOption - chosen option to replace
 	static void UpdateUserSettingsFile();
 
-	static void LoadModuleStats();
-	static void UpdateModuleStatsFile();
+	static void ReadLocFile();
+
+
 	
 };
 
@@ -93,3 +97,7 @@ static std::vector<Module> moduleVector;
 
 //stores user settings
 static std::unordered_map<std::string, std::string> userSettings;
+
+//LOC DATA
+//stores current selected language
+static std::unordered_map<std::string, std::string> currentLang;
