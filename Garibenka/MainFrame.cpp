@@ -140,6 +140,8 @@ MainFrame::MainFrame(const wxString& title)
 	const char* path[1] = { "D:/Projects/Garibenk/Garibenka/Garibenka/Tables.py" };
 	FileHandler::RunPythonScript(1, path);
 
+	FileHandler::ReadUserSettingsFile();
+
 	FileHandler::ReadTablesFile(moduleVector);
 	wxString title9 = moduleVector[0].GetModuleName();
 
