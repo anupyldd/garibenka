@@ -268,7 +268,7 @@ MainFrame::MainFrame(const wxString& title)
 
 	FileHandler::ReadUserSettingsFile(userSettings);
 
-	//FileHandler::ReadLocFile();
+	FileHandler::ReadLocFile(currentLang, userSettings);
 
 	// temp testing stuff, delete later
 	// 
@@ -276,7 +276,6 @@ MainFrame::MainFrame(const wxString& title)
 	//wxString title9 = moduleVector[0].GetModuleName();
 	//wxString t7 = userSettings["Language"];
 	//filesTitleLabel->SetLabel(t7);
-	// 
 	// end of temp stuff
 	
 	this->Centre(wxBOTH);
