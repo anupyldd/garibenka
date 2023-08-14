@@ -26,16 +26,19 @@ void MainFrame::CreateControls()
 	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
+	botBtn->SetToolTip(wxT("Helper Bot"));
 	leftPanelSizer->Add(botBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);
 
 	profileBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	profileBtn->SetBitmap(wxBitmap(wxT("Icons/ProfileBtn.png"), wxBITMAP_TYPE_ANY));
+	profileBtn->SetToolTip(wxT("Profile"));
 	leftPanelSizer->Add(profileBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);
 
 	filesBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	filesBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.png"), wxBITMAP_TYPE_ANY));
+	filesBtn->SetToolTip(wxT("Files"));
 	leftPanelSizer->Add(filesBtn, 0, wxALL, 5);
 
 	fillerLabel = new wxStaticText(leftPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
@@ -45,6 +48,7 @@ void MainFrame::CreateControls()
 	settingsBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	settingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.png"), wxBITMAP_TYPE_ANY));
+	settingsBtn->SetToolTip(wxT("Settings"));
 	leftPanelSizer->Add(settingsBtn, 0, wxALL, 5);
 
 
@@ -72,6 +76,7 @@ void MainFrame::CreateControls()
 	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	answerSendBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.png"), wxBITMAP_TYPE_ANY));
+	answerSendBtn->SetToolTip(wxT("Send"));
 	answerAreaSizer->Add(answerSendBtn, 0, wxBOTTOM | wxRIGHT | wxTOP, 5);
 
 
@@ -98,6 +103,7 @@ void MainFrame::CreateControls()
 	editNameBtn = new wxBitmapButton(profileWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	editNameBtn->SetBitmap(wxBitmap(wxT("Icons/editBtn.png"), wxBITMAP_TYPE_ANY));
+	editNameBtn->SetToolTip(wxT("Edit"));
 	profileHeaderSizer->Add(editNameBtn, 0, wxALL, 0);
 
 
@@ -267,7 +273,7 @@ MainFrame::MainFrame(const wxString& title)
 	// temp testing stuff, delete later
 	wxString title9 = moduleVector[0].GetModuleName();
 	wxString t7 = userSettings["Language"];
-	filesTitleLabel->SetLabel(title9);
+	//filesTitleLabel->SetLabel(title9);
 	// end of temp stuff
 	
 	this->Centre(wxBOTH);
