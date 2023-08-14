@@ -22,17 +22,17 @@
 class Symbol
 {
 private:
-	std::string symbol = "phSymbol";
-	std::string reading = "phReading";
-	std::string meaning = "phMeaning";
+	std::wstring symbol = L"phSymbol";
+	std::wstring reading = L"phReading";
+	std::wstring meaning = L"phMeaning";
 	bool isLearnt = false;
 
 public:
-	Symbol(std::string inSymbol, std::string inReading, std::string inMeaning);
+	Symbol(std::wstring inSymbol, std::wstring inReading, std::wstring inMeaning);
 
-	std::string_view GetSymbol();
-	std::string_view GetReading();
-	std::string_view GetMeaning();
+	std::wstring& GetSymbol();
+	std::wstring& GetReading();
+	std::wstring& GetMeaning();
 
 	void SetIsLearnt(bool inIsLearnt);
 };
@@ -54,11 +54,11 @@ public:
 	Module(std::wstring inModuleName);
 	Module(std::wstring inFromFile, std::wstring inModuleName);
 
-	void AddToWords(Symbol& inWord);
-	void AddToKanji(Symbol& inKanji);
+	void AddToWords(Symbol inWord);
+	void AddToKanji(Symbol inKanji);
 
-	void SetFromFile(std::wstring& inFromFile);
-	void SetModuleName(std::wstring& inModuleName);
+	void SetFromFile(std::wstring inFromFile);
+	void SetModuleName(std::wstring inModuleName);
 
 	std::wstring& GetFileName();
 	std::wstring& GetModuleName();
@@ -94,7 +94,7 @@ public:
 };
 
 //stores modules
-static std::vector<Module> moduleVector;
+static std::vector<Module> modules;
 
 //stores user settings
 static std::unordered_map<std::string, std::string> userSettings;

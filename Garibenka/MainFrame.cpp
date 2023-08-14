@@ -264,14 +264,15 @@ MainFrame::MainFrame(const wxString& title)
 
 	const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
 	FileHandler::RunPythonScript(1, path);
-	FileHandler::ReadTablesFile(moduleVector);
+	FileHandler::ReadTablesFile(modules);
 
 	FileHandler::ReadUserSettingsFile(userSettings);
 
 	FileHandler::ReadLocFile(currentLang, userSettings);
 
 	// temp testing stuff, delete later
-	// 
+	
+
 	//FileHandler::UpdateUserSettingsMap("Language", "jp");
 	//wxString title9 = moduleVector[0].GetModuleName();
 	//wxString t7 = userSettings["Language"];

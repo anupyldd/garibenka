@@ -85,15 +85,54 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 
 	}
 	
-	
-	for (auto entry : allFileContents)
+	int moduleCounter = -1; //counts modules in the for loop for referencing
+	int size = allFileContents.size();
+
+	for (size_t i = 0; i < size; i++)
+	{
+		if (allFileContents[i].at(0) == '@')
+		{
+			modules.push_back(Module{ allFileContents[i].substr(1) });
+			moduleCounter++;
+		}
+
+		else if (allFileContents[i].at(0) == '#')
+		{
+			modules[moduleCounter].SetFromFile(allFileContents[i].substr(1));
+		}
+
+		else if (allFileContents[i].at(0) == '!')
+		{
+			modules[moduleCounter].AddToWords(Symbol{ allFileContents[i].substr(1), 
+				allFileContents[i + 1],allFileContents[i + 2] });
+		}
+		
+		else if (allFileContents[i].at(0) == '?')
+		{
+			modules[moduleCounter].AddToWords(Symbol{ allFileContents[i].substr(1), 
+				allFileContents[i + 1],allFileContents[i + 2] });
+		}
+
+		else
+		{
+			continue;
+		}
+
+	}
+
+	/*for (auto entry : allFileContents)
 	{
 		if (entry.at(0) == '@')
 		{
 			modules.push_back(Module{ entry.substr(1) });
 		}
+		if (entry.at(0) == '#')
+		{
+			modules[moduleCounter].SetFromFile(entry.substr(1));
+		}
 
-	}
+
+	}*/
 
 }
 
@@ -180,7 +219,7 @@ void FileHandler::ReadLocFile(std::unordered_map<std::wstring, std::wstring>& cu
 }
 
 
-Symbol::Symbol(std::string inSymbol, std::string inReading, std::string inMeaning)
+Symbol::Symbol(std::wstring inSymbol, std::wstring inReading, std::wstring inMeaning)
 	:
 	symbol(inSymbol),
 	reading(inReading),
@@ -188,17 +227,17 @@ Symbol::Symbol(std::string inSymbol, std::string inReading, std::string inMeanin
 {
 }
 
-std::string_view Symbol::GetSymbol()
+std::wstring& Symbol::GetSymbol()
 {
 	return symbol;
 }
 
-std::string_view Symbol::GetReading()
+std::wstring& Symbol::GetReading()
 {
 	return reading;
 }
 
-std::string_view Symbol::GetMeaning()
+std::wstring& Symbol::GetMeaning()
 {
 	return meaning;
 }
@@ -221,22 +260,22 @@ Module::Module(std::wstring inFromFile, std::wstring inModuleName)
 {
 }
 
-void Module::AddToWords(Symbol& inWord)
+void Module::AddToWords(Symbol inWord)
 {
 	wordList.push_back(inWord);
 }
 
-void Module::AddToKanji(Symbol& inKanji)
+void Module::AddToKanji(Symbol inKanji)
 {
 	kanjiList.push_back(inKanji);
 }
 
-void Module::SetFromFile(std::wstring& inFromFile)
+void Module::SetFromFile(std::wstring inFromFile)
 {
 	fromFile = inFromFile;
 }
 
-void Module::SetModuleName(std::wstring& inModuleName)
+void Module::SetModuleName(std::wstring inModuleName)
 {
 	moduleName = inModuleName;
 }
