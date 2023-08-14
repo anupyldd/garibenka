@@ -13,6 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
+#include "sutfcpplib/utf_string.h"
 
 #define PY_SSIZE_T_CLEAN
 

@@ -11,6 +11,9 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
+#include "sutfcpplib/utf_string.h"
+
+using namespace std::literals;
 
 
 
@@ -60,7 +63,9 @@ void FileHandler::Split(const std::wstring& s, wchar_t delim, std::vector<std::w
 void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 {
 	std::wifstream infile("./Tables/PyOutput.txt");
+	infile.imbue(std::locale("en_US.UTF8"));
 	std::wstring line;
+	//sutf::to_u8string(line);
 	std::vector<std::wstring> allFileContents;
 
 	while (std::getline(infile, line))
@@ -68,10 +73,8 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 		
 		Split(line, '\t', allFileContents);
 
-		/*for (auto v : allFileContents)
-			std::wcout << v << L',';
+		
 
-		std::cout << std::endl;*/
 	}
 	
 	

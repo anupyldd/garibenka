@@ -141,9 +141,10 @@ MainFrame::MainFrame(const wxString& title)
 	FileHandler::RunPythonScript(1, path);
 
 	FileHandler::ReadTablesFile(moduleVector);
-	std::string test = "日本語";
-	filesTitleLabel->SetLabel(L"日本語");
+	wxString title9 = moduleVector[0].GetModuleName();
 
+	filesTitleLabel->SetLabel(title9);
+	
 	this->Centre(wxBOTH);
 	this->SetMinClientSize(wxSize(640, 480));
 }
