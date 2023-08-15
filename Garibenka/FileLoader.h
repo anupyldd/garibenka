@@ -60,8 +60,17 @@ public:
 	void SetFromFile(std::wstring inFromFile);
 	void SetModuleName(std::wstring inModuleName);
 
+	void SetStats(int inAsked, int inCorrect);
+
 	std::wstring& GetFileName();
 	std::wstring& GetModuleName();
+
+	std::vector<Symbol>& GetWordList();
+	std::vector<Symbol>& GetKanjiList();
+
+	int GetTimesAsked();
+	int GetAnsweredCorrectly();
+
 };
 
 
@@ -89,7 +98,7 @@ public:
 	static void ReadLocFile(std::unordered_map<std::wstring, std::wstring>& currentLang,
 								const std::unordered_map<std::string, std::string> userSettings);
 
-
+	static void SaveStatsToFile(std::vector<Module>& modules);
 	
 };
 
@@ -102,3 +111,6 @@ static std::unordered_map<std::string, std::string> userSettings;
 //LOC DATA
 //stores current selected language
 static std::unordered_map<std::wstring, std::wstring> currentLang;
+
+//stores symbols from current active module
+static std::vector<std::wstring> currentSymbols;

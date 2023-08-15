@@ -3,6 +3,8 @@
 #include <wx/wx.h>
 #include <wx/simplebook.h>
 #include <wx/listctrl.h>
+#include <vector>
+#include <algorithm>
 
 
 class MainFrame : public wxFrame
@@ -15,6 +17,8 @@ private:
 	void ChangePageToProfile(wxCommandEvent& event);
 	void ChangePageToFiles(wxCommandEvent& event);
 	void ChangePageToSettings(wxCommandEvent& event);
+
+	void FillModulesList(std::vector<Module> modules);
 
 	wxPanel* leftPanel;
 	wxBitmapButton* botBtn;

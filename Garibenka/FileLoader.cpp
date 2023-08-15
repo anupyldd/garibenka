@@ -171,6 +171,21 @@ void FileHandler::UpdateUserSettingsFile()
 	outfile.close();
 }
 
+void FileHandler::SaveStatsToFile(std::vector<Module>& modules)
+{
+	std::wofstream outfile;
+	outfile.open("./Settings/stats.tsv");
+
+	if (!outfile.fail())
+	{
+		for (auto mod : modules)
+		{
+			outfile << mod.GetFileName() << '\t' << mod.GetModuleName() << '\t' << 
+							mod.GetTimesAsked() << '\t' << mod.GetAnsweredCorrectly() << '\n';
+		}
+	}
+}
+
 void FileHandler::ReadLocFile(std::unordered_map<std::wstring, std::wstring>& currentLang,
 								const std::unordered_map<std::string, std::string> userSettings)
 {
@@ -275,4 +290,30 @@ std::wstring& Module::GetFileName()
 std::wstring& Module::GetModuleName()
 {
 	return moduleName;
+}
+
+void Module::SetStats(int inAsked, int inCorrect)
+{
+	timesAsked = inAsked;
+	answeredCorrectly = inCorrect;
+}
+
+std::vector<Symbol>& Module::GetWordList()
+{
+	return wordList;
+}
+
+int Module::GetAnsweredCorrectly()
+{
+	return answeredCorrectly;
+}
+
+int Module::GetTimesAsked()
+{
+	return timesAsked;
+}
+
+std::vector<Symbol>& Module::GetKanjiList()
+{
+	return kanjiList;
 }
