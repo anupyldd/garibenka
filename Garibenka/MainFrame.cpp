@@ -3,6 +3,7 @@
 #include <wx/wx.h>
 
 
+
 void MainFrame::CreateControls()
 {
 	wxInitAllImageHandlers();
@@ -109,7 +110,7 @@ void MainFrame::CreateControls()
 
 	profileAreaSizer->Add(profileHeaderSizer, 0, wxEXPAND, 5);
 
-	m_listCtrl2 = new wxListCtrl(profileWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT);
+	m_listCtrl2 = new wxListCtrl(profileWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
 	m_listCtrl2->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
 	profileAreaSizer->Add(m_listCtrl2, 1, wxALL | wxEXPAND, 0);
@@ -254,6 +255,22 @@ void MainFrame::ChangePageToSettings(wxCommandEvent& event)
 	settingsBtn->Disable();
 }
 
+void MainFrame::FillModulesList(std::vector<Module> modules)
+{
+	filesListCtrl->InsertColumn(0, "File", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	filesListCtrl->InsertColumn(1, "Module", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+
+	int size = modules.size();
+	for (size_t i = 0; i < size; i++)
+	{
+		//filesListCtrl->InsertItem(i, modules.at(i).GetFileName());
+		filesListCtrl->SetItem(filesListCtrl->InsertItem(i, modules.at(i).GetFileName()), 1, modules.at(i).GetModuleName());
+	}
+
+	filesListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE);
+	filesListCtrl->SetColumnWidth(1, wxLIST_AUTOSIZE_USEHEADER);
+}
+
 
 MainFrame::MainFrame(const wxString& title)
 	:
@@ -270,6 +287,7 @@ MainFrame::MainFrame(const wxString& title)
 
 	FileHandler::ReadLocFile(currentLang, userSettings);
 
+	FillModulesList(modules);
 	// temp testing stuff, delete later
 	
 

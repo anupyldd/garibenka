@@ -117,6 +117,9 @@
       <AdditionalLibraryDirectories>C:\Program Files\Python311\libs;D:\wxWidgets\lib\vc_x64_lib</AdditionalLibraryDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <Manifest>
+      <EnableDpiAwareness>false</EnableDpiAwareness>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -137,6 +140,9 @@
       <AdditionalLibraryDirectories>C:\Program Files\Python311\libs;D:\wxWidgets\lib\vc_x64_lib</AdditionalLibraryDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <Manifest>
+      <EnableDpiAwareness>false</EnableDpiAwareness>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />

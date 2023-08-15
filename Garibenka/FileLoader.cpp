@@ -109,7 +109,7 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 		
 		else if (allFileContents[i].at(0) == '?')
 		{
-			modules[moduleCounter].AddToWords(Symbol{ allFileContents[i].substr(1), 
+			modules[moduleCounter].AddToKanji(Symbol{ allFileContents[i].substr(1), 
 				allFileContents[i + 1],allFileContents[i + 2] });
 		}
 
@@ -120,19 +120,6 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 
 	}
 
-	/*for (auto entry : allFileContents)
-	{
-		if (entry.at(0) == '@')
-		{
-			modules.push_back(Module{ entry.substr(1) });
-		}
-		if (entry.at(0) == '#')
-		{
-			modules[moduleCounter].SetFromFile(entry.substr(1));
-		}
-
-
-	}*/
 
 }
 
@@ -182,6 +169,21 @@ void FileHandler::UpdateUserSettingsFile()
 	}
 
 	outfile.close();
+}
+
+void FileHandler::SaveStatsToFile(std::vector<Module>& modules)
+{
+	std::wofstream outfile;
+	outfile.open("./Settings/stats.tsv");
+
+	if (!outfile.fail())
+	{
+		for (auto mod : modules)
+		{
+			outfile << mod.GetFileName() << '\t' << mod.GetModuleName() << '\t' << 
+							mod.GetTimesAsked() << '\t' << mod.GetAnsweredCorrectly() << '\n';
+		}
+	}
 }
 
 void FileHandler::ReadLocFile(std::unordered_map<std::wstring, std::wstring>& currentLang,
@@ -288,4 +290,30 @@ std::wstring& Module::GetFileName()
 std::wstring& Module::GetModuleName()
 {
 	return moduleName;
+}
+
+void Module::SetStats(int inAsked, int inCorrect)
+{
+	timesAsked = inAsked;
+	answeredCorrectly = inCorrect;
+}
+
+std::vector<Symbol>& Module::GetWordList()
+{
+	return wordList;
+}
+
+int Module::GetAnsweredCorrectly()
+{
+	return answeredCorrectly;
+}
+
+int Module::GetTimesAsked()
+{
+	return timesAsked;
+}
+
+std::vector<Symbol>& Module::GetKanjiList()
+{
+	return kanjiList;
 }
