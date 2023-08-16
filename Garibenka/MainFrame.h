@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <filesystem>
 #include <wx/filefn.h> 
+#include <wx/richtext/richtextctrl.h>
 
 class MainFrame : public wxFrame
 {
@@ -29,6 +30,7 @@ private:
 	void UpdateModuleList(std::vector<Module>& modules);	// needs fixing, does not update shit
 
 	void StartingGreeting();
+	void KillChatRichTextFocus(wxFocusEvent& event);
 
 private:
 
@@ -42,7 +44,7 @@ private:
 	wxBitmapButton* settingsBtn;
 	wxSimplebook* genWorkingAreaBook;
 	wxPanel* chatWorkingAreaPanel;
-	wxListBox* chatListBox;
+	wxRichTextCtrl* chatRichTextCtrl;
 	wxTextCtrl* answerInputTextCtrl;
 	wxBitmapButton* answerSendBtn;
 	wxPanel* profileWorkingAreaPanel;
