@@ -68,8 +68,8 @@ void MainFrame::CreateControls()
 	wxBoxSizer* chatAreaSizer;
 	chatAreaSizer = new wxBoxSizer(wxVERTICAL);
 
-	chatListBox = new wxListBox(chatWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0);
-	chatAreaSizer->Add(chatListBox, 1, wxALL | wxEXPAND, 0);
+	chatRichTextCtrl = new wxRichTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxHSCROLL | wxVSCROLL);
+	chatAreaSizer->Add(chatRichTextCtrl, 1, wxEXPAND | wxALL, 5);
 
 	wxBoxSizer* answerAreaSizer;
 	answerAreaSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -82,6 +82,10 @@ void MainFrame::CreateControls()
 
 	answerSendBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.png"), wxBITMAP_TYPE_ANY));
 	answerSendBtn->SetToolTip(wxT("Send"));
+	if (currentlyStudying == false)
+	{
+		answerSendBtn->Disable();
+	}
 	answerAreaSizer->Add(answerSendBtn, 0, wxBOTTOM | wxRIGHT | wxTOP, 5);
 
 
@@ -231,6 +235,7 @@ void MainFrame::BindEventHandlers()
 	settingsBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToSettings, this);
 	browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
 	loadFileBtn->Bind(wxEVT_BUTTON, &MainFrame::LoadFile, this);
+	chatRichTextCtrl->Bind(wxEVT_SET_FOCUS, &MainFrame::KillChatRichTextFocus, this);
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
@@ -364,6 +369,16 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 	}
 }
 
+void MainFrame::StartingGreeting()
+{
+	
+}
+
+void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
+{
+	answerInputTextCtrl->SetFocus();
+}
+
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
 // 
 //void MainFrame::UpdateModuleList(std::vector<Module>& modules)
@@ -384,13 +399,14 @@ MainFrame::MainFrame(const wxString& title)
 {
 	CreateControls();
 	BindEventHandlers();
+	StartingGreeting();
 
 	const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
 	FileHandler::RunPythonScript(1, path);
 	FileHandler::ReadTablesFile(modules);
+	FillModulesList(modules);
 
 	FileHandler::ReadUserSettingsFile(userSettings);
-	FillModulesList(modules);
 
 	FileHandler::ReadLocFile(currentLang, userSettings);
 
