@@ -133,6 +133,9 @@ void MainFrame::CreateControls()
 
 	filesAreaSizer->Add(filesTitleLabel, 0, wxALL | wxEXPAND, 5);
 
+	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Load File"), wxDefaultPosition, wxSize(-1, -1), 0);
+	filesAreaSizer->Add(loadFileBtn, 0, wxALL | wxEXPAND, 5);
+
 	filesListCtrl = new wxListCtrl(filesWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT);
 	filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
@@ -224,8 +227,8 @@ void MainFrame::BindEventHandlers()
 	profileBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToProfile, this);
 	filesBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToFiles, this);
 	settingsBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToSettings, this);
-	//browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
 	browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
+	loadFileBtn->Bind(wxEVT_BUTTON, &MainFrame::LoadFile, this);
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
@@ -340,6 +343,22 @@ std::vector<std::wstring> MainFrame::FillBrowseSymbolsList(std::vector<Module> m
 
 	return symbolsData;
 }
+
+void MainFrame::LoadFile(wxCommandEvent& event)
+{
+	wxString pathToFile;
+	const wxString pathtoDest = "D:/Projects/Garibenka/Garibenka/Garibenka/Tables/";
+
+	wxFileDialog fileDialog(this, "Select file", "", "", "Excel Files (*.xls;*.xlsx) | *.xls;*.xlsx", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+	
+	if (fileDialog.ShowModal() == wxID_OK)
+	{
+		pathToFile = fileDialog.GetPath();
+
+		wxCopyFile(pathToFile, pathtoDest + fileDialog.GetFilename(), false);
+	}
+}
+
 
 
 MainFrame::MainFrame(const wxString& title)

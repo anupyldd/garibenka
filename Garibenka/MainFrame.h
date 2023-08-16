@@ -6,7 +6,8 @@
 #include <wx/listctrl.h>
 #include <vector>
 #include <algorithm>
-
+#include <filesystem>
+#include <wx/filefn.h> 
 
 class MainFrame : public wxFrame
 {
@@ -23,6 +24,8 @@ private:
 
 	void ShowBrowseDialog(wxCommandEvent& event);
 	std::vector<std::wstring> FillBrowseSymbolsList(std::vector<Module> modules, long item);
+
+	void LoadFile(wxCommandEvent& event);
 
 private:
 
@@ -45,6 +48,7 @@ private:
 	wxListCtrl* m_listCtrl2;
 	wxPanel* filesWorkingAreaPanel;
 	wxStaticText* filesTitleLabel;
+	wxButton* loadFileBtn;
 	wxListCtrl* filesListCtrl;
 	wxButton* studyBtn;
 	wxButton* browseBtn;
