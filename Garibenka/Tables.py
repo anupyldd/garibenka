@@ -160,6 +160,9 @@ def OutputToFiles():
 
 #Load everything
 
+loadedFiles.clear()
+loadedModules.clear()
+
 LoadFiles()
 FilesToModules()
 OutputToFiles()

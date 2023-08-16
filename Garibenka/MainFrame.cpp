@@ -354,11 +354,24 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 	if (fileDialog.ShowModal() == wxID_OK)
 	{
 		pathToFile = fileDialog.GetPath();
-
+		
 		wxCopyFile(pathToFile, pathtoDest + fileDialog.GetFilename(), false);
+
+		//UpdateModuleList(modules);
+
 	}
 }
 
+//void MainFrame::UpdateModuleList(std::vector<Module>& modules)
+//{
+//	filesListCtrl->ClearAll();
+//	modules.clear();
+//	const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
+//	FileHandler::RunPythonScript(1, path);
+//	FileHandler::ReadTablesFile(modules);
+//	FillModulesList(modules);
+//	
+//}
 
 
 MainFrame::MainFrame(const wxString& title)
@@ -373,10 +386,10 @@ MainFrame::MainFrame(const wxString& title)
 	FileHandler::ReadTablesFile(modules);
 
 	FileHandler::ReadUserSettingsFile(userSettings);
+	FillModulesList(modules);
 
 	FileHandler::ReadLocFile(currentLang, userSettings);
 
-	FillModulesList(modules);
 	// temp testing stuff, delete later
 	
 
