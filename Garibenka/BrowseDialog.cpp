@@ -7,7 +7,7 @@ BrowseDialog::BrowseDialog(wxWindow* parent, wxWindowID id, const wxString& titl
 	wxBoxSizer* browseSizer;
 	browseSizer = new wxBoxSizer(wxVERTICAL);
 
-	browseList = new wxListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_VIRTUAL | wxLC_HRULES | wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
+	browseList = new wxListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES | wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
 	browseSizer->Add(browseList, 1, wxALL | wxEXPAND, 5);
 	browseList->SetFont(wxFont(14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	
