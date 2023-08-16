@@ -1,5 +1,6 @@
 #pragma once
 #include "FileLoader.h"
+#include "BrowseDialog.h"
 #include <wx/wx.h>
 #include <wx/simplebook.h>
 #include <wx/listctrl.h>
@@ -19,6 +20,13 @@ private:
 	void ChangePageToSettings(wxCommandEvent& event);
 
 	void FillModulesList(std::vector<Module> modules);
+
+	void ShowBrowseDialog(wxCommandEvent& event);
+	std::vector<std::wstring> FillBrowseSymbolsList(std::vector<Module> modules, long item);
+
+private:
+
+	bool currentlyStudying = false;
 
 	wxPanel* leftPanel;
 	wxBitmapButton* botBtn;
@@ -45,6 +53,7 @@ private:
 	wxChoice* langChoice;
 	wxStaticText* themeOptionLabel;
 	wxChoice* themeChoice;
+	BrowseDialog* browseDialog;
 
 public:
 	MainFrame(const wxString& title);

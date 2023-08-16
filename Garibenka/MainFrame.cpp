@@ -11,6 +11,9 @@ void MainFrame::CreateControls()
 	
 	this->SetSizeHints(wxDefaultSize, wxDefaultSize);
 
+	browseDialog = new BrowseDialog(this, wxID_ANY, "Module Browser", wxDefaultPosition, wxDefaultSize,
+		wxCLOSE_BOX | wxDEFAULT_DIALOG_STYLE | wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxRESIZE_BORDER);
+
 	wxBoxSizer* genSizer;
 	genSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -221,6 +224,8 @@ void MainFrame::BindEventHandlers()
 	profileBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToProfile, this);
 	filesBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToFiles, this);
 	settingsBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToSettings, this);
+	//browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
+	browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
@@ -277,6 +282,56 @@ void MainFrame::FillModulesList(std::vector<Module> modules)
 
 	filesListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE);
 	filesListCtrl->SetColumnWidth(1, wxLIST_AUTOSIZE_USEHEADER);
+}
+
+void MainFrame::ShowBrowseDialog(wxCommandEvent& event)
+{
+	long item = -1;
+	for (;;)
+	{
+		item = filesListCtrl->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+		if (item == -1)
+			break;
+
+		browseDialog->Show();
+		
+		std::vector<std::wstring> symbolsData = FillBrowseSymbolsList(modules, item);
+		int size = symbolsData.size();
+		for (size_t i = 0; i < size; i+=3)
+		{
+			browseDialog->AddToList(symbolsData[i], symbolsData[i + 1], symbolsData[i + 2], i);
+		}
+	}
+	browseDialog->AdjustSize();
+
+}
+
+std::vector<std::wstring> MainFrame::FillBrowseSymbolsList(std::vector<Module> modules, long item)
+{
+	std::vector<std::wstring> symbolsData;
+
+	for (auto mod : modules)
+	{
+		if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 1))
+		{
+			for (auto sym : mod.GetWordList())
+			{
+				
+				symbolsData.push_back(sym.GetSymbol());
+				symbolsData.push_back(sym.GetReading());
+				symbolsData.push_back(sym.GetMeaning());
+			}
+			for (auto sym : mod.GetKanjiList())
+			{
+
+				symbolsData.push_back(sym.GetSymbol());
+				symbolsData.push_back(sym.GetReading());
+				symbolsData.push_back(sym.GetMeaning());
+			}
+		}
+	}
+
+	return symbolsData;
 }
 
 
