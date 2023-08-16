@@ -43,6 +43,7 @@ void MainFrame::CreateControls()
 
 	filesBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.png"), wxBITMAP_TYPE_ANY));
 	filesBtn->SetToolTip(wxT("Files"));
+	filesBtn->Disable();
 	leftPanelSizer->Add(filesBtn, 0, wxALL, 5);
 
 	fillerLabel = new wxStaticText(leftPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
@@ -216,6 +217,7 @@ void MainFrame::CreateControls()
 
 	genSizer->Add(mainSizer, 1, wxEXPAND, 0);
 
+	genWorkingAreaBook->ChangeSelection(2);
 
 	this->SetSizer(genSizer);
 	this->Layout();
