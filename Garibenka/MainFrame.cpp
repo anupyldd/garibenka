@@ -362,6 +362,8 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 	}
 }
 
+// FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
+// 
 //void MainFrame::UpdateModuleList(std::vector<Module>& modules)
 //{
 //	filesListCtrl->ClearAll();
@@ -393,7 +395,7 @@ MainFrame::MainFrame(const wxString& title)
 	// temp testing stuff, delete later
 	
 
-	//FileHandler::UpdateUserSettingsMap("Language", "jp");
+	FileHandler::UpdateUserSettingsMap("Language", "ru", userSettings);
 	//wxString title9 = moduleVector[0].GetModuleName();
 	//wxString t7 = userSettings["Language"];
 	//filesTitleLabel->SetLabel(t7);

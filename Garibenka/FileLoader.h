@@ -92,8 +92,9 @@ public:
 	static void UpdateModuleStatsFile();
 
 	static void ReadUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings);
-	static void UpdateUserSettingsMap(std::string inSetting, std::string inOption); // inSetting - setting name, inOption - chosen option to replace
-	static void UpdateUserSettingsFile();
+	static void UpdateUserSettingsMap(std::string inSetting, std::string inOption, 
+		std::unordered_map<std::string, std::string>& userSettings); // inSetting - setting name, inOption - chosen option to replace
+	static void UpdateUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings);
 
 	static void ReadLocFile(std::unordered_map<std::wstring, std::wstring>& currentLang,
 								const std::unordered_map<std::string, std::string> userSettings);
