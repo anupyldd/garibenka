@@ -27,6 +27,8 @@ public:
 
 	void AddToList(std::wstring inSymbol, std::wstring inReading, std::wstring inMeaning, int iter);
 	void AdjustSize();
+	void ClearList();
+	void AddColumns();
 
 	~BrowseDialog();
 
