@@ -112,5 +112,8 @@ static std::unordered_map<std::string, std::string> userSettings;
 //stores current selected language
 static std::unordered_map<std::wstring, std::wstring> currentLang;
 
+//stores current active module
+static std::wstring currentModule;
+
 //stores symbols from current active module
 static std::vector<std::wstring> currentSymbols;

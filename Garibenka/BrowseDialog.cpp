@@ -1,0 +1,40 @@
+#include "BrowseDialog.h"
+
+BrowseDialog::BrowseDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxDialog(parent, id, title, pos, size, style)
+{
+	this->SetSizeHints(wxSize(720, 480), wxDefaultSize);
+
+	wxBoxSizer* browseSizer;
+	browseSizer = new wxBoxSizer(wxVERTICAL);
+
+	browseList = new wxListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES | wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
+	browseSizer->Add(browseList, 1, wxALL | wxEXPAND, 5);
+	browseList->SetFont(wxFont(14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+	browseList->InsertColumn(0, "Symbol", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	browseList->InsertColumn(1, "Reading", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	browseList->InsertColumn(2, "Meaning", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+
+	this->SetSizer(browseSizer);
+	this->Layout();
+	browseSizer->Fit(this);
+
+	this->Centre(wxBOTH);
+}
+
+void BrowseDialog::AddToList(std::wstring inSymbol, std::wstring inReading, std::wstring inMeaning, int iter)
+{
+	long index = browseList->InsertItem(iter, inSymbol);
+	browseList->SetItem(index, 1, inReading);
+	browseList->SetItem(index, 2, inMeaning);
+}
+
+void BrowseDialog::AdjustSize()
+{
+	browseList->SetColumnWidth(0, wxLIST_AUTOSIZE);
+	browseList->SetColumnWidth(1, wxLIST_AUTOSIZE);
+	browseList->SetColumnWidth(2, wxLIST_AUTOSIZE_USEHEADER);
+}
+
+BrowseDialog::~BrowseDialog()
+{
+}
