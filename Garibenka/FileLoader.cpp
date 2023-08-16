@@ -145,17 +145,20 @@ void FileHandler::ReadUserSettingsFile(std::unordered_map<std::string, std::stri
 
 }
 
-void FileHandler::UpdateUserSettingsMap(std::string inSetting, std::string inOption)
+
+
+void FileHandler::UpdateUserSettingsMap(std::string inSetting, std::string inOption,
+	std::unordered_map<std::string, std::string>& userSettings)
 {
 	for (auto iter = userSettings.begin(); iter != userSettings.end(); ++iter)
 		if (iter->first == inSetting)
 		{
 			iter->second = inOption;
 		}
-	UpdateUserSettingsFile();
+	UpdateUserSettingsFile(userSettings);
 }
 
-void FileHandler::UpdateUserSettingsFile()
+void FileHandler::UpdateUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings)
 {
 	std::ofstream outfile;
 	outfile.open("./Settings/settings.tsv");
