@@ -287,13 +287,16 @@ void MainFrame::FillModulesList(std::vector<Module> modules)
 void MainFrame::ShowBrowseDialog(wxCommandEvent& event)
 {
 	long item = -1;
+
+	browseDialog->ClearList();
+	browseDialog->AddColumns();
+
 	for (;;)
 	{
 		item = filesListCtrl->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 		if (item == -1)
 			break;
 
-		browseDialog->Show();
 		
 		std::vector<std::wstring> symbolsData = FillBrowseSymbolsList(modules, item);
 		int size = symbolsData.size();
@@ -301,8 +304,12 @@ void MainFrame::ShowBrowseDialog(wxCommandEvent& event)
 		{
 			browseDialog->AddToList(symbolsData[i], symbolsData[i + 1], symbolsData[i + 2], i);
 		}
+
+		browseDialog->AdjustSize();
 	}
-	browseDialog->AdjustSize();
+	
+	browseDialog->Show();
+
 
 }
 

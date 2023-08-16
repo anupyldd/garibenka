@@ -10,9 +10,7 @@ BrowseDialog::BrowseDialog(wxWindow* parent, wxWindowID id, const wxString& titl
 	browseList = new wxListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES | wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
 	browseSizer->Add(browseList, 1, wxALL | wxEXPAND, 5);
 	browseList->SetFont(wxFont(14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-	browseList->InsertColumn(0, "Symbol", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-	browseList->InsertColumn(1, "Reading", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-	browseList->InsertColumn(2, "Meaning", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	
 
 	this->SetSizer(browseSizer);
 	this->Layout();
@@ -33,6 +31,18 @@ void BrowseDialog::AdjustSize()
 	browseList->SetColumnWidth(0, wxLIST_AUTOSIZE);
 	browseList->SetColumnWidth(1, wxLIST_AUTOSIZE);
 	browseList->SetColumnWidth(2, wxLIST_AUTOSIZE_USEHEADER);
+}
+
+void BrowseDialog::ClearList()
+{
+	browseList->ClearAll();
+}
+
+void BrowseDialog::AddColumns()
+{
+	browseList->InsertColumn(0, "Symbol", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	browseList->InsertColumn(1, "Reading", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	browseList->InsertColumn(2, "Meaning", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
 }
 
 BrowseDialog::~BrowseDialog()
