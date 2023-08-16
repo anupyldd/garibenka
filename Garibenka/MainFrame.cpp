@@ -167,8 +167,12 @@ void MainFrame::CreateControls()
 	languageOptionSizer->Add(languageOptionLabel, 2, wxALL | wxEXPAND, 5);
 
 	wxArrayString langChoiceChoices;
+	langChoiceChoices.push_back("English");
+	langChoiceChoices.push_back("Russian");
+
 	langChoice = new wxChoice(settingsWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, langChoiceChoices, wxCB_SORT);
 	langChoice->SetSelection(0);
+	langChoice->SetFont(wxFont(19, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	languageOptionSizer->Add(langChoice, 1, wxALL | wxEXPAND, 5);
 
 
@@ -184,8 +188,12 @@ void MainFrame::CreateControls()
 	themeOptionSizer->Add(themeOptionLabel, 2, wxALL | wxEXPAND, 5);
 
 	wxArrayString themeChoiceChoices;
+	themeChoiceChoices.push_back("Dark");
+	themeChoiceChoices.push_back("Light");
+
 	themeChoice = new wxChoice(settingsWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, themeChoiceChoices, wxCB_SORT);
 	themeChoice->SetSelection(0);
+	themeChoice->SetFont(wxFont(19, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	themeOptionSizer->Add(themeChoice, 1, wxALL | wxEXPAND, 5);
 
 
