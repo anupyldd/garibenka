@@ -10,6 +10,7 @@
 #include <wx/string.h>
 #include <wx/sizer.h>
 #include <wx/dialog.h>
+#include "FileLoader.h"
 
 
 class BrowseDialog : public wxDialog

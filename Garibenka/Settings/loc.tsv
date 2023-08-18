@@ -9,6 +9,10 @@ Study	Изучать	Study
 Menu	Меню	Menu
 Helper Bot	Бот-Помощник	Helper Bot
 Help	Помощь	Help
+Send	Отправить	Send
+Symbol	Термин	Term
+Reading	Чтение	Reading
+Meaning	Значение	Meaning
 -	-	-
 Profile	Профиль	Profile
 Name	Название	Name
@@ -19,9 +23,11 @@ EnterNewName	Введите новое имя пользователя	Enter new
 -	-	-
 Settings	Настройки	Settings
 Theme	Тема	Theme
+Dark	Темная	Dark
+Light	Светлая	Light
 Language	Язык	Language
-RU	RU	RU
-EN	EN	EN
+RU	Русский	Russian
+EN	Английский	English
 NeedReload	(потребуется перезапуск)	(requires restart)
 -	-	-
 Greeting1	Привет! Я твой бот-помощник для изучения слов.	Hello! I am your helper bot for studying vocabulary.

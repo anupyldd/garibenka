@@ -40,9 +40,9 @@ void BrowseDialog::ClearList()
 
 void BrowseDialog::AddColumns()
 {
-	browseList->InsertColumn(0, "Symbol", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-	browseList->InsertColumn(1, "Reading", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-	browseList->InsertColumn(2, "Meaning", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	browseList->InsertColumn(0, currentLang[L"Symbol"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	browseList->InsertColumn(1, currentLang[L"Reading"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	browseList->InsertColumn(2, currentLang[L"Meaning"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
 }
 
 BrowseDialog::~BrowseDialog()

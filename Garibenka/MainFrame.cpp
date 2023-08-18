@@ -11,7 +11,7 @@ void MainFrame::CreateControls()
 	
 	this->SetSizeHints(wxDefaultSize, wxDefaultSize);
 
-	browseDialog = new BrowseDialog(this, wxID_ANY, "Module Browser", wxDefaultPosition, wxDefaultSize,
+	browseDialog = new BrowseDialog(this, wxID_ANY, currentLang[L"Module Browser"], wxDefaultPosition, wxDefaultSize,
 		wxCLOSE_BOX | wxDEFAULT_DIALOG_STYLE | wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxRESIZE_BORDER);
 
 	wxBoxSizer* genSizer;
@@ -30,19 +30,19 @@ void MainFrame::CreateControls()
 	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
-	botBtn->SetToolTip(wxT("Helper Bot"));
+	botBtn->SetToolTip(currentLang[L"Helper Bot"]);
 	leftPanelSizer->Add(botBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);
 
 	profileBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	profileBtn->SetBitmap(wxBitmap(wxT("Icons/ProfileBtn.png"), wxBITMAP_TYPE_ANY));
-	profileBtn->SetToolTip(wxT("Profile"));
+	profileBtn->SetToolTip(currentLang[L"Profile"]);
 	leftPanelSizer->Add(profileBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);
 
 	filesBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	filesBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.png"), wxBITMAP_TYPE_ANY));
-	filesBtn->SetToolTip(wxT("Files"));
+	filesBtn->SetToolTip(currentLang[L"Files"]);
 	filesBtn->Disable();
 	leftPanelSizer->Add(filesBtn, 0, wxALL, 5);
 
@@ -53,7 +53,7 @@ void MainFrame::CreateControls()
 	settingsBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	settingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.png"), wxBITMAP_TYPE_ANY));
-	settingsBtn->SetToolTip(wxT("Settings"));
+	settingsBtn->SetToolTip(currentLang[L"Settings"]);
 	leftPanelSizer->Add(settingsBtn, 0, wxALL, 5);
 
 
@@ -82,7 +82,7 @@ void MainFrame::CreateControls()
 	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	answerSendBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.png"), wxBITMAP_TYPE_ANY));
-	answerSendBtn->SetToolTip(wxT("Send"));
+	answerSendBtn->SetToolTip(currentLang[L"Send"]);
 	if (currentlyStudying == false)
 	{
 		answerSendBtn->Disable();
@@ -104,7 +104,7 @@ void MainFrame::CreateControls()
 	wxBoxSizer* profileHeaderSizer;
 	profileHeaderSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	userNameLabel = new wxStaticText(profileWorkingAreaPanel, wxID_ANY, wxT("User Name"), wxDefaultPosition, wxDefaultSize, 0);
+	userNameLabel = new wxStaticText(profileWorkingAreaPanel, wxID_ANY, userSettings["Username"], wxDefaultPosition, wxDefaultSize, 0);
 	userNameLabel->Wrap(-1);
 	userNameLabel->SetFont(wxFont(40, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
@@ -113,7 +113,7 @@ void MainFrame::CreateControls()
 	editNameBtn = new wxBitmapButton(profileWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	editNameBtn->SetBitmap(wxBitmap(wxT("Icons/editBtn.png"), wxBITMAP_TYPE_ANY));
-	editNameBtn->SetToolTip(wxT("Edit"));
+	editNameBtn->SetToolTip(currentLang[L"Change"]);
 	profileHeaderSizer->Add(editNameBtn, 0, wxALL, 0);
 
 
@@ -133,13 +133,13 @@ void MainFrame::CreateControls()
 	wxBoxSizer* filesAreaSizer;
 	filesAreaSizer = new wxBoxSizer(wxVERTICAL);
 
-	filesTitleLabel = new wxStaticText(filesWorkingAreaPanel, wxID_ANY, wxT("Files"), wxDefaultPosition, wxDefaultSize, 0);
+	filesTitleLabel = new wxStaticText(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Files"], wxDefaultPosition, wxDefaultSize, 0);
 	filesTitleLabel->Wrap(-1);
 	filesTitleLabel->SetFont(wxFont(40, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
 	filesAreaSizer->Add(filesTitleLabel, 0, wxALL | wxEXPAND, 5);
 
-	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Load File"), wxDefaultPosition, wxSize(-1, -1), 0);
+	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Import File"], wxDefaultPosition, wxSize(-1, -1), 0);
 	filesAreaSizer->Add(loadFileBtn, 0, wxALL | wxEXPAND, 5);
 
 	filesListCtrl = new wxListCtrl(filesWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT);
@@ -151,10 +151,10 @@ void MainFrame::CreateControls()
 	studyOrBrowseSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	studyOrBrowseSizer->SetMinSize(wxSize(-1, 40));
-	studyBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Study"), wxDefaultPosition, wxDefaultSize, 0);
+	studyBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Study"], wxDefaultPosition, wxDefaultSize, 0);
 	studyOrBrowseSizer->Add(studyBtn, 1, wxALL | wxEXPAND, 5);
 
-	browseBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Browse"), wxDefaultPosition, wxDefaultSize, 0);
+	browseBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Browse"], wxDefaultPosition, wxDefaultSize, 0);
 	studyOrBrowseSizer->Add(browseBtn, 1, wxALL | wxEXPAND, 5);
 
 
@@ -172,15 +172,15 @@ void MainFrame::CreateControls()
 	wxBoxSizer* languageOptionSizer;
 	languageOptionSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	languageOptionLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, wxT("Language"), wxDefaultPosition, wxDefaultSize, 0);
+	languageOptionLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, currentLang[L"Language"], wxDefaultPosition, wxDefaultSize, 0);
 	languageOptionLabel->Wrap(-1);
 	languageOptionLabel->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
 	languageOptionSizer->Add(languageOptionLabel, 2, wxALL | wxEXPAND, 5);
 
 	wxArrayString langChoiceChoices;
-	langChoiceChoices.push_back("English");
-	langChoiceChoices.push_back("Russian");
+	langChoiceChoices.push_back(currentLang[L"EN"]);
+	langChoiceChoices.push_back(currentLang[L"RU"]);
 
 	langChoice = new wxChoice(settingsWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, langChoiceChoices, wxCB_SORT);
 	langChoice->SetSelection(0);
@@ -193,15 +193,15 @@ void MainFrame::CreateControls()
 	wxBoxSizer* themeOptionSizer;
 	themeOptionSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	themeOptionLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, wxT("Theme"), wxDefaultPosition, wxDefaultSize, 0);
+	themeOptionLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, currentLang[L"Theme"], wxDefaultPosition, wxDefaultSize, 0);
 	themeOptionLabel->Wrap(-1);
 	themeOptionLabel->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
 	themeOptionSizer->Add(themeOptionLabel, 2, wxALL | wxEXPAND, 5);
 
 	wxArrayString themeChoiceChoices;
-	themeChoiceChoices.push_back("Dark");
-	themeChoiceChoices.push_back("Light");
+	themeChoiceChoices.push_back(currentLang[L"Dark"]);
+	themeChoiceChoices.push_back(currentLang[L"Light"]);
 
 	themeChoice = new wxChoice(settingsWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, themeChoiceChoices, wxCB_SORT);
 	themeChoice->SetSelection(0);
@@ -425,6 +425,9 @@ MainFrame::MainFrame(const wxString& title)
 	:
 	wxFrame(nullptr, wxID_ANY, title)
 {
+	FileHandler::ReadUserSettingsFile(userSettings);
+	FileHandler::ReadLocFile(currentLang, userSettings);
+
 	CreateControls();
 	BindEventHandlers();
 	StartingGreeting();
@@ -434,9 +437,6 @@ MainFrame::MainFrame(const wxString& title)
 	FileHandler::ReadTablesFile(modules);
 	FillModulesList(modules);
 
-	FileHandler::ReadUserSettingsFile(userSettings);
-
-	FileHandler::ReadLocFile(currentLang, userSettings);
 
 	// temp testing stuff, delete later
 	WriteInitialGreeting();
