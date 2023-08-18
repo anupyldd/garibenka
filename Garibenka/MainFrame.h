@@ -9,6 +9,8 @@
 #include <filesystem>
 #include <wx/filefn.h> 
 #include <wx/richtext/richtextctrl.h>
+#include <algorithm>
+#include <random>
 
 class MainFrame : public wxFrame
 {
@@ -29,16 +31,31 @@ private:
 	void LoadFile(wxCommandEvent& event);
 	void UpdateModuleList(std::vector<Module>& modules);	// needs fixing, does not update shit
 
-	void StartingGreeting();
 	void KillChatRichTextFocus(wxFocusEvent& event);
 
 private:
+		
+	void ChattingLoop();
+	void StudyLoop();
 
 	void WriteInitialGreeting();
+	void ChooseModule(wxCommandEvent& event);
+	void FillCurrentSymbols(std::vector<Module>& modules);
+	void ChooseVocabOrKanji();
+	void ChooseStudyMode();
+	void ChooseAskBy();
+	void ReadAnswer();
 
 private:
 
-	bool currentlyStudying = false;
+	bool isStudying = false;
+	std::wstring currentModule;		// temp for storing names
+	std::wstring currentFile;		// temp for storing names
+
+	std::wstring currentVocabOrKanji;	// kanji or words
+	std::wstring currentMode;			// terms, reading, meaning
+	std::wstring currentAskBy;			// by terms, reading, meaning
+	static std::vector<std::wstring> currentSymbols;	//stores symbols from current active module
 
 	wxPanel* leftPanel;
 	wxBitmapButton* botBtn;

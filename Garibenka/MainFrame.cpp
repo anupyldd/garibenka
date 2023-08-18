@@ -83,10 +83,8 @@ void MainFrame::CreateControls()
 
 	answerSendBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.png"), wxBITMAP_TYPE_ANY));
 	answerSendBtn->SetToolTip(currentLang[L"Send"]);
-	if (currentlyStudying == false)
-	{
-		answerSendBtn->Disable();
-	}
+	answerSendBtn->Disable();
+	
 	answerAreaSizer->Add(answerSendBtn, 0, wxBOTTOM | wxRIGHT | wxTOP, 5);
 
 
@@ -237,6 +235,7 @@ void MainFrame::BindEventHandlers()
 	browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
 	loadFileBtn->Bind(wxEVT_BUTTON, &MainFrame::LoadFile, this);
 	chatRichTextCtrl->Bind(wxEVT_SET_FOCUS, &MainFrame::KillChatRichTextFocus, this);
+	studyBtn->Bind(wxEVT_BUTTON, &MainFrame::ChooseModule, this);
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
@@ -297,6 +296,11 @@ void MainFrame::FillModulesList(std::vector<Module> modules)
 
 void MainFrame::ShowBrowseDialog(wxCommandEvent& event)
 {
+	if (filesListCtrl->GetSelectedItemCount() < 1)
+	{
+		return;
+	}
+	
 	long item = -1;
 
 	browseDialog->ClearList();
@@ -370,15 +374,58 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 	}
 }
 
-void MainFrame::StartingGreeting()
-{
-	
-}
-
 void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
 {
 	answerInputTextCtrl->SetFocus();
 	
+}
+
+void MainFrame::ChooseModule(wxCommandEvent& event)
+{
+	if (filesListCtrl->GetSelectedItemCount() < 1)
+	{
+		return;
+	}
+	
+	long item = -1;
+
+	for (;;)
+	{
+		item = filesListCtrl->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+		if (item == -1)
+			break;
+
+		currentModule = filesListCtrl->GetItemText(item, 1);
+		currentFile = filesListCtrl->GetItemText(item, 0);
+	}
+
+	genWorkingAreaBook->ChangeSelection(0);
+
+	botBtn->Disable();
+	profileBtn->Enable(true);
+	filesBtn->Enable(true);
+	settingsBtn->Enable(true);
+	answerSendBtn->Enable(true);
+
+
+}
+
+void MainFrame::FillCurrentSymbols(std::vector<Module>& modules)
+{
+	
+	auto rd = std::random_device{};
+	auto rng = std::default_random_engine{ rd() };
+
+	
+	
+	for (auto mod : modules)
+	{
+		if (mod.GetModuleName() == currentModule && mod.GetFileName() == currentFile)
+		{
+			
+			
+		}
+	}
 }
 
 
@@ -408,6 +455,8 @@ void MainFrame::WriteInitialGreeting()
 	chatRichTextCtrl->EndBold();
 }
 
+
+
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
 // 
 //void MainFrame::UpdateModuleList(std::vector<Module>& modules)
@@ -431,7 +480,6 @@ MainFrame::MainFrame(const wxString& title)
 
 	CreateControls();
 	BindEventHandlers();
-	StartingGreeting();
 
 	const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
 	FileHandler::RunPythonScript(1, path);
