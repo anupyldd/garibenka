@@ -69,6 +69,7 @@ void MainFrame::CreateControls()
 	chatAreaSizer = new wxBoxSizer(wxVERTICAL);
 
 	chatRichTextCtrl = new wxRichTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxHSCROLL | wxVSCROLL);
+	chatRichTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	chatAreaSizer->Add(chatRichTextCtrl, 1, wxEXPAND | wxALL, 5);
 
 	wxBoxSizer* answerAreaSizer;
@@ -377,6 +378,33 @@ void MainFrame::StartingGreeting()
 void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
 {
 	answerInputTextCtrl->SetFocus();
+	
+}
+
+
+void MainFrame::WriteInitialGreeting()
+{
+	chatRichTextCtrl->AppendText("Привет! Я твой бот-помощник для изучения слов.\n");
+	chatRichTextCtrl->AppendText("Чтобы начать обучение, выбери модуль в разделе\n");
+
+	chatRichTextCtrl->SetInsertionPointEnd();
+
+	chatRichTextCtrl->BeginBold();
+	chatRichTextCtrl->WriteText("«Файлы»");
+	chatRichTextCtrl->EndBold();
+
+
+	chatRichTextCtrl->EndBold();
+
+	chatRichTextCtrl->WriteText(" и нажми ");
+
+	chatRichTextCtrl->SetInsertionPointEnd();
+
+
+
+	chatRichTextCtrl->BeginBold();
+	chatRichTextCtrl->WriteText("«Изучать».");
+	chatRichTextCtrl->EndBold();
 }
 
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
@@ -411,9 +439,9 @@ MainFrame::MainFrame(const wxString& title)
 	FileHandler::ReadLocFile(currentLang, userSettings);
 
 	// temp testing stuff, delete later
-	
+	WriteInitialGreeting();
 
-	FileHandler::UpdateUserSettingsMap("Language", "ru", userSettings);
+	//FileHandler::UpdateUserSettingsMap("Language", "ru", userSettings);
 	//wxString title9 = moduleVector[0].GetModuleName();
 	//wxString t7 = userSettings["Language"];
 	//filesTitleLabel->SetLabel(t7);

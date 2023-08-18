@@ -34,6 +34,10 @@ private:
 
 private:
 
+	void WriteInitialGreeting();
+
+private:
+
 	bool currentlyStudying = false;
 
 	wxPanel* leftPanel;
