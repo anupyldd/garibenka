@@ -380,6 +380,11 @@ void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
 	
 }
 
+void MainFrame::TransferModules(std::vector<Module> modules)
+{
+	localModules = modules;
+}
+
 void MainFrame::ChooseModule(wxCommandEvent& event)
 {
 	if (filesListCtrl->GetSelectedItemCount() < 1)
@@ -508,7 +513,7 @@ MainFrame::MainFrame(const wxString& title)
 	FileHandler::RunPythonScript(1, path);
 	FileHandler::ReadTablesFile(modules);
 	FillModulesList(modules);
-
+	TransferModules(modules);
 
 	// temp testing stuff, delete later
 	WriteInitialGreeting();
