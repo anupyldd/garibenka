@@ -384,26 +384,27 @@ void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
 
 void MainFrame::WriteInitialGreeting()
 {
-	chatRichTextCtrl->AppendText("Привет! Я твой бот-помощник для изучения слов.\n");
-	chatRichTextCtrl->AppendText("Чтобы начать обучение, выбери модуль в разделе\n");
+	chatRichTextCtrl->WriteText(currentLang[L"Greeting1"] + '\n');
+	
+	chatRichTextCtrl->SetInsertionPointEnd();
+
+	chatRichTextCtrl->WriteText(currentLang[L"Greeting2"] + '\n');
 
 	chatRichTextCtrl->SetInsertionPointEnd();
 
 	chatRichTextCtrl->BeginBold();
-	chatRichTextCtrl->WriteText("«Файлы»");
+	chatRichTextCtrl->WriteText(currentLang[L"GreetingFiles"]);
 	chatRichTextCtrl->EndBold();
 
 
 	chatRichTextCtrl->EndBold();
 
-	chatRichTextCtrl->WriteText(" и нажми ");
+	chatRichTextCtrl->WriteText(currentLang[L"Greeting3"]);
 
 	chatRichTextCtrl->SetInsertionPointEnd();
 
-
-
 	chatRichTextCtrl->BeginBold();
-	chatRichTextCtrl->WriteText("«Изучать».");
+	chatRichTextCtrl->WriteText(currentLang[L"GreetingStudy"] + '\n');
 	chatRichTextCtrl->EndBold();
 }
 
