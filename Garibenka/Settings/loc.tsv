@@ -8,32 +8,80 @@ File Browser	Просмотр Файла	File Browser
 Study	Изучать	Study
 Menu	Меню	Menu
 Helper Bot	Бот-Помощник	Helper Bot
+Help	Помощь	Help
+		
 Profile	Профиль	Profile
 Name	Название	Name
 Stats	Статистика	Stats
 Profile Picture	Изображение Профиля	Profile Picture
 Change	Изменить	Change
 EnterNewName	Введите новое имя пользователя	Enter new username
+		
 Settings	Настройки	Settings
 Theme	Тема	Theme
 Language	Язык	Language
 RU	RU	RU
 EN	EN	EN
 NeedReload	(потребуется перезапуск)	(requires restart)
-Greeting	Привет! Я твой бот-помощник в заучивании слов. Что ты хочешь изучить сегодня? 	Hello, I am your helper bot for studying the language. What do you wish to study today?
-StartVocabChooseMode	Отлично! Сегодня будем изучать лексику, на чем хочешь сфокусироваться? 	Great! Today we will study vocabulary, what do you want to focus on?
-StartKanjiChooseMode	Отлично! Сегодня будем изучать кандзи, на чем хочешь сфокусироваться? 	Great! Today we will study kanji, what do you want to focus on?
-CatWordHowAsk	Выбрана категория Слово, как мне тебя спрашивать? 	Word category is selected. What do you want me to ask you?
-CatReadHowAsk	Выбрана категория Чтение, как мне тебя спрашивать? 	Reading category is selected. What do you want me to ask you?
-CatMeanHowAsk	Выбрана категория Значение, как мне тебя спрашивать? 	Meaning category is selected. What do you want me to ask you?
-CatKanjiHowAsk	Выбрана категория Иероглиф, как мне тебя спрашивать? 	Kanji category is selected. What do you want me to ask you?
-StartWordByRead	Понял, буду спрашивать Слово по категории Чтение. Ну что, начнём?	Got it, I'll be asking you Words by Reading category. Should we start?
-StartWordByMean	Понял, буду спрашивать Слово по категории Значение. Ну что, начнём?	Got it, I'll be asking you Words by Meaning category. Should we start?
-StartReadByWord	Понял, буду спрашивать Чтение по категории Слово. Ну что, начнём?	Got it, I'll be asking you Reading by Word category. Should we start?
-StartReadByMean	Понял, буду спрашивать Чтение по категории Значение. Ну что, начнём?	Got it, I'll be asking you Reading by Meaning category. Should we start?
-StartKanjiByRead	Понял, буду спрашивать Иероглиф по категории Чтение. Ну что, начнём?	Got it, I'll be asking you Kanji by Reading category. Should we start?
-StartKanjiByMean	Понял, буду спрашивать Иероглиф по категории Значение. Ну что, начнём?	Got it, I'll be asking you Kanji by Meaning category. Should we start?
-StartMeanByRead	Понял, буду спрашивать Значение по категории Чтение. Ну что, начнём?	Got it, I'll be asking you Meaning by Reading category. Should we start?
-StartMeanByWord	Понял, буду спрашивать Значение по категории Слово. Ну что, начнём?	Got it, I'll be asking you Meaning by Word category. Should we start?
-StartMeanByKanji	Понял, буду спрашивать Значение по категории Иероглиф. Ну что, начнём?	Got it, I'll be asking you Meaning by Kanji category. Should we start?
-StartReadByKanji	Понял, буду спрашивать Чтение по категории Иероглиф. Ну что, начнём?	Got it, I'll be asking you Reading by Kanji category. Should we start?
+		
+Greeting1	Привет! Я твой бот-помощник для изучения слов.	Hello! I am your helper bot for studying vocabulary.
+Greeting2	Чтобы начать обучение, выбери модуль в разделе	To start, choose a module in the
+GreetingFiles	«Файлы»	“Files”
+Greeting3	 и нажми 	  section and click 
+GreetingStudy	«Изучать».	“Study”.
+		
+VocabOrKanji1	Отлично! Сегодня рассмотрим модуль	Great, today we will look at
+VocabOrKanji2	Ты хочешь изучить	Do you want to study
+VocabOrKanjiVoc	лексику	terms
+VocabOrKanji3	 или 	 or 
+VocabOrKanjiKan	кандзи?	kanji?
+		
+StartVocabChooseMode	Хорошо, будем изучать 	OK, we will be studying 
+StartVocabChooseModeVoc	лексику.	words.
+StartVocabChooseMode2	На чем хочешь сфокусироваться: на	Do you want to focus on
+StartVocabChooseModeTerm	терминах	terms
+StartVocabChooseMode3	, 	, 
+StartVocabChooseModeRead	чтениях	readings
+StartVocabChooseMode4	  или 	 or 
+StartVocabChooseModeMean	значениях?	meanings?
+		
+StartKanjiChooseMode	Хорошо, будем изучать 	OK, we will be studying 
+StartKanjiChooseModeKan	кандзи.	kanji.
+StartKanjiChooseMode2	На чем хочешь сфокусироваться: на	Do you want to focus on
+StartKanjiChooseModeTerm	терминах	terms
+StartKanjiChooseMode3	, 	, 
+StartKanjiChooseModeRead	чтениях	readings
+StartKanjiChooseMode4	  или 	 or 
+StartKanjiChooseModeMean	значениях?	meanings?
+		
+SelectTermAskBy1	Выбрана категория	Selected category 
+SelectTermAskBy2	. Как мне тебя	. Do you want me to ask you
+SelectTermAskBy3	спрашивать, по	by 
+SelectTermAskByRead	чтениям	reading
+SelectTermAskBy4	 или 	 or by 
+SelectTermAskByMean	значениям?	meaning?
+		
+SelectReadAskBy1	Выбрана категория	Selected category 
+SelectReadAskBy2	. Как мне тебя	. Do you want me to ask you
+SelectReadAskBy3	спрашивать, по 	by 
+SelectReadAskByTerm	терминам	term
+SelectReadAskBy4	 или 	 or by 
+SelectReadAskByMean	значениям?	meaning?
+		
+SelectMeanAskBy1	Выбрана категория	Selected category 
+SelectMeanAskBy2	. Как мне тебя	. Do you want me to ask you
+SelectMeanAskBy3	спрашивать, по 	by 
+SelectMeanAskByTerm	терминам	term
+SelectMeanAskBy4	 или 	 or by 
+SelectMeanAskByRead	чтениям?	reading?
+		
+WillAsk1	Понял, буду спрашивать тебя категорию 	Got it, I will be asking you the 
+WillAsk2	по 	 category by 
+ShouldStart	Начнем?	Should we start?
+		
+Given	Дано 	Given 
+Answer 	, напиши 	, what is the 
+		
+CorrectAnswer	Супер, ответ верный!	Great, this is the correct answer!
+WrongAnswer1	К сожалению, ответ неверный.	Unfortunately, this is wrong.
+WrongAnswer2	Правильный ответ:	The correct answer is:
