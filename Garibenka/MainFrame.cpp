@@ -388,6 +388,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	}
 	
 	long item = -1;
+	isStudying = true;
 
 	for (;;)
 	{
@@ -407,7 +408,29 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	settingsBtn->Enable(true);
 	answerSendBtn->Enable(true);
 
+	// chat reply
 
+	chatRichTextCtrl->SetInsertionPointEnd();
+	chatRichTextCtrl->WriteText("\n\n");
+
+	chatRichTextCtrl->SetInsertionPointEnd();
+	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanji1"] + ' ');
+
+	chatRichTextCtrl->BeginBold();
+	chatRichTextCtrl->WriteText(currentModule + '.');
+	chatRichTextCtrl->EndBold();
+
+	chatRichTextCtrl->WriteText('\n' + currentLang[L"VocabOrKanji2"] + ' ');
+
+	chatRichTextCtrl->BeginUnderline();
+	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanjiVoc"]);
+	chatRichTextCtrl->EndUnderline();
+
+	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanji3"]);
+
+	chatRichTextCtrl->BeginUnderline();
+	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanjiKan"]);
+	chatRichTextCtrl->EndUnderline();
 }
 
 void MainFrame::FillCurrentSymbols(std::vector<Module>& modules)
