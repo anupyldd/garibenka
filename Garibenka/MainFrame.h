@@ -33,6 +33,8 @@ private:
 
 	void KillChatRichTextFocus(wxFocusEvent& event);
 
+	void TransferModules(std::vector<Module> modules);
+
 private:
 		
 	void ChattingLoop();
@@ -47,6 +49,8 @@ private:
 	void ReadAnswer();
 
 private:
+
+	std::vector<Module> localModules;	// bandaid because i fucked up and dont want to remake the whole thing
 
 	bool isStudying = false;
 	std::wstring currentModule;		// temp for storing names
