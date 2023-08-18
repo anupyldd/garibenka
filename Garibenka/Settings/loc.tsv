@@ -1,41 +1,41 @@
 Files	Файлы	Files
 Open	Открыть	Open
-Import File	Загрузить Файл	Import File
+Import File	Загрузить файл	Import file
 Pick Excel File	Выберите Excel файл:	Pick an Excel file:
 Select File	Выбрать Файл	Select File
 Browse	Просмотреть	Browse
-File Browser	Просмотр Файла	File Browser
+Module Browser	Просмотр модуля	Module Browser
 Study	Изучать	Study
 Menu	Меню	Menu
 Helper Bot	Бот-Помощник	Helper Bot
 Help	Помощь	Help
-		
+-	-	-
 Profile	Профиль	Profile
 Name	Название	Name
 Stats	Статистика	Stats
 Profile Picture	Изображение Профиля	Profile Picture
 Change	Изменить	Change
 EnterNewName	Введите новое имя пользователя	Enter new username
-		
+-	-	-
 Settings	Настройки	Settings
 Theme	Тема	Theme
 Language	Язык	Language
 RU	RU	RU
 EN	EN	EN
 NeedReload	(потребуется перезапуск)	(requires restart)
-		
+-	-	-
 Greeting1	Привет! Я твой бот-помощник для изучения слов.	Hello! I am your helper bot for studying vocabulary.
 Greeting2	Чтобы начать обучение, выбери модуль в разделе	To start, choose a module in the
 GreetingFiles	«Файлы»	“Files”
 Greeting3	 и нажми 	  section and click 
 GreetingStudy	«Изучать».	“Study”.
-		
+-	-	-
 VocabOrKanji1	Отлично! Сегодня рассмотрим модуль	Great, today we will look at
 VocabOrKanji2	Ты хочешь изучить	Do you want to study
 VocabOrKanjiVoc	лексику	terms
 VocabOrKanji3	 или 	 or 
 VocabOrKanjiKan	кандзи?	kanji?
-		
+-	-	-
 StartVocabChooseMode	Хорошо, будем изучать 	OK, we will be studying 
 StartVocabChooseModeVoc	лексику.	words.
 StartVocabChooseMode2	На чем хочешь сфокусироваться: на	Do you want to focus on
@@ -44,7 +44,7 @@ StartVocabChooseMode3	, 	,
 StartVocabChooseModeRead	чтениях	readings
 StartVocabChooseMode4	  или 	 or 
 StartVocabChooseModeMean	значениях?	meanings?
-		
+-	-	-
 StartKanjiChooseMode	Хорошо, будем изучать 	OK, we will be studying 
 StartKanjiChooseModeKan	кандзи.	kanji.
 StartKanjiChooseMode2	На чем хочешь сфокусироваться: на	Do you want to focus on
@@ -53,35 +53,35 @@ StartKanjiChooseMode3	, 	,
 StartKanjiChooseModeRead	чтениях	readings
 StartKanjiChooseMode4	  или 	 or 
 StartKanjiChooseModeMean	значениях?	meanings?
-		
+-	-	-
 SelectTermAskBy1	Выбрана категория	Selected category 
 SelectTermAskBy2	. Как мне тебя	. Do you want me to ask you
 SelectTermAskBy3	спрашивать, по	by 
 SelectTermAskByRead	чтениям	reading
 SelectTermAskBy4	 или 	 or by 
 SelectTermAskByMean	значениям?	meaning?
-		
+-	-	-
 SelectReadAskBy1	Выбрана категория	Selected category 
 SelectReadAskBy2	. Как мне тебя	. Do you want me to ask you
 SelectReadAskBy3	спрашивать, по 	by 
 SelectReadAskByTerm	терминам	term
 SelectReadAskBy4	 или 	 or by 
 SelectReadAskByMean	значениям?	meaning?
-		
+-	-	-
 SelectMeanAskBy1	Выбрана категория	Selected category 
 SelectMeanAskBy2	. Как мне тебя	. Do you want me to ask you
 SelectMeanAskBy3	спрашивать, по 	by 
 SelectMeanAskByTerm	терминам	term
 SelectMeanAskBy4	 или 	 or by 
 SelectMeanAskByRead	чтениям?	reading?
-		
+-	-	-
 WillAsk1	Понял, буду спрашивать тебя категорию 	Got it, I will be asking you the 
 WillAsk2	по 	 category by 
 ShouldStart	Начнем?	Should we start?
-		
+-	-	-
 Given	Дано 	Given 
 Answer 	, напиши 	, what is the 
-		
+-	-	-
 CorrectAnswer	Супер, ответ верный!	Great, this is the correct answer!
 WrongAnswer1	К сожалению, ответ неверный.	Unfortunately, this is wrong.
 WrongAnswer2	Правильный ответ:	The correct answer is:
