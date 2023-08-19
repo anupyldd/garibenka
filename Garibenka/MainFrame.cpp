@@ -77,6 +77,7 @@ void MainFrame::CreateControls()
 
 	answerAreaSizer->SetMinSize(wxSize(-1, 80));
 	answerInputTextCtrl = new wxTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	answerInputTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	answerAreaSizer->Add(answerInputTextCtrl, 1, wxALL | wxEXPAND, 5);
 
 	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
@@ -236,6 +237,7 @@ void MainFrame::BindEventHandlers()
 	loadFileBtn->Bind(wxEVT_BUTTON, &MainFrame::LoadFile, this);
 	chatRichTextCtrl->Bind(wxEVT_SET_FOCUS, &MainFrame::KillChatRichTextFocus, this);
 	studyBtn->Bind(wxEVT_BUTTON, &MainFrame::ChooseModule, this);
+	answerSendBtn->Bind(wxEVT_BUTTON, &MainFrame::ReadAnswer, this);
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
@@ -393,7 +395,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	}
 	
 	long item = -1;
-	isStudying = true;
+	userState = CHOOSING_VOC_OR_KAN;
 
 	for (;;)
 	{
@@ -401,8 +403,16 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 		if (item == -1)
 			break;
 
-		currentModule = filesListCtrl->GetItemText(item, 1);
-		currentFile = filesListCtrl->GetItemText(item, 0);
+		/*currentModule = filesListCtrl->GetItemText(item, 1);
+		currentFile = filesListCtrl->GetItemText(item, 0);*/
+		for (auto mod : modules)
+		{
+			if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 1) && 
+				mod.GetFileName() == filesListCtrl->GetItemText(item, 0))
+			{
+				currentModule = mod;
+			}
+		}
 	}
 
 	genWorkingAreaBook->ChangeSelection(0);
@@ -416,13 +426,13 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	// chat reply
 
 	chatRichTextCtrl->SetInsertionPointEnd();
-	chatRichTextCtrl->WriteText("\n\n");
+	chatRichTextCtrl->WriteText("\n");
 
 	chatRichTextCtrl->SetInsertionPointEnd();
 	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanji1"] + ' ');
 
 	chatRichTextCtrl->BeginBold();
-	chatRichTextCtrl->WriteText(currentModule + '.');
+	chatRichTextCtrl->WriteText(currentModule.GetModuleName() + '.');
 	chatRichTextCtrl->EndBold();
 
 	chatRichTextCtrl->WriteText('\n' + currentLang[L"VocabOrKanji2"] + ' ');
@@ -444,18 +454,48 @@ void MainFrame::FillCurrentSymbols(std::vector<Module>& modules)
 	auto rd = std::random_device{};
 	auto rng = std::default_random_engine{ rd() };
 
-	
-	
-	for (auto mod : modules)
+	if (currentVocabOrKanji == VOCAB)
 	{
-		if (mod.GetModuleName() == currentModule && mod.GetFileName() == currentFile)
-		{
-			
-			
-		}
+		currentSymbols = currentModule.GetWordList();
 	}
+	else
+	{
+		currentSymbols = currentModule.GetKanjiList();
+	}
+	
 }
 
+void MainFrame::ChooseVocabOrKanji()
+{
+	
+}
+
+
+//void MainFrame::ChattingLoop()
+//{
+//	//while (true)
+//	//{
+//	//	switch (userState)
+//	//	{
+//	//	case CHOOSING_MODULE:
+//	//		break;
+//	//	case CHOOSING_VOC_OR_KAN:
+//	//		ChooseVocabOrKanji();
+//	//		break;
+//	//	case CHOOSING_MODE:
+//	//		//ChooseStudyMode();
+//	//		break;
+//	//	case CHOOSING_ASK_BY:
+//	//		//ChooseAskBy();
+//	//		break;
+//	//	case STUDYING:
+//	//		//StudyLoop();
+//	//		break;
+//	//	default:
+//	//		break;
+//	//	}
+//	//}
+//}
 
 void MainFrame::WriteInitialGreeting()
 {
@@ -481,9 +521,149 @@ void MainFrame::WriteInitialGreeting()
 	chatRichTextCtrl->BeginBold();
 	chatRichTextCtrl->WriteText(currentLang[L"GreetingStudy"] + '\n');
 	chatRichTextCtrl->EndBold();
+
+	chatRichTextCtrl->WriteText('\n');
 }
 
+void MainFrame::ReadAnswer(wxCommandEvent& event)
+{
+	switch (userState)
+	{
+	case CHOOSING_MODULE:
+		break;
+	case CHOOSING_VOC_OR_KAN:
+		ProcessAnswerWhenVocOrKan();
+		break;
+	case CHOOSING_MODE:
+		//ProcessAnswerWhenMode();
+		break;
+	case CHOOSING_ASK_BY:
+		//ProcessAnswerWhenAskBy();
+		break;
+	case STUDYING:
+		//ProcessAnswerWhenStudy();
+		break;
+	default:
+		break;
+	}
 
+	answerInputTextCtrl->Clear();
+}
+
+void MainFrame::ProcessAnswerWhenVocOrKan()
+{
+	wxString answer;
+	answer = answerInputTextCtrl->GetValue();
+	if (answer.empty())
+	{
+		return;
+	}
+
+
+	if (CheckAnswerArrays(vocab, answer))
+	{
+		currentVocabOrKanji = VOCAB;
+		gotAnswer = true;
+		userState = CHOOSING_MODE;
+	}
+	else if (CheckAnswerArrays(kanji, answer))
+	{
+		currentVocabOrKanji = KANJI;
+		gotAnswer = true;
+		userState = CHOOSING_MODE;
+	}
+	else
+	{
+		DoNotUnderstandAnswer();
+		currentVocabOrKanji = NOT_CHOSEN;
+	}
+
+	if (currentVocabOrKanji == VOCAB)
+	{
+		//chatRichTextCtrl->SetInsertionPointEnd();
+		chatRichTextCtrl->EndUnderline();
+		chatRichTextCtrl->WriteText('\n');
+		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseMode"]);
+
+		chatRichTextCtrl->SetInsertionPointEnd();
+		chatRichTextCtrl->BeginBold();
+		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseModeVoc"] + '\n');
+		chatRichTextCtrl->EndBold();
+
+		chatRichTextCtrl->SetInsertionPointEnd();
+		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseMode2"] + ' ');
+
+		chatRichTextCtrl->SetInsertionPointEnd();
+		chatRichTextCtrl->BeginUnderline();
+		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseModeTerm"]);
+		chatRichTextCtrl->EndUnderline();
+
+		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseMode3"] + '\n');
+
+		chatRichTextCtrl->SetInsertionPointEnd();
+		chatRichTextCtrl->BeginUnderline();
+		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseModeRead"]);
+		chatRichTextCtrl->EndUnderline();
+
+		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseMode4"]);
+
+		chatRichTextCtrl->SetInsertionPointEnd();
+		chatRichTextCtrl->BeginUnderline();
+		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseModeMean"] + '\n');
+		chatRichTextCtrl->EndUnderline();
+	}
+	else if (currentVocabOrKanji == KANJI)
+	{
+		chatRichTextCtrl->EndUnderline();
+		chatRichTextCtrl->WriteText('\n');
+		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseMode"]);
+
+		chatRichTextCtrl->BeginBold();
+		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseModeKan"] + '\n');
+		chatRichTextCtrl->EndBold();
+
+		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseMode2"] + ' ');
+
+		chatRichTextCtrl->BeginUnderline();
+		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseModeTerm"]);
+		chatRichTextCtrl->EndUnderline();
+
+		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseMode3"] + '\n');
+
+		chatRichTextCtrl->BeginUnderline();
+		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseModeRead"]);
+		chatRichTextCtrl->EndUnderline();
+
+		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseMode4"]);
+
+		chatRichTextCtrl->BeginUnderline();
+		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseModeMean"] + '\n');
+		chatRichTextCtrl->EndUnderline();
+	}
+
+}
+
+void MainFrame::DoNotUnderstandAnswer()
+{
+	//chatRichTextCtrl->SetInsertionPointEnd();
+	chatRichTextCtrl->EndUnderline();
+	chatRichTextCtrl->WriteText('\n');
+	chatRichTextCtrl->WriteText('\n' + currentLang[L"DoNotUnderstand"]);
+	chatRichTextCtrl->WriteText('\n');
+	chatRichTextCtrl->WriteText('\n');
+}
+
+bool MainFrame::CheckAnswerArrays(wxString variants[], wxString answ)
+{
+	for (int i = 0; i < variants->size(); i++)
+	{
+		if (variants[i] == answ)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
 // 
@@ -516,7 +696,6 @@ MainFrame::MainFrame(const wxString& title)
 	TransferModules(modules);
 
 	// temp testing stuff, delete later
-	WriteInitialGreeting();
 
 	//FileHandler::UpdateUserSettingsMap("Language", "ru", userSettings);
 	//wxString title9 = moduleVector[0].GetModuleName();
@@ -526,4 +705,9 @@ MainFrame::MainFrame(const wxString& title)
 	
 	this->Centre(wxBOTH);
 	this->SetMinClientSize(wxSize(640, 480));
+	
+	WriteInitialGreeting();
+	//ChattingLoop();
 }
+
+
