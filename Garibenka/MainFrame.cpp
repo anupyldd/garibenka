@@ -81,7 +81,7 @@ void MainFrame::CreateControls()
 	answerAreaSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	answerAreaSizer->SetMinSize(wxSize(-1, 80));
-	answerInputTextCtrl = new wxTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	answerInputTextCtrl = new wxTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
 	answerInputTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	answerAreaSizer->Add(answerInputTextCtrl, 1, wxALL | wxEXPAND, 5);
 
@@ -243,6 +243,7 @@ void MainFrame::BindEventHandlers()
 	//chatRichTextCtrl->Bind(wxEVT_SET_FOCUS, &MainFrame::KillChatRichTextFocus, this);
 	studyBtn->Bind(wxEVT_BUTTON, &MainFrame::ChooseModule, this);
 	answerSendBtn->Bind(wxEVT_BUTTON, &MainFrame::ReadAnswer, this);
+	answerInputTextCtrl->Bind(wxEVT_TEXT_ENTER, &MainFrame::ReadAnswerOnEnter, this);
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
@@ -538,16 +539,38 @@ void MainFrame::WriteInitialGreeting()
 
 void MainFrame::ReadAnswer(wxCommandEvent& event)
 {
-	/*chatRichTextCtrl->SetInsertionPointEnd();
-	chatRichTextCtrl->EndBold();
-	chatRichTextCtrl->EndUnderline();
+	htmlContents += "<br><html><body>";
+	htmlContents += "<div ALIGN = \"RIGHT\">";
+	htmlContents += answerInputTextCtrl->GetValue();
+	htmlContents += "</div></body></html><br><br>";
+	chatHtmlWindow->SetPage(htmlContents);
 
-	chatRichTextCtrl->WriteText('\n');
-	chatRichTextCtrl->BeginAlignment(wxTEXT_ALIGNMENT_RIGHT);
-	chatRichTextCtrl->WriteText(answerInputTextCtrl->GetValue());
-	chatRichTextCtrl->WriteText('\n');
-	chatRichTextCtrl->EndAlignment();*/
+	switch (userState)
+	{
+	case CHOOSING_MODULE:
+		break;
+	case CHOOSING_VOC_OR_KAN:
+		ProcessAnswerWhenVocOrKan();
+		break;
+	case CHOOSING_MODE:
+		ProcessAnswerWhenMode();
+		break;
+	case CHOOSING_ASK_BY:
+		//ProcessAnswerWhenAskBy();
+		break;
+	case STUDYING:
+		//ProcessAnswerWhenStudy();
+		break;
+	default:
+		break;
+	}
 
+	//chatRichTextCtrl->ShowPosition(chatRichTextCtrl->GetLastPosition());
+	answerInputTextCtrl->Clear();
+}
+
+void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
+{
 	htmlContents += "<br><html><body>";
 	htmlContents += "<div ALIGN = \"RIGHT\">";
 	htmlContents += answerInputTextCtrl->GetValue();
@@ -832,13 +855,6 @@ void MainFrame::ProcessAnswerWhenMode()
 
 void MainFrame::DoNotUnderstandAnswer()
 {
-	/*chatRichTextCtrl->SetInsertionPointEnd();
-	chatRichTextCtrl->EndUnderline();
-	chatRichTextCtrl->WriteText('\n');
-	chatRichTextCtrl->WriteText('\n' + currentLang[L"DoNotUnderstand"]);
-	chatRichTextCtrl->WriteText('\n');
-	chatRichTextCtrl->WriteText('\n');*/
-
 	htmlContents += "<html><body>";
 	htmlContents+= currentLang[L"DoNotUnderstand"];
 	htmlContents += "</body></html>";

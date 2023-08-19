@@ -93,6 +93,7 @@ private:
 	void ChooseAskBy();
 
 	void ReadAnswer(wxCommandEvent& event);
+	void ReadAnswerOnEnter(wxCommandEvent& event);
 	void ProcessAnswerWhenVocOrKan();
 	void ProcessAnswerWhenMode();
 	void ProcessAnswerWhenAskBy();
