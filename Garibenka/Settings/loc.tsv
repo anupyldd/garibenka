@@ -38,7 +38,7 @@ GreetingStudy	«Изучать».	“Study”.
 -	-	-
 VocabOrKanji1	Отлично! Сегодня рассмотрим модуль	Great, today we will look at
 VocabOrKanji2	Ты хочешь изучить	Do you want to study
-VocabOrKanjiVoc	лексику	terms
+VocabOrKanjiVoc	лексику	vocabulary
 VocabOrKanji3	 или 	 or 
 VocabOrKanjiKan	кандзи?	kanji?
 -	-	-
@@ -61,6 +61,7 @@ StartKanjiChooseMode4	  или 	 or
 StartKanjiChooseModeMean	значениях?	meanings?
 -	-	-
 SelectTermAskBy1	Выбрана категория	Selected category 
+SelectTermAskByCatTerm	термины	term
 SelectTermAskBy2	. Как мне тебя	. Do you want me to ask you
 SelectTermAskBy3	спрашивать, по	by 
 SelectTermAskByRead	чтениям	reading
@@ -68,6 +69,7 @@ SelectTermAskBy4	 или 	 or by
 SelectTermAskByMean	значениям?	meaning?
 -	-	-
 SelectReadAskBy1	Выбрана категория	Selected category 
+SelectReadAskByCatRead	чтения	reading
 SelectReadAskBy2	. Как мне тебя	. Do you want me to ask you
 SelectReadAskBy3	спрашивать, по 	by 
 SelectReadAskByTerm	терминам	term
@@ -75,6 +77,7 @@ SelectReadAskBy4	 или 	 or by
 SelectReadAskByMean	значениям?	meaning?
 -	-	-
 SelectMeanAskBy1	Выбрана категория	Selected category 
+SelectMeanAskByCatMean	значения	meaning
 SelectMeanAskBy2	. Как мне тебя	. Do you want me to ask you
 SelectMeanAskBy3	спрашивать, по 	by 
 SelectMeanAskByTerm	терминам	term

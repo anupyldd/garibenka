@@ -398,6 +398,11 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	{
 		return;
 	}
+
+	if (userState != CHOOSING_MODULE)
+	{
+		return;
+	}
 	
 	long item = -1;
 	userState = CHOOSING_VOC_OR_KAN;
@@ -454,29 +459,6 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	htmlContents += "</u></body></html>";
 
 	chatHtmlWindow->SetPage(htmlContents);
-	/*chatRichTextCtrl->SetInsertionPointEnd();
-	chatRichTextCtrl->WriteText("\n");
-
-	chatRichTextCtrl->SetInsertionPointEnd();
-	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanji1"] + ' ');
-
-	chatRichTextCtrl->BeginBold();
-	chatRichTextCtrl->WriteText(currentModule.GetModuleName() + '.');
-	chatRichTextCtrl->EndBold();
-
-	chatRichTextCtrl->WriteText('\n' + currentLang[L"VocabOrKanji2"] + ' ');
-
-	chatRichTextCtrl->BeginUnderline();
-	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanjiVoc"]);
-	chatRichTextCtrl->EndUnderline();
-
-	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanji3"]);
-
-	chatRichTextCtrl->BeginUnderline();
-	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanjiKan"]);
-	chatRichTextCtrl->EndUnderline();*/
-
-	//chatHtmlWindow->SetPage(wxT("<H1>MY Report</H1><BR>"));
 	
 }
 
@@ -580,7 +562,7 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 		ProcessAnswerWhenVocOrKan();
 		break;
 	case CHOOSING_MODE:
-		//ProcessAnswerWhenMode();
+		ProcessAnswerWhenMode();
 		break;
 	case CHOOSING_ASK_BY:
 		//ProcessAnswerWhenAskBy();
@@ -598,6 +580,9 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 
 void MainFrame::ProcessAnswerWhenVocOrKan()
 {
+	auto rd = std::random_device{};
+	auto rng = std::default_random_engine{ rd() };
+
 	wxString answer;
 	answer = answerInputTextCtrl->GetValue();
 	if (answer.empty())
@@ -609,12 +594,14 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 	if (CheckAnswerArrays(vocab, answer))
 	{
 		currentVocabOrKanji = VOCAB;
+		currentSymbols = currentModule.GetWordList();
 		//gotAnswer = true;
 		userState = CHOOSING_MODE;
 	}
 	else if (CheckAnswerArrays(kanji, answer))
 	{
 		currentVocabOrKanji = KANJI;
+		currentSymbols = currentModule.GetKanjiList();
 		//gotAnswer = true;
 		userState = CHOOSING_MODE;
 	}
@@ -699,6 +686,12 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 		
 	}
 
+	if (currentVocabOrKanji != NOT_CHOSEN)
+	{
+		std::shuffle(std::begin(currentSymbols), std::end(currentSymbols), rng);
+	}
+	//gotAnswer = false;
+		
 }
 
 void MainFrame::ProcessAnswerWhenMode()
@@ -712,20 +705,129 @@ void MainFrame::ProcessAnswerWhenMode()
 
 	if (CheckAnswerArrays(terms, answer))
 	{
-
+		currentMode = TERM;
+		userState = CHOOSING_ASK_BY;
 	}
 	else if (CheckAnswerArrays(readings, answer))
 	{
-
+		currentMode = READING;
+		userState = CHOOSING_ASK_BY;
 	}
 	else if (CheckAnswerArrays(meanings, answer))
 	{
-
+		currentMode = MEANING;
+		userState = CHOOSING_ASK_BY;
 	}
 	else
 	{
 		DoNotUnderstandAnswer();
+		currentMode = MODE_NOT_CHOSEN;
 	}
+
+	// chat reply
+	switch (currentMode)
+	{
+	case MainFrame::TERM:
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectTermAskBy1"] + ' ';
+		htmlContents += "</body></html>";
+
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"SelectTermAskByCatTerm"];
+		htmlContents += "</b></body></html>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectTermAskBy2"];
+		htmlContents += "</body></html><br>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectTermAskBy3"];
+		htmlContents += "</body></html>";
+
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"SelectTermAskByRead"];
+		htmlContents += "</u></body></html>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectTermAskBy4"];
+		htmlContents += "</body></html>";
+
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"SelectTermAskByMean"];
+		htmlContents += "</u></body></html>";
+
+		chatHtmlWindow->SetPage(htmlContents);
+
+		break;
+	case MainFrame::READING:
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectReadAskBy1"] + ' ';
+		htmlContents += "</body></html>";
+
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"SelectReadAskByCatRead"];
+		htmlContents += "</b></body></html>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectReadAskBy2"];
+		htmlContents += "</body></html><br>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectReadAskBy3"];
+		htmlContents += "</body></html>";
+
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"SelectReadAskByTerm"];
+		htmlContents += "</u></body></html>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectReadAskBy4"];
+		htmlContents += "</body></html>";
+
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"SelectReadAskByMean"];
+		htmlContents += "</u></body></html>";
+
+		chatHtmlWindow->SetPage(htmlContents);
+
+		break;
+	case MainFrame::MEANING:
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectMeanAskBy1"] + ' ';
+		htmlContents += "</body></html>";
+
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"SelectMeanAskByCatMean"];
+		htmlContents += "</b></body></html>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectMeanAskBy2"];
+		htmlContents += "</body></html><br>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectMeanAskBy3"];
+		htmlContents += "</body></html>";
+
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"SelectMeanAskByTerm"];
+		htmlContents += "</u></body></html>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"SelectMeanAskBy4"];
+		htmlContents += "</body></html>";
+
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"SelectMeanAskByRead"];
+		htmlContents += "</u></body></html>";
+
+		chatHtmlWindow->SetPage(htmlContents);
+		break;
+	case MainFrame::MODE_NOT_CHOSEN:
+		break;
+	default:
+		break;
+	}
+	
 }
 
 void MainFrame::DoNotUnderstandAnswer()

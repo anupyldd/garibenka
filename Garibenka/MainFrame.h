@@ -35,6 +35,22 @@ private:
 		NOT_CHOSEN
 	};
 
+	enum Mode
+	{
+		TERM,
+		READING,
+		MEANING,
+		MODE_NOT_CHOSEN
+	};
+
+	enum AskBy
+	{
+		BY_TERM,
+		BY_READING,
+		BY_MEANING,
+		ASK_BY_NOT_CHOSEN
+	};
+
 	// for checking answers
 	wxString vocab[4] = { "vocab", "vocabulary", "лексика", "лексику" };
 	wxString kanji[2] = { "kanji", "кандзи"};
@@ -98,9 +114,9 @@ private:
 	//std::wstring currentFile;		// temp for storing names
 
 	Module currentModule;
-	VocOrKan currentVocabOrKanji;	// kanji or words
-	std::wstring currentMode;			// terms, reading, meaning
-	std::wstring currentAskBy;			// by terms, reading, meaning
+	VocOrKan currentVocabOrKanji;		// kanji or words
+	Mode currentMode;					// terms, reading, meaning
+	AskBy currentAskBy;					// by terms, reading, meaning
 	std::vector<Symbol> currentSymbols;	//stores symbols from current active module
 
 	int questionsAsked = 0;
