@@ -68,9 +68,14 @@ void MainFrame::CreateControls()
 	wxBoxSizer* chatAreaSizer;
 	chatAreaSizer = new wxBoxSizer(wxVERTICAL);
 
-	chatRichTextCtrl = new wxRichTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxHSCROLL | wxVSCROLL);
-	chatRichTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-	chatAreaSizer->Add(chatRichTextCtrl, 1, wxEXPAND | wxALL, 5);
+	/*chatRichTextCtrl = new wxRichTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxHSCROLL | wxVSCROLL);
+	chatRichTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));*/
+	
+	chatHtmlWindow = new wxHtmlWindow(chatWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_NO_SELECTION | wxHW_SCROLLBAR_AUTO);
+	chatHtmlWindow->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+	chatAreaSizer->Add(chatHtmlWindow, 1, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 5);
+
+	//chatAreaSizer->Add(chatRichTextCtrl, 1, wxEXPAND | wxALL, 5);
 
 	wxBoxSizer* answerAreaSizer;
 	answerAreaSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -235,7 +240,7 @@ void MainFrame::BindEventHandlers()
 	settingsBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToSettings, this);
 	browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
 	loadFileBtn->Bind(wxEVT_BUTTON, &MainFrame::LoadFile, this);
-	chatRichTextCtrl->Bind(wxEVT_SET_FOCUS, &MainFrame::KillChatRichTextFocus, this);
+	//chatRichTextCtrl->Bind(wxEVT_SET_FOCUS, &MainFrame::KillChatRichTextFocus, this);
 	studyBtn->Bind(wxEVT_BUTTON, &MainFrame::ChooseModule, this);
 	answerSendBtn->Bind(wxEVT_BUTTON, &MainFrame::ReadAnswer, this);
 }
@@ -376,11 +381,11 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 	}
 }
 
-void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
-{
-	answerInputTextCtrl->SetFocus();
-	
-}
+//void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
+//{
+//	answerInputTextCtrl->SetFocus();
+//	chatRichTextCtrl->SetInsertionPointEnd();
+//}
 
 void MainFrame::TransferModules(std::vector<Module> modules)
 {
@@ -424,8 +429,32 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	answerSendBtn->Enable(true);
 
 	// chat reply
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"VocabOrKanji1"] + ' ';
+	htmlContents += "</body></html>";
 
-	chatRichTextCtrl->SetInsertionPointEnd();
+	htmlContents += "<html><body><b>";
+	htmlContents += currentModule.GetModuleName() + '.';
+	htmlContents += "</b></body></html><br>";
+
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"VocabOrKanji2"] + ' ';
+	htmlContents += "</body></html>";
+
+	htmlContents += "<html><body><u>";
+	htmlContents += currentLang[L"VocabOrKanjiVoc"];
+	htmlContents += "</u></body></html>";
+
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"VocabOrKanji3"];
+	htmlContents += "</body></html>";
+
+	htmlContents += "<html><body><u>";
+	htmlContents += currentLang[L"VocabOrKanjiKan"];
+	htmlContents += "</u></body></html>";
+
+	chatHtmlWindow->SetPage(htmlContents);
+	/*chatRichTextCtrl->SetInsertionPointEnd();
 	chatRichTextCtrl->WriteText("\n");
 
 	chatRichTextCtrl->SetInsertionPointEnd();
@@ -445,7 +474,10 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 
 	chatRichTextCtrl->BeginUnderline();
 	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanjiKan"]);
-	chatRichTextCtrl->EndUnderline();
+	chatRichTextCtrl->EndUnderline();*/
+
+	//chatHtmlWindow->SetPage(wxT("<H1>MY Report</H1><BR>"));
+	
 }
 
 void MainFrame::FillCurrentSymbols(std::vector<Module>& modules)
@@ -499,34 +531,47 @@ void MainFrame::ChooseVocabOrKanji()
 
 void MainFrame::WriteInitialGreeting()
 {
-	chatRichTextCtrl->WriteText(currentLang[L"Greeting1"] + '\n');
-	
-	chatRichTextCtrl->SetInsertionPointEnd();
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"Greeting1"];
+	htmlContents += "</body></html><br>";
 
-	chatRichTextCtrl->WriteText(currentLang[L"Greeting2"] + '\n');
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"Greeting2"];
+	htmlContents += "</body></html><br>";
 
-	chatRichTextCtrl->SetInsertionPointEnd();
+	htmlContents += "<html><body><b>";
+	htmlContents += currentLang[L"GreetingFiles"];
+	htmlContents += "</b></body></html>";
 
-	chatRichTextCtrl->BeginBold();
-	chatRichTextCtrl->WriteText(currentLang[L"GreetingFiles"]);
-	chatRichTextCtrl->EndBold();
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"Greeting3"];
+	htmlContents += "</body></html>";
 
+	htmlContents += "<html><body><b>";
+	htmlContents += currentLang[L"GreetingStudy"];
+	htmlContents += "</b></body></html><br><br>";
 
-	chatRichTextCtrl->EndBold();
-
-	chatRichTextCtrl->WriteText(currentLang[L"Greeting3"]);
-
-	chatRichTextCtrl->SetInsertionPointEnd();
-
-	chatRichTextCtrl->BeginBold();
-	chatRichTextCtrl->WriteText(currentLang[L"GreetingStudy"] + '\n');
-	chatRichTextCtrl->EndBold();
-
-	chatRichTextCtrl->WriteText('\n');
+	chatHtmlWindow->SetPage(htmlContents);
 }
 
 void MainFrame::ReadAnswer(wxCommandEvent& event)
 {
+	/*chatRichTextCtrl->SetInsertionPointEnd();
+	chatRichTextCtrl->EndBold();
+	chatRichTextCtrl->EndUnderline();
+
+	chatRichTextCtrl->WriteText('\n');
+	chatRichTextCtrl->BeginAlignment(wxTEXT_ALIGNMENT_RIGHT);
+	chatRichTextCtrl->WriteText(answerInputTextCtrl->GetValue());
+	chatRichTextCtrl->WriteText('\n');
+	chatRichTextCtrl->EndAlignment();*/
+
+	htmlContents += "<br><html><body>";
+	htmlContents += "<div ALIGN = \"RIGHT\">";
+	htmlContents += answerInputTextCtrl->GetValue();
+	htmlContents += "</div></body></html><br><br>";
+	chatHtmlWindow->SetPage(htmlContents);
+
 	switch (userState)
 	{
 	case CHOOSING_MODULE:
@@ -547,6 +592,7 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 		break;
 	}
 
+	//chatRichTextCtrl->ShowPosition(chatRichTextCtrl->GetLastPosition());
 	answerInputTextCtrl->Clear();
 }
 
@@ -563,13 +609,13 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 	if (CheckAnswerArrays(vocab, answer))
 	{
 		currentVocabOrKanji = VOCAB;
-		gotAnswer = true;
+		//gotAnswer = true;
 		userState = CHOOSING_MODE;
 	}
 	else if (CheckAnswerArrays(kanji, answer))
 	{
 		currentVocabOrKanji = KANJI;
-		gotAnswer = true;
+		//gotAnswer = true;
 		userState = CHOOSING_MODE;
 	}
 	else
@@ -580,77 +626,121 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 
 	if (currentVocabOrKanji == VOCAB)
 	{
-		//chatRichTextCtrl->SetInsertionPointEnd();
-		chatRichTextCtrl->EndUnderline();
-		chatRichTextCtrl->WriteText('\n');
-		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseMode"]);
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"StartVocabChooseMode"];
+		htmlContents += "</body></html>";
 
-		chatRichTextCtrl->SetInsertionPointEnd();
-		chatRichTextCtrl->BeginBold();
-		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseModeVoc"] + '\n');
-		chatRichTextCtrl->EndBold();
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"StartVocabChooseModeVoc"];
+		htmlContents += "</b></body></html><br>";
 
-		chatRichTextCtrl->SetInsertionPointEnd();
-		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseMode2"] + ' ');
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"StartVocabChooseMode2"] + ' ';
+		htmlContents += "</body></html>";
 
-		chatRichTextCtrl->SetInsertionPointEnd();
-		chatRichTextCtrl->BeginUnderline();
-		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseModeTerm"]);
-		chatRichTextCtrl->EndUnderline();
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"StartVocabChooseModeTerm"];
+		htmlContents += "</u></body></html>";
 
-		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseMode3"] + '\n');
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"StartVocabChooseMode3"];
+		htmlContents += "</body></html><br>";
 
-		chatRichTextCtrl->SetInsertionPointEnd();
-		chatRichTextCtrl->BeginUnderline();
-		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseModeRead"]);
-		chatRichTextCtrl->EndUnderline();
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"StartVocabChooseModeRead"];
+		htmlContents += "</u></body></html>";
 
-		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseMode4"]);
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"StartVocabChooseMode4"];
+		htmlContents += "</body></html>";
 
-		chatRichTextCtrl->SetInsertionPointEnd();
-		chatRichTextCtrl->BeginUnderline();
-		chatRichTextCtrl->WriteText(currentLang[L"StartVocabChooseModeMean"] + '\n');
-		chatRichTextCtrl->EndUnderline();
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"StartVocabChooseModeMean"];
+		htmlContents += "</u></body></html>";
+
+		chatHtmlWindow->SetPage(htmlContents);
+		
 	}
 	else if (currentVocabOrKanji == KANJI)
 	{
-		chatRichTextCtrl->EndUnderline();
-		chatRichTextCtrl->WriteText('\n');
-		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseMode"]);
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"StartVocabChooseMode"];
+		htmlContents += "</body></html>";
 
-		chatRichTextCtrl->BeginBold();
-		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseModeKan"] + '\n');
-		chatRichTextCtrl->EndBold();
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"StartVocabChooseModeKan"];
+		htmlContents += "</b></body></html><br>";
 
-		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseMode2"] + ' ');
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"StartVocabChooseMode2"] + ' ';
+		htmlContents += "</body></html>";
 
-		chatRichTextCtrl->BeginUnderline();
-		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseModeTerm"]);
-		chatRichTextCtrl->EndUnderline();
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"StartVocabChooseModeTerm"];
+		htmlContents += "</u></body></html>";
 
-		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseMode3"] + '\n');
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"StartVocabChooseMode3"];
+		htmlContents += "</body></html><br>";
 
-		chatRichTextCtrl->BeginUnderline();
-		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseModeRead"]);
-		chatRichTextCtrl->EndUnderline();
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"StartVocabChooseModeRead"];
+		htmlContents += "</u></body></html>";
 
-		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseMode4"]);
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"StartVocabChooseMode4"];
+		htmlContents += "</body></html>";
 
-		chatRichTextCtrl->BeginUnderline();
-		chatRichTextCtrl->WriteText(currentLang[L"StartKanjiChooseModeMean"] + '\n');
-		chatRichTextCtrl->EndUnderline();
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"StartVocabChooseModeMean"];
+		htmlContents += "</u></body></html>";
+
+		chatHtmlWindow->SetPage(htmlContents);
+		
 	}
 
 }
 
+void MainFrame::ProcessAnswerWhenMode()
+{
+	wxString answer;
+	answer = answerInputTextCtrl->GetValue();
+	if (answer.empty())
+	{
+		return;
+	}
+
+	if (CheckAnswerArrays(terms, answer))
+	{
+
+	}
+	else if (CheckAnswerArrays(readings, answer))
+	{
+
+	}
+	else if (CheckAnswerArrays(meanings, answer))
+	{
+
+	}
+	else
+	{
+		DoNotUnderstandAnswer();
+	}
+}
+
 void MainFrame::DoNotUnderstandAnswer()
 {
-	//chatRichTextCtrl->SetInsertionPointEnd();
+	/*chatRichTextCtrl->SetInsertionPointEnd();
 	chatRichTextCtrl->EndUnderline();
 	chatRichTextCtrl->WriteText('\n');
 	chatRichTextCtrl->WriteText('\n' + currentLang[L"DoNotUnderstand"]);
 	chatRichTextCtrl->WriteText('\n');
-	chatRichTextCtrl->WriteText('\n');
+	chatRichTextCtrl->WriteText('\n');*/
+
+	htmlContents += "<html><body>";
+	htmlContents+= currentLang[L"DoNotUnderstand"];
+	htmlContents += "</body></html>";
+	chatHtmlWindow->SetPage(htmlContents);
 }
 
 bool MainFrame::CheckAnswerArrays(wxString variants[], wxString answ)

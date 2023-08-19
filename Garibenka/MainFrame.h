@@ -11,6 +11,8 @@
 #include <wx/richtext/richtextctrl.h>
 #include <algorithm>
 #include <random>
+#include <wx/html/htmlwin.h>
+#include <wx/wxhtml.h.>
 
 
 
@@ -36,7 +38,7 @@ private:
 	// for checking answers
 	wxString vocab[4] = { "vocab", "vocabulary", "лексика", "лексику" };
 	wxString kanji[2] = { "kanji", "кандзи"};
-	wxString terms[4] = { "term", "terms", "термины", "терминах"};
+	wxString terms[7] = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам"};
 	wxString readings[7] = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям"};
 	wxString meanings[7] = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям"};
 
@@ -85,6 +87,8 @@ private:
 
 private:
 
+	wxString htmlContents = "";
+
 	bool gotAnswer = false;
 
 	std::vector<Module> localModules;	// bandaid because i fucked up and dont want to remake the whole thing
@@ -99,6 +103,8 @@ private:
 	std::wstring currentAskBy;			// by terms, reading, meaning
 	std::vector<Symbol> currentSymbols;	//stores symbols from current active module
 
+	int questionsAsked = 0;
+
 	wxPanel* leftPanel;
 	wxBitmapButton* botBtn;
 	wxBitmapButton* profileBtn;
@@ -108,6 +114,7 @@ private:
 	wxSimplebook* genWorkingAreaBook;
 	wxPanel* chatWorkingAreaPanel;
 	wxRichTextCtrl* chatRichTextCtrl;
+	wxHtmlWindow* chatHtmlWindow;
 	wxTextCtrl* answerInputTextCtrl;
 	wxBitmapButton* answerSendBtn;
 	wxPanel* profileWorkingAreaPanel;
