@@ -12,9 +12,36 @@
 #include <algorithm>
 #include <random>
 
+
+
 class MainFrame : public wxFrame
 {
 private:
+	enum State
+	{
+		CHOOSING_MODULE,		// when no module has yet been selected
+		CHOOSING_VOC_OR_KAN,	// when module has just been selected
+		CHOOSING_MODE,			// when user has chosen voc or kan
+		CHOOSING_ASK_BY,		// when choosing, what to ask by
+		STUDYING				// when all is set up
+	};
+
+	enum VocOrKan
+	{
+		VOCAB,
+		KANJI,
+		NOT_CHOSEN
+	};
+
+	// for checking answers
+	wxString vocab[4] = { "vocab", "vocabulary", "лексика", "лексику" };
+	wxString kanji[2] = { "kanji", "кандзи"};
+	wxString terms[4] = { "term", "terms", "термины", "терминах"};
+	wxString readings[7] = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям"};
+	wxString meanings[7] = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям"};
+
+private:
+
 	void CreateControls();
 	void BindEventHandlers();
 
@@ -46,21 +73,31 @@ private:
 	void ChooseVocabOrKanji();
 	void ChooseStudyMode();
 	void ChooseAskBy();
-	void ReadAnswer();
+
+	void ReadAnswer(wxCommandEvent& event);
+	void ProcessAnswerWhenVocOrKan();
+	void ProcessAnswerWhenMode();
+	void ProcessAnswerWhenAskBy();
+	void ProcessAnswerWhenStudy();
+	void DoNotUnderstandAnswer();
+
+	bool CheckAnswerArrays(wxString variants[], wxString answ);
 
 private:
 
+	bool gotAnswer = false;
+
 	std::vector<Module> localModules;	// bandaid because i fucked up and dont want to remake the whole thing
 
-	bool isStudying = false;
+	State userState = CHOOSING_MODULE;
 	//std::wstring currentModule;		// temp for storing names
 	//std::wstring currentFile;		// temp for storing names
 
 	Module currentModule;
-	std::wstring currentVocabOrKanji;	// kanji or words
+	VocOrKan currentVocabOrKanji;	// kanji or words
 	std::wstring currentMode;			// terms, reading, meaning
 	std::wstring currentAskBy;			// by terms, reading, meaning
-	static std::vector<std::wstring> currentSymbols;	//stores symbols from current active module
+	std::vector<Symbol> currentSymbols;	//stores symbols from current active module
 
 	wxPanel* leftPanel;
 	wxBitmapButton* botBtn;

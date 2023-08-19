@@ -91,3 +91,5 @@ Answer 	, напиши 	, what is the
 CorrectAnswer	Супер, ответ верный!	Great, this is the correct answer!
 WrongAnswer1	К сожалению, ответ неверный.	Unfortunately, this is wrong.
 WrongAnswer2	Правильный ответ:	The correct answer is:
+-	-	-
+DoNotUnderstand	Извини, не понимаю твой ответ.	Sorry, I don't understand you.
