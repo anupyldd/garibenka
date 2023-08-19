@@ -77,6 +77,7 @@ void MainFrame::CreateControls()
 
 	answerAreaSizer->SetMinSize(wxSize(-1, 80));
 	answerInputTextCtrl = new wxTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	answerInputTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	answerAreaSizer->Add(answerInputTextCtrl, 1, wxALL | wxEXPAND, 5);
 
 	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
@@ -401,8 +402,16 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 		if (item == -1)
 			break;
 
-		currentModule = filesListCtrl->GetItemText(item, 1);
-		currentFile = filesListCtrl->GetItemText(item, 0);
+		/*currentModule = filesListCtrl->GetItemText(item, 1);
+		currentFile = filesListCtrl->GetItemText(item, 0);*/
+		for (auto mod : modules)
+		{
+			if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 1) && 
+				mod.GetFileName() == filesListCtrl->GetItemText(item, 0))
+			{
+				currentModule = mod;
+			}
+		}
 	}
 
 	genWorkingAreaBook->ChangeSelection(0);
@@ -422,7 +431,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	chatRichTextCtrl->WriteText(currentLang[L"VocabOrKanji1"] + ' ');
 
 	chatRichTextCtrl->BeginBold();
-	chatRichTextCtrl->WriteText(currentModule + '.');
+	chatRichTextCtrl->WriteText(currentModule.GetModuleName() + '.');
 	chatRichTextCtrl->EndBold();
 
 	chatRichTextCtrl->WriteText('\n' + currentLang[L"VocabOrKanji2"] + ' ');
@@ -446,14 +455,14 @@ void MainFrame::FillCurrentSymbols(std::vector<Module>& modules)
 
 	
 	
-	for (auto mod : modules)
+	/*for (auto mod : modules)
 	{
 		if (mod.GetModuleName() == currentModule && mod.GetFileName() == currentFile)
 		{
 			
 			
 		}
-	}
+	}*/
 }
 
 

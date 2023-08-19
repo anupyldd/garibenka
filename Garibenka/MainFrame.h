@@ -53,9 +53,10 @@ private:
 	std::vector<Module> localModules;	// bandaid because i fucked up and dont want to remake the whole thing
 
 	bool isStudying = false;
-	std::wstring currentModule;		// temp for storing names
-	std::wstring currentFile;		// temp for storing names
+	//std::wstring currentModule;		// temp for storing names
+	//std::wstring currentFile;		// temp for storing names
 
+	Module currentModule;
 	std::wstring currentVocabOrKanji;	// kanji or words
 	std::wstring currentMode;			// terms, reading, meaning
 	std::wstring currentAskBy;			// by terms, reading, meaning
