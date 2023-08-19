@@ -13,6 +13,7 @@
 #include <random>
 #include <wx/html/htmlwin.h>
 #include <wx/wxhtml.h.>
+#include <iterator> 
 
 
 
@@ -53,11 +54,11 @@ private:
 	};
 
 	// for checking answers
-	wxString vocab[4] = { "vocab", "vocabulary", "лексика", "лексику" };
-	wxString kanji[2] = { "kanji", "кандзи"};
-	wxString terms[7] = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам"};
-	wxString readings[7] = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям"};
-	wxString meanings[7] = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям"};
+	std::vector<wxString> vocab = { "vocab", "vocabulary", "лексика", "лексику", "words", "слова"};
+	std::vector<wxString> kanji = { "kanji", "kan", "кандзи", "иероглифы"};
+	std::vector<wxString> terms = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам"};
+	std::vector<wxString>  readings = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям"};
+	std::vector<wxString>  meanings = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям"};
 
 private:
 
@@ -102,7 +103,7 @@ private:
 	void ProcessAnswerWhenStudy();
 	void DoNotUnderstandAnswer();
 
-	bool CheckAnswerArrays(wxString variants[], wxString answ);
+	bool CheckAnswerArrays(std::vector<wxString> variants, wxString answ);
 
 private:
 

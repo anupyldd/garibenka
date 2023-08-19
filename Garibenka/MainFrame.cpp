@@ -486,32 +486,6 @@ void MainFrame::ChooseVocabOrKanji()
 }
 
 
-//void MainFrame::ChattingLoop()
-//{
-//	//while (true)
-//	//{
-//	//	switch (userState)
-//	//	{
-//	//	case CHOOSING_MODULE:
-//	//		break;
-//	//	case CHOOSING_VOC_OR_KAN:
-//	//		ChooseVocabOrKanji();
-//	//		break;
-//	//	case CHOOSING_MODE:
-//	//		//ChooseStudyMode();
-//	//		break;
-//	//	case CHOOSING_ASK_BY:
-//	//		//ChooseAskBy();
-//	//		break;
-//	//	case STUDYING:
-//	//		//StudyLoop();
-//	//		break;
-//	//	default:
-//	//		break;
-//	//	}
-//	//}
-//}
-
 void MainFrame::WriteInitialGreeting()
 {
 	htmlContents += "<html><body>";
@@ -680,35 +654,35 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 	else if (currentVocabOrKanji == KANJI)
 	{
 		htmlContents += "<html><body>";
-		htmlContents += currentLang[L"StartVocabChooseMode"];
+		htmlContents += currentLang[L"StartKanjiChooseMode"];
 		htmlContents += "</body></html>";
 
 		htmlContents += "<html><body><b>";
-		htmlContents += currentLang[L"StartVocabChooseModeKan"];
+		htmlContents += currentLang[L"StartKanjiChooseModeKan"];
 		htmlContents += "</b></body></html><br>";
 
 		htmlContents += "<html><body>";
-		htmlContents += currentLang[L"StartVocabChooseMode2"] + ' ';
+		htmlContents += currentLang[L"StartKanjiChooseMode2"] + ' ';
 		htmlContents += "</body></html>";
 
 		htmlContents += "<html><body><u>";
-		htmlContents += currentLang[L"StartVocabChooseModeTerm"];
+		htmlContents += currentLang[L"StartKanjiChooseModeTerm"];
 		htmlContents += "</u></body></html>";
 
 		htmlContents += "<html><body>";
-		htmlContents += currentLang[L"StartVocabChooseMode3"];
+		htmlContents += currentLang[L"StartKanjiChooseMode3"];
 		htmlContents += "</body></html><br>";
 
 		htmlContents += "<html><body><u>";
-		htmlContents += currentLang[L"StartVocabChooseModeRead"];
+		htmlContents += currentLang[L"StartKanjiChooseModeRead"];
 		htmlContents += "</u></body></html>";
 
 		htmlContents += "<html><body>";
-		htmlContents += currentLang[L"StartVocabChooseMode4"];
+		htmlContents += currentLang[L"StartKanjiChooseMode4"];
 		htmlContents += "</body></html>";
 
 		htmlContents += "<html><body><u>";
-		htmlContents += currentLang[L"StartVocabChooseModeMean"];
+		htmlContents += currentLang[L"StartKanjiChooseModeMean"];
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
@@ -1048,16 +1022,18 @@ void MainFrame::DoNotUnderstandAnswer()
 	chatHtmlWindow->SetPage(htmlContents);
 }
 
-bool MainFrame::CheckAnswerArrays(wxString variants[], wxString answ)
+bool MainFrame::CheckAnswerArrays(std::vector<wxString> variants, wxString answ)
 {
-	for (int i = 0; i < variants->size(); i++)
+
+	for (auto var : variants)
 	{
-		if (variants[i] == answ)
+		if (var == answ)
 		{
 			return true;
 		}
 	}
 	return false;
+
 }
 
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
