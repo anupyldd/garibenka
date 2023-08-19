@@ -556,7 +556,10 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 		ProcessAnswerWhenMode();
 		break;
 	case CHOOSING_ASK_BY:
-		//ProcessAnswerWhenAskBy();
+		ProcessAnswerWhenAskBy();
+		break;
+	case GETTING_READY:
+		//ProcessAnswerWhenGettingReady();
 		break;
 	case STUDYING:
 		//ProcessAnswerWhenStudy();
@@ -588,7 +591,10 @@ void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
 		ProcessAnswerWhenMode();
 		break;
 	case CHOOSING_ASK_BY:
-		//ProcessAnswerWhenAskBy();
+		ProcessAnswerWhenAskBy();
+		break;
+	case GETTING_READY:
+		//ProcessAnswerWhenGettingReady();
 		break;
 	case STUDYING:
 		//ProcessAnswerWhenStudy();
@@ -851,6 +857,187 @@ void MainFrame::ProcessAnswerWhenMode()
 		break;
 	}
 	
+}
+
+void MainFrame::ProcessAnswerWhenAskBy()
+{
+	wxString answer;
+	answer = answerInputTextCtrl->GetValue();
+	if (answer.empty())
+	{
+		return;
+	}
+
+	switch (currentMode)
+	{
+	case MainFrame::TERM:
+		if (CheckAnswerArrays(readings, answer))
+		{
+			currentAskBy = BY_READING;
+			userState = GETTING_READY;
+		}
+		else if (CheckAnswerArrays(meanings, answer))
+		{
+			currentAskBy = BY_MEANING;
+			userState = GETTING_READY;
+		}
+		else
+		{
+			DoNotUnderstandAnswer();
+			currentAskBy = ASK_BY_NOT_CHOSEN;
+		}
+		break;
+	case MainFrame::READING:
+		if (CheckAnswerArrays(terms, answer))
+		{
+			currentAskBy = BY_TERM;
+			userState = GETTING_READY;
+		}
+		else if (CheckAnswerArrays(meanings, answer))
+		{
+			currentAskBy = BY_MEANING;
+			userState = GETTING_READY;
+		}
+		else
+		{
+			DoNotUnderstandAnswer();
+			currentAskBy = ASK_BY_NOT_CHOSEN;
+		}
+		break;
+	case MainFrame::MEANING:
+		if (CheckAnswerArrays(terms, answer))
+		{
+			currentAskBy = BY_TERM;
+			userState = GETTING_READY;
+		}
+		else if (CheckAnswerArrays(readings, answer))
+		{
+			currentAskBy = BY_READING;
+			userState = GETTING_READY;
+		}
+		else
+		{
+			DoNotUnderstandAnswer();
+			currentAskBy = ASK_BY_NOT_CHOSEN;
+		}
+		break;
+	case MainFrame::MODE_NOT_CHOSEN:
+		break;
+	default:
+		break;
+	}
+
+	if (currentAskBy != ASK_BY_NOT_CHOSEN)
+	{
+		switch (currentMode)
+	{
+	case MainFrame::TERM:
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"WillAsk1"];
+		htmlContents += "</body></html><br>";
+
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"SelectTermAskByCatTerm"] + ' ';
+		htmlContents += "</b></body></html>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"WillAsk2"];
+		htmlContents += "</body></html>";
+
+		if (currentAskBy == BY_READING)
+		{
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"SelectTermAskByRead"];
+			htmlContents += "</b></body></html><br>";
+		}
+		else if (currentAskBy == BY_MEANING)
+		{
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"SelectTermAskByMean"];
+			htmlContents += "</b></body></html><br>";
+		}
+
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"ShouldStart"];
+		htmlContents += "</u></body></html>";
+
+		chatHtmlWindow->SetPage(htmlContents);
+
+		break;
+	case MainFrame::READING:
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"WillAsk1"];
+		htmlContents += "</body></html><br>";
+
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"SelectReadAskByCatRead"] + ' ';
+		htmlContents += "</b></body></html>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"WillAsk2"];
+		htmlContents += "</body></html>";
+
+		if (currentAskBy == BY_TERM)
+		{
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"SelectReadAskByTerm"];
+			htmlContents += "</b></body></html><br>";
+		}
+		else if (currentAskBy == BY_MEANING)
+		{
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"SelectTermAskByMean"];
+			htmlContents += "</b></body></html><br>";
+		}
+
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"ShouldStart"];
+		htmlContents += "</u></body></html>";
+
+		chatHtmlWindow->SetPage(htmlContents);
+
+		break;
+	case MainFrame::MEANING:
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"WillAsk1"];
+		htmlContents += "</body></html><br>";
+
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"SelectMeanAskByCatMean"] + ' ';
+		htmlContents += "</b></body></html>";
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"WillAsk2"];
+		htmlContents += "</body></html>";
+
+		if (currentAskBy == BY_TERM)
+		{
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"SelectReadAskByTerm"];
+			htmlContents += "</b></body></html><br>";
+		}
+		else if (currentAskBy == BY_READING)
+		{
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"SelectTermAskByRead"];
+			htmlContents += "</b></body></html><br>";
+		}
+
+		htmlContents += "<html><body><u>";
+		htmlContents += currentLang[L"ShouldStart"];
+		htmlContents += "</u></body></html>";
+
+		chatHtmlWindow->SetPage(htmlContents);
+
+		break;
+	case MainFrame::MODE_NOT_CHOSEN:
+		break;
+	default:
+		break;
+	}
+	}
 }
 
 void MainFrame::DoNotUnderstandAnswer()

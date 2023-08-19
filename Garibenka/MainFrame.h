@@ -25,6 +25,7 @@ private:
 		CHOOSING_VOC_OR_KAN,	// when module has just been selected
 		CHOOSING_MODE,			// when user has chosen voc or kan
 		CHOOSING_ASK_BY,		// when choosing, what to ask by
+		GETTING_READY,			// when asked if should start
 		STUDYING				// when all is set up
 	};
 
@@ -97,6 +98,7 @@ private:
 	void ProcessAnswerWhenVocOrKan();
 	void ProcessAnswerWhenMode();
 	void ProcessAnswerWhenAskBy();
+	void ProcessAnswerWhenGettingReady();
 	void ProcessAnswerWhenStudy();
 	void DoNotUnderstandAnswer();
 
@@ -115,10 +117,10 @@ private:
 	//std::wstring currentFile;		// temp for storing names
 
 	Module currentModule;
-	VocOrKan currentVocabOrKanji;		// kanji or words
-	Mode currentMode;					// terms, reading, meaning
-	AskBy currentAskBy;					// by terms, reading, meaning
-	std::vector<Symbol> currentSymbols;	//stores symbols from current active module
+	VocOrKan currentVocabOrKanji;			// kanji or words
+	Mode currentMode = MODE_NOT_CHOSEN;		// terms, reading, meaning
+	AskBy currentAskBy = ASK_BY_NOT_CHOSEN;	// by terms, reading, meaning
+	std::vector<Symbol> currentSymbols;		//stores symbols from current active module
 
 	int questionsAsked = 0;
 
