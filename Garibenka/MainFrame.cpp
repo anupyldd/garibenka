@@ -1121,28 +1121,7 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 	htmlContents += currentLang[L"Given"];
 	htmlContents += "</body></html>";
 
-	/*switch (currentMode)
-	{
-	case MainFrame::TERM:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetSymbol();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::READING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetReading();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::MEANING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetMeaning();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::MODE_NOT_CHOSEN:
-		break;
-	default:
-		break;
-	}*/
+	
 
 	switch (currentAskBy)
 	{
@@ -1386,6 +1365,26 @@ void MainFrame::AskQuestion()
 		if (currentMistakes.size() == 0)
 		{
 			ResetStudyOnFinish();
+		}
+		else
+		{
+			currentSymbols = currentMistakes;
+			currentMistakes.clear();
+			currentMistakes.shrink_to_fit();
+
+			currentQuestion = 0;
+
+			htmlContents += "<html><body>";
+			htmlContents += currentLang[L"SomeMistakes1"];
+			htmlContents += "</body></html><br>";
+
+			htmlContents += "<html><body>";
+			htmlContents += currentLang[L"SomeMistakes2"];
+			htmlContents += "</body></html>";
+
+			chatHtmlWindow->SetPage(htmlContents);
+
+			userState = GETTING_READY;
 		}
 	}
 }
