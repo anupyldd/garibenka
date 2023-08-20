@@ -96,3 +96,6 @@ WrongAnswer1	К сожалению, ответ неверный.	Unfortunately, 
 WrongAnswer2	Правильный ответ:	The correct answer is:
 -	-	-
 DoNotUnderstand	Извини, не понимаю твой ответ.	Sorry, I don't understand you.
+-	-	-
+ResetStudy1	Сессия остановлена. Теперь ты можешь выбрать	The session has been stopped. Now you can choose
+ResetStudy2	другой модуль для изучения.	another module to study.

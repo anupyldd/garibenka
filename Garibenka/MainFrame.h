@@ -54,11 +54,12 @@ private:
 	};
 
 	// for checking answers
-	std::vector<wxString> vocab = { "vocab", "vocabulary", "лексика", "лексику", "words", "слова"};
-	std::vector<wxString> kanji = { "kanji", "kan", "кандзи", "иероглифы"};
-	std::vector<wxString> terms = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам"};
-	std::vector<wxString>  readings = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям"};
-	std::vector<wxString>  meanings = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям"};
+	std::vector<wxString> vocab = { "vocab", "vocabulary", "лексика", "лексику", "words", "слова" };
+	std::vector<wxString> kanji = { "kanji", "kan", "кандзи", "иероглифы" };
+	std::vector<wxString> terms = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам" };
+	std::vector<wxString>  readings = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям" };
+	std::vector<wxString>  meanings = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям" };
+	std::vector<wxString> stop = { "!stop", "!стоп" };
 
 private:
 
@@ -96,12 +97,16 @@ private:
 
 	void ReadAnswer(wxCommandEvent& event);
 	void ReadAnswerOnEnter(wxCommandEvent& event);
+
 	void ProcessAnswerWhenVocOrKan();
 	void ProcessAnswerWhenMode();
 	void ProcessAnswerWhenAskBy();
 	void ProcessAnswerWhenGettingReady();
 	void ProcessAnswerWhenStudy();
 	void DoNotUnderstandAnswer();
+
+	bool DetectStop(wxString& answ);
+	void ResetStudy();
 
 	bool CheckAnswerArrays(std::vector<wxString> variants, wxString answ);
 
