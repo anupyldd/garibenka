@@ -89,7 +89,10 @@ WillAsk2	по 	 category by
 ShouldStart	Начнем?	Should we start?
 -	-	-
 Given	Дано 	Given 
-Answer 	, напиши 	, what is the 
+Answer	, напиши 	, what is the 
+AnswerTerm	термин.	term?
+AnswerRead	чтение.	reading?
+AnswerMean	значение.	meaning?
 -	-	-
 CorrectAnswer	Супер, ответ верный!	Great, this is the correct answer!
 WrongAnswer1	К сожалению, ответ неверный.	Unfortunately, this is wrong.

@@ -59,6 +59,7 @@ private:
 	std::vector<wxString> terms = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам" };
 	std::vector<wxString>  readings = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям" };
 	std::vector<wxString>  meanings = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям" };
+	std::vector<wxString> start = { "start","begin","начать", "начнем", "старт" };
 	std::vector<wxString> stop = { "!stop", "!стоп" };
 
 private:
@@ -79,21 +80,21 @@ private:
 	void LoadFile(wxCommandEvent& event);
 	void UpdateModuleList(std::vector<Module>& modules);	// needs fixing, does not update shit
 
-	void KillChatRichTextFocus(wxFocusEvent& event);
+	//void KillChatRichTextFocus(wxFocusEvent& event);
 
 	void TransferModules(std::vector<Module> modules);
 
 private:
 		
-	void ChattingLoop();
-	void StudyLoop();
+	//void ChattingLoop();
+	//void StudyLoop();
 
 	void WriteInitialGreeting();
 	void ChooseModule(wxCommandEvent& event);
 	void FillCurrentSymbols(std::vector<Module>& modules);
 	void ChooseVocabOrKanji();
-	void ChooseStudyMode();
-	void ChooseAskBy();
+	//void ChooseStudyMode();
+	//void ChooseAskBy();
 
 	void ReadAnswer(wxCommandEvent& event);
 	void ReadAnswerOnEnter(wxCommandEvent& event);
@@ -109,6 +110,8 @@ private:
 	void ResetStudy();
 
 	bool CheckAnswerArrays(std::vector<wxString> variants, wxString answ);
+
+	void AskQuestion();
 
 private:
 
@@ -126,9 +129,12 @@ private:
 	VocOrKan currentVocabOrKanji;			// kanji or words
 	Mode currentMode = MODE_NOT_CHOSEN;		// terms, reading, meaning
 	AskBy currentAskBy = ASK_BY_NOT_CHOSEN;	// by terms, reading, meaning
+
 	std::vector<Symbol> currentSymbols;		//stores symbols from current active module
+	std::vector<Symbol> currentMistakes;	//stores symbols that were answered incorrectly in current session
 
 	int questionsAsked = 0;
+	int currentQuestion = 0;
 
 	wxPanel* leftPanel;
 	wxBitmapButton* botBtn;

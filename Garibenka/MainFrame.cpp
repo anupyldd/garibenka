@@ -543,7 +543,7 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 		ProcessAnswerWhenAskBy();
 		break;
 	case GETTING_READY:
-		//ProcessAnswerWhenGettingReady();
+		ProcessAnswerWhenGettingReady();
 		break;
 	case STUDYING:
 		//ProcessAnswerWhenStudy();
@@ -585,7 +585,7 @@ void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
 		ProcessAnswerWhenAskBy();
 		break;
 	case GETTING_READY:
-		//ProcessAnswerWhenGettingReady();
+		ProcessAnswerWhenGettingReady();
 		break;
 	case STUDYING:
 		//ProcessAnswerWhenStudy();
@@ -1061,6 +1061,76 @@ void MainFrame::ProcessAnswerWhenAskBy()
 	}
 }
 
+void MainFrame::ProcessAnswerWhenGettingReady()
+{
+	wxString answer;
+	answer = answerInputTextCtrl->GetValue();
+	if (answer.empty())
+	{
+		return;
+	}
+	if (CheckAnswerArrays(start, answer))
+	{
+		userState = STUDYING;
+	}
+
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"Given"];
+	htmlContents += "</body></html>";
+
+	switch (currentMode)
+	{
+	case MainFrame::TERM:
+		htmlContents += "<html><body><b>";
+		htmlContents += currentSymbols[currentQuestion].GetSymbol();
+		htmlContents += "</b></body></html>";
+		break;
+	case MainFrame::READING:
+		htmlContents += "<html><body><b>";
+		htmlContents += currentSymbols[currentQuestion].GetReading();
+		htmlContents += "</b></body></html>";
+		break;
+	case MainFrame::MEANING:
+		htmlContents += "<html><body><b>";
+		htmlContents += currentSymbols[currentQuestion].GetMeaning();
+		htmlContents += "</b></body></html>";
+		break;
+	case MainFrame::MODE_NOT_CHOSEN:
+		break;
+	default:
+		break;
+	}
+
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"Answer"];
+	htmlContents += "</body></html>";
+
+	switch (currentAskBy)
+	{
+	case MainFrame::BY_TERM:
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"AnswerTerm"];
+		htmlContents += "</b></body></html>";
+		break;
+	case MainFrame::BY_READING:
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"AnswerRead"];
+		htmlContents += "</b></body></html>";
+		break;
+	case MainFrame::BY_MEANING:
+		htmlContents += "<html><body><b>";
+		htmlContents += currentLang[L"AnswerMean"];
+		htmlContents += "</b></body></html>";
+		break;
+	case MainFrame::ASK_BY_NOT_CHOSEN:
+		break;
+	default:
+		break;
+	}
+	
+	chatHtmlWindow->SetPage(htmlContents);
+}
+
 void MainFrame::DoNotUnderstandAnswer()
 {
 	htmlContents += "<html><body>";
@@ -1081,6 +1151,26 @@ bool MainFrame::CheckAnswerArrays(std::vector<wxString> variants, wxString answ)
 	}
 	return false;
 
+}
+
+void MainFrame::AskQuestion()
+{
+	/*switch (currentMode)
+	{
+	case MainFrame::TERM:
+
+		break;
+	case MainFrame::READING:
+
+		break;
+	case MainFrame::MEANING:
+
+		break;
+	case MainFrame::MODE_NOT_CHOSEN:
+		break;
+	default:
+		break;
+	}*/
 }
 
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON

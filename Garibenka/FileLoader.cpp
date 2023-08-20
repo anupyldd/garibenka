@@ -11,7 +11,6 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
-#include "sutfcpplib/utf_string.h"
 
 using namespace std::literals;
 
