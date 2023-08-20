@@ -109,6 +109,8 @@ private:
 	bool DetectStop(wxString& answ);
 	void ResetStudy();
 
+	void ResetStudyOnFinish();
+
 	bool CheckAnswerArrays(std::vector<wxString> variants, wxString answ);
 
 	void AskQuestion();	// also gives feedback on reply
