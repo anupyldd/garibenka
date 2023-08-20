@@ -434,6 +434,8 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	settingsBtn->Enable(true);
 	answerSendBtn->Enable(true);
 
+	studyBtn->Disable();
+
 	// chat reply
 	htmlContents += "<html><body>";
 	htmlContents += currentLang[L"VocabOrKanji1"] + ' ';
@@ -519,6 +521,13 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 	htmlContents += "</div></body></html><br><br>";
 	chatHtmlWindow->SetPage(htmlContents);
 
+	wxString answ = answerInputTextCtrl->GetValue();
+
+	if (DetectStop(answ))
+	{
+		ResetStudy();
+	}
+
 	switch (userState)
 	{
 	case CHOOSING_MODULE:
@@ -554,6 +563,13 @@ void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
 	htmlContents += "</div></body></html><br><br>";
 	chatHtmlWindow->SetPage(htmlContents);
 
+	wxString answ = answerInputTextCtrl->GetValue();
+
+	if (DetectStop(answ))
+	{
+		ResetStudy();
+	}
+
 	switch (userState)
 	{
 	case CHOOSING_MODULE:
@@ -579,6 +595,36 @@ void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
 
 	//chatRichTextCtrl->ShowPosition(chatRichTextCtrl->GetLastPosition());
 	answerInputTextCtrl->Clear();
+}
+
+bool MainFrame::DetectStop(wxString& answ)
+{
+	if (CheckAnswerArrays(stop, answ))
+	{
+		return true;
+	}
+	return false;
+}
+
+void MainFrame::ResetStudy()
+{
+	userState = CHOOSING_MODULE;
+	currentSymbols.clear();
+	currentSymbols.shrink_to_fit();
+	questionsAsked = 0;
+
+	studyBtn->Enable(true);
+
+	// chat reply
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"ResetStudy1"];
+	htmlContents += "</body></html><br>";
+
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"ResetStudy2"];
+	htmlContents += "</body></html>";
+
+	chatHtmlWindow->SetPage(htmlContents);
 }
 
 void MainFrame::ProcessAnswerWhenVocOrKan()
@@ -1078,7 +1124,6 @@ MainFrame::MainFrame(const wxString& title)
 	this->SetMinClientSize(wxSize(640, 480));
 	
 	WriteInitialGreeting();
-	//ChattingLoop();
 }
 
 
