@@ -111,7 +111,7 @@ private:
 
 	bool CheckAnswerArrays(std::vector<wxString> variants, wxString answ);
 
-	void AskQuestion();
+	void AskQuestion();	// also gives feedback on reply
 
 private:
 
