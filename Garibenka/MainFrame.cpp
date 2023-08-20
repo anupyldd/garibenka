@@ -10,6 +10,7 @@ void MainFrame::CreateControls()
 
 	
 	this->SetSizeHints(wxDefaultSize, wxDefaultSize);
+	//this->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans")));
 
 	browseDialog = new BrowseDialog(this, wxID_ANY, currentLang[L"Module Browser"], wxDefaultPosition, wxDefaultSize,
 		wxCLOSE_BOX | wxDEFAULT_DIALOG_STYLE | wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxRESIZE_BORDER);
@@ -148,7 +149,7 @@ void MainFrame::CreateControls()
 
 	filesListCtrl = new wxListCtrl(filesWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT);
 	filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-
+	//filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans")));
 	filesAreaSizer->Add(filesListCtrl, 1, wxALL | wxEXPAND, 0);
 
 	wxBoxSizer* studyOrBrowseSizer;
@@ -312,6 +313,7 @@ void MainFrame::ShowBrowseDialog(wxCommandEvent& event)
 
 	browseDialog->ClearList();
 	browseDialog->AddColumns();
+	//browseDialog->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans")));
 
 	for (;;)
 	{
@@ -515,6 +517,12 @@ void MainFrame::WriteInitialGreeting()
 
 void MainFrame::ReadAnswer(wxCommandEvent& event)
 {
+
+	if (userState == CHOOSING_MODULE)
+	{
+		return;
+	}
+
 	htmlContents += "<br><html><body>";
 	htmlContents += "<div ALIGN = \"RIGHT\">";
 	htmlContents += answerInputTextCtrl->GetValue();
@@ -557,6 +565,11 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 
 void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
 {
+	if (userState == CHOOSING_MODULE)
+	{
+		return;
+	}
+
 	htmlContents += "<br><html><body>";
 	htmlContents += "<div ALIGN = \"RIGHT\">";
 	htmlContents += answerInputTextCtrl->GetValue();
@@ -616,6 +629,7 @@ void MainFrame::ResetStudy()
 	currentMistakes.shrink_to_fit();
 
 	questionsAsked = 0;
+	currentQuestion = 0;
 
 	studyBtn->Enable(true);
 
@@ -626,6 +640,32 @@ void MainFrame::ResetStudy()
 
 	htmlContents += "<html><body>";
 	htmlContents += currentLang[L"ResetStudy2"];
+	htmlContents += "</body></html>";
+
+	chatHtmlWindow->SetPage(htmlContents);
+}
+
+void MainFrame::ResetStudyOnFinish()
+{
+	userState = CHOOSING_MODULE;
+	currentSymbols.clear();
+	currentSymbols.shrink_to_fit();
+
+	currentMistakes.clear();
+	currentMistakes.shrink_to_fit();
+
+	questionsAsked = 0;
+	currentQuestion = 0;
+
+	studyBtn->Enable(true);
+
+	// chat reply
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"NoMistakes1"];
+	htmlContents += "</body></html><br>";
+
+	htmlContents += "<html><body>";
+	htmlContents += currentLang[L"NoMistakes2"];
 	htmlContents += "</body></html>";
 
 	chatHtmlWindow->SetPage(htmlContents);
@@ -1193,6 +1233,8 @@ void MainFrame::AskQuestion()
 		return;
 	}
 
+	
+
 	switch (currentMode)
 	{
 	case MainFrame::TERM:
@@ -1278,84 +1320,74 @@ void MainFrame::AskQuestion()
 	questionsAsked += 1;
 	currentQuestion += 1;
 
-	htmlContents += "<html><body>";
-	htmlContents += currentLang[L"Given"];
-	htmlContents += "</body></html>";
 
-	/*switch (currentMode)
+	if (questionsAsked < currentSymbols.size())
 	{
-	case MainFrame::TERM:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetSymbol();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::READING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetReading();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::MEANING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetMeaning();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::MODE_NOT_CHOSEN:
-		break;
-	default:
-		break;
-	}*/
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"Given"];
+		htmlContents += "</body></html>";
 
-	switch (currentAskBy)
-	{
-	case MainFrame::BY_TERM:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetSymbol();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::BY_READING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetReading();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::BY_MEANING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetMeaning();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::ASK_BY_NOT_CHOSEN:
-		break;
-	default:
-		break;
+		switch (currentAskBy)
+		{
+		case MainFrame::BY_TERM:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentSymbols[currentQuestion].GetSymbol();
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::BY_READING:
+			htmlContents += "<html><body><b>";
+			// here be bug
+			htmlContents += currentSymbols[currentQuestion].GetReading();
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::BY_MEANING:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentSymbols[currentQuestion].GetMeaning();
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::ASK_BY_NOT_CHOSEN:
+			break;
+		default:
+			break;
+		}
+
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"Answer"];
+		htmlContents += "</body></html>";
+
+		switch (currentMode)
+		{
+		case MainFrame::TERM:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"AnswerTerm"];
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::READING:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"AnswerRead"];
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::MEANING:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"AnswerMean"];
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::MODE_NOT_CHOSEN:
+			break;
+		default:
+			break;
+		}
+
+		chatHtmlWindow->SetPage(htmlContents);
+
 	}
-
-	htmlContents += "<html><body>";
-	htmlContents += currentLang[L"Answer"];
-	htmlContents += "</body></html>";
-
-	switch (currentMode)
+	else
 	{
-	case MainFrame::TERM:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentLang[L"AnswerTerm"];
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::READING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentLang[L"AnswerRead"];
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::MEANING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentLang[L"AnswerMean"];
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::MODE_NOT_CHOSEN:
-		break;
-	default:
-		break;
+		if (currentMistakes.size() == 0)
+		{
+			ResetStudyOnFinish();
+		}
 	}
-
-	chatHtmlWindow->SetPage(htmlContents);
 }
 
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
