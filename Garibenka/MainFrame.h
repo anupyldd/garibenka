@@ -59,7 +59,7 @@ private:
 	std::vector<wxString> terms = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам" };
 	std::vector<wxString>  readings = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям" };
 	std::vector<wxString>  meanings = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям" };
-	std::vector<wxString> start = { "start","begin","начать", "начнем", "старт" };
+	std::vector<wxString> start = { "start","begin","начать", "начнем", "старт", "yes", "да" };
 	std::vector<wxString> stop = { "!stop", "!стоп" };
 
 private:
