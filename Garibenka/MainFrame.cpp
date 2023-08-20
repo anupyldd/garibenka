@@ -794,7 +794,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		htmlContents += "</body></html><br>";
 
 		htmlContents += "<html><body>";
-		htmlContents += currentLang[L"SelectTermAskBy3"];
+		htmlContents += currentLang[L"SelectTermAskBy3"] + ' ';
 		htmlContents += "</body></html>";
 
 		htmlContents += "<html><body><u>";
@@ -866,7 +866,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		htmlContents += "</u></body></html>";
 
 		htmlContents += "<html><body>";
-		htmlContents += currentLang[L"SelectMeanAskBy4"];
+		htmlContents += currentLang[L"SelectMeanAskBy4"] + ' ';
 		htmlContents += "</body></html>";
 
 		htmlContents += "<html><body><u>";
