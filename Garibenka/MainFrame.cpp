@@ -490,6 +490,7 @@ void MainFrame::ChooseVocabOrKanji()
 
 void MainFrame::WriteInitialGreeting()
 {
+	htmlContents += "<FONT SIZE = +2>";
 	htmlContents += "<html><body>";
 	htmlContents += currentLang[L"Greeting1"];
 	htmlContents += "</body></html><br>";
