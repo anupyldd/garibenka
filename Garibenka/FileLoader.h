@@ -13,6 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
+#include <wx/wx.h>
 
 #define PY_SSIZE_T_CLEAN
 
@@ -45,10 +46,12 @@ private:
 	std::vector<Symbol> wordList;
 	std::vector<Symbol> kanjiList;
 
+
+public:
+
 	int timesAsked = 0;			// how many symbols from module were asked
 	int answeredCorrectly = 0;	// how many of those symbols were answered correctly
 
-public:
 	Module() = default;
 	Module(std::wstring inModuleName);
 	Module(std::wstring inFromFile, std::wstring inModuleName);
@@ -87,7 +90,7 @@ public:
 	static void SplitWide(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems);
 	static void ReadTablesFile(std::vector<Module>& modules);
 
-	static void LoadModuleStats();
+	static void LoadModuleStats(std::vector<Module>& inModules);
 	static void UpdateModuleStatsFile();
 
 	static void ReadUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings);

@@ -122,6 +122,39 @@ void FileHandler::ReadTablesFile(std::vector<Module>& modules)
 
 }
 
+void FileHandler::LoadModuleStats(std::vector<Module>& inModules)
+{
+	
+
+	std::wifstream infile("./Settings/stats.tsv");
+	//infile.imbue(std::locale("en_US.UTF8"));
+	std::wstring line;
+	std::vector<std::wstring> statsFileContents;
+
+	while (std::getline(infile, line))
+	{
+
+		SplitWide(line, '\t', statsFileContents);
+
+	}
+
+	
+	for (auto mod : inModules)
+	{
+		int size = statsFileContents.size();
+		for (size_t i = 0; i < size; i += 4)
+		{
+			if (statsFileContents[i] == mod.GetFileName() &&
+				statsFileContents[i + 1] == mod.GetModuleName())
+			{
+				mod.timesAsked = stoi(statsFileContents[i + 2]);
+				mod.answeredCorrectly = stoi(statsFileContents[i + 3]);
+
+			}
+		}
+	}
+}
+
 
 void FileHandler::ReadUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings)
 {
@@ -296,8 +329,8 @@ std::wstring& Module::GetModuleName()
 
 void Module::SetStats(int inAsked, int inCorrect)
 {
-	timesAsked = inAsked;
-	answeredCorrectly = inCorrect;
+	timesAsked += inAsked;
+	answeredCorrectly += inCorrect;
 }
 
 std::vector<Symbol>& Module::GetWordList()

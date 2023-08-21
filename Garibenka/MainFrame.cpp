@@ -438,7 +438,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 
 		/*currentModule = filesListCtrl->GetItemText(item, 1);
 		currentFile = filesListCtrl->GetItemText(item, 0);*/
-		for (auto mod : modules)
+		for (auto mod : localModules)
 		{
 			if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 1) && 
 				mod.GetFileName() == filesListCtrl->GetItemText(item, 0))
@@ -543,6 +543,8 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 	{
 		return;
 	}
+
+
 
 	htmlContents += "<br><html><body>";
 	htmlContents += "<div ALIGN = \"RIGHT\">";
@@ -807,6 +809,7 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 	}
 	//gotAnswer = false;
 	ScrollToBottom();
+
 }
 
 void MainFrame::ProcessAnswerWhenMode()
@@ -1212,7 +1215,10 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 
 void MainFrame::ProcessAnswerWhenStudy()
 {
+	//UpdateStats(localModules);
+	
 	AskQuestion();
+	
 }
 
 void MainFrame::DoNotUnderstandAnswer()
@@ -1334,7 +1340,7 @@ void MainFrame::AskQuestion()
 	ScrollToBottom();
 	questionsAsked += 1;
 	currentQuestion += 1;
-
+	UpdateStats(localModules);
 
 	if (questionsAsked < currentSymbols.size())
 	{
@@ -1437,6 +1443,71 @@ void MainFrame::ScrollToBottom()
 	chatHtmlWindow->Scroll(0, y / yUnit);
 }
 
+void MainFrame::UpdateStats(std::vector<Module>& inModules)
+{
+	//currentModule.SetStats(questionsAsked, questionsAsked - currentMistakes.size());
+	/*inCurrentModule.timesAsked = questionsAsked;
+	inCurrentModule.answeredCorrectly = questionsAsked - currentMistakes.size();*/
+
+	for (auto mod : inModules)
+	{
+		if (mod.GetFileName() == currentModule.GetFileName() && mod.GetModuleName() == currentModule.GetModuleName())
+		{
+			mod.timesAsked = questionsAsked;
+			mod.answeredCorrectly = questionsAsked - currentMistakes.size();
+		}
+	}
+
+	SaveStatsToFile(inModules);
+}
+
+void MainFrame::SaveStatsToFile(std::vector<Module>& inModules)
+{
+	std::ofstream outfile;
+	outfile.open("./Settings/stats.tsv");
+
+	if (!outfile.fail())
+	{
+		for (auto iter = inModules.begin(); iter != inModules.end(); iter++)
+		{
+			outfile << iter->GetFileName() << '\t' << iter->GetModuleName() << '\t' << 
+				std::to_string(iter->timesAsked) << '\t' << std::to_string(iter->answeredCorrectly) << '\n';
+		}
+	}
+}
+
+void MainFrame::LoadStatsFromFile(std::vector<Module> inModules)
+{
+	std::ifstream infile("./Settings/stats.tsv");
+	std::string line;
+	std::vector<std::string> statsFileContents;
+
+	while (std::getline(infile, line))
+	{
+
+		FileHandler::Split(line, '\t', statsFileContents);
+
+	}
+
+	
+		
+	
+	for (auto mod : inModules)
+	{
+		int size = statsFileContents.size();
+		for (size_t i = 0; i < size; i += 4)
+		{
+			if (statsFileContents[i] == mod.GetFileName() &&
+				statsFileContents[i + 1] == mod.GetModuleName())
+			{
+				mod.timesAsked = stoi(statsFileContents[i + 2]);
+				mod.answeredCorrectly = stoi(statsFileContents[i + 3]);
+
+			}
+		}
+	}
+}
+
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
 // 
 //void MainFrame::UpdateModuleList(std::vector<Module>& modules)
@@ -1464,8 +1535,12 @@ MainFrame::MainFrame(const wxString& title)
 	const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
 	FileHandler::RunPythonScript(1, path);
 	FileHandler::ReadTablesFile(modules);
-	FillModulesList(modules);
+	FileHandler::LoadModuleStats(modules);
 	TransferModules(modules);
+	FillModulesList(localModules);
+
+
+	//LoadStatsFromFile(localModules);
 	FillStatsList(localModules);
 
 	// temp testing stuff, delete later

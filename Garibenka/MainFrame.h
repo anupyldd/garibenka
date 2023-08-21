@@ -57,10 +57,12 @@ private:
 	std::vector<wxString> vocab = { "vocab", "vocabulary", "лексика", "лексику", "words", "слова" };
 	std::vector<wxString> kanji = { "kanji", "kan", "кандзи", "иероглифы" };
 	std::vector<wxString> terms = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам" };
-	std::vector<wxString>  readings = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям" };
-	std::vector<wxString>  meanings = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям" };
+	std::vector<wxString> readings = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям" };
+	std::vector<wxString> meanings = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям" };
 	std::vector<wxString> start = { "start","begin","начать", "начнем", "старт", "yes", "да" };
 	std::vector<wxString> stop = { "!stop", "!стоп" };
+	std::vector<wxString> no = { "no","нет" };
+
 
 private:
 
@@ -73,7 +75,11 @@ private:
 	void ChangePageToSettings(wxCommandEvent& event);
 
 	void FillModulesList(std::vector<Module> modules);
+
 	void FillStatsList(std::vector<Module> modules);
+	void UpdateStats(std::vector<Module>& modules);
+	void SaveStatsToFile(std::vector<Module>& modules);
+	void LoadStatsFromFile(std::vector<Module> modules);
 
 	void ShowBrowseDialog(wxCommandEvent& event);
 	std::vector<std::wstring> FillBrowseSymbolsList(std::vector<Module> modules, long item);
@@ -117,6 +123,8 @@ private:
 	void AskQuestion();	// also gives feedback on reply
 
 	void ScrollToBottom();
+
+	
 
 private:
 
