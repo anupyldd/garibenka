@@ -159,7 +159,8 @@ def OutputToFiles():
                 textFile.write(f'?{kanji.GetSymbol()}\t{kanji.GetReading()}\t{kanji.GetMeaning()}\n')
 
 #Load everything
-
+pathToDir = str(pathlib.Path(__file__).parent.resolve()) + '\\Tables\\' + 'PyOutput.txt'
+open(pathToDir, 'w').close()
 loadedFiles.clear()
 loadedModules.clear()
 
