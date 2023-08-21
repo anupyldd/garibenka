@@ -73,6 +73,7 @@ private:
 	void ChangePageToSettings(wxCommandEvent& event);
 
 	void FillModulesList(std::vector<Module> modules);
+	void FillStatsList(std::vector<Module> modules);
 
 	void ShowBrowseDialog(wxCommandEvent& event);
 	std::vector<std::wstring> FillBrowseSymbolsList(std::vector<Module> modules, long item);
@@ -155,7 +156,7 @@ private:
 	wxPanel* profileWorkingAreaPanel;
 	wxStaticText* userNameLabel;
 	wxBitmapButton* editNameBtn;
-	wxListCtrl* m_listCtrl2;
+	wxListCtrl* statsListCtrl;
 	wxPanel* filesWorkingAreaPanel;
 	wxStaticText* filesTitleLabel;
 	wxButton* loadFileBtn;
