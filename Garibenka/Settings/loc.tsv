@@ -17,6 +17,8 @@ Meaning	Значение	Meaning
 Profile	Профиль	Profile
 Name	Название	Name
 Stats	Статистика	Stats
+ModuleForStats	Модуль	Module
+FileName	Файл	File
 Profile Picture	Изображение Профиля	Profile Picture
 Change	Изменить	Change
 EnterNewName	Введите новое имя пользователя	Enter new username
@@ -104,7 +106,7 @@ ResetStudy1	Сессия остановлена. Теперь ты можешь 
 ResetStudy2	другой модуль для изучения.	another module to study.
 -	-	-
 NoMistakes1	Отлично! В этой сессии у тебя не было ни одной ошибки!	Great! You had no mistakes in this session!
-NoMistakes2	Теперь ты можешь выбрать другой модуль дл изучения.	Now you can choose another module to study.
+NoMistakes2	Теперь ты можешь выбрать другой модуль для изучения.	Now you can choose another module to study.
 -	-	-
 SomeMistakes1	К сожалению, у тебя было несколько ошибок.	Unfortunately, there were some mistakes.
 SomeMistakes2	Хочешь над ними поработать?	Do you wish to work on them?

@@ -124,10 +124,10 @@ void MainFrame::CreateControls()
 
 	profileAreaSizer->Add(profileHeaderSizer, 0, wxEXPAND, 5);
 
-	m_listCtrl2 = new wxListCtrl(profileWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
-	m_listCtrl2->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+	statsListCtrl = new wxListCtrl(profileWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
+	statsListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
-	profileAreaSizer->Add(m_listCtrl2, 1, wxALL | wxEXPAND, 0);
+	profileAreaSizer->Add(statsListCtrl, 1, wxALL | wxEXPAND, 0);
 
 
 	profileWorkingAreaPanel->SetSizer(profileAreaSizer);
@@ -300,6 +300,27 @@ void MainFrame::FillModulesList(std::vector<Module> modules)
 
 	filesListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE);
 	filesListCtrl->SetColumnWidth(1, wxLIST_AUTOSIZE_USEHEADER);
+}
+
+void MainFrame::FillStatsList(std::vector<Module> modules)
+{
+	statsListCtrl->InsertColumn(0, currentLang[L"FileName"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	statsListCtrl->InsertColumn(1, currentLang[L"ModuleForStats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	statsListCtrl->InsertColumn(2, currentLang[L"Stats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+
+	std::string stat;
+	int size = modules.size();
+	for (size_t i = 0; i < size; i++)
+	{
+		long index = statsListCtrl->InsertItem(i, modules[i].GetFileName());
+		statsListCtrl->SetItem(index, 1, modules[i].GetModuleName());
+		stat = std::to_string(modules[i].GetAnsweredCorrectly()) + '/' + std::to_string(modules[i].GetTimesAsked());
+		statsListCtrl->SetItem(index, 2, stat);
+	}
+
+	statsListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE);
+	statsListCtrl->SetColumnWidth(1, wxLIST_AUTOSIZE);
+	statsListCtrl->SetColumnWidth(2, wxLIST_AUTOSIZE_USEHEADER);
 }
 
 void MainFrame::ShowBrowseDialog(wxCommandEvent& event)
@@ -1445,6 +1466,7 @@ MainFrame::MainFrame(const wxString& title)
 	FileHandler::ReadTablesFile(modules);
 	FillModulesList(modules);
 	TransferModules(modules);
+	FillStatsList(localModules);
 
 	// temp testing stuff, delete later
 
