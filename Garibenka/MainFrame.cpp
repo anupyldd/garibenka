@@ -34,11 +34,11 @@ void MainFrame::CreateControls()
 	botBtn->SetToolTip(currentLang[L"Helper Bot"]);
 	leftPanelSizer->Add(botBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);
 
-	profileBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	/*profileBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	profileBtn->SetBitmap(wxBitmap(wxT("Icons/ProfileBtn.png"), wxBITMAP_TYPE_ANY));
 	profileBtn->SetToolTip(currentLang[L"Profile"]);
-	leftPanelSizer->Add(profileBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);
+	leftPanelSizer->Add(profileBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);*/
 
 	filesBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
@@ -102,7 +102,7 @@ void MainFrame::CreateControls()
 	chatWorkingAreaPanel->Layout();
 	chatAreaSizer->Fit(chatWorkingAreaPanel);
 	genWorkingAreaBook->AddPage(chatWorkingAreaPanel, wxT("a page"), false);
-	profileWorkingAreaPanel = new wxPanel(genWorkingAreaBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	/*profileWorkingAreaPanel = new wxPanel(genWorkingAreaBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	wxBoxSizer* profileAreaSizer;
 	profileAreaSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -133,7 +133,7 @@ void MainFrame::CreateControls()
 	profileWorkingAreaPanel->SetSizer(profileAreaSizer);
 	profileWorkingAreaPanel->Layout();
 	profileAreaSizer->Fit(profileWorkingAreaPanel);
-	genWorkingAreaBook->AddPage(profileWorkingAreaPanel, wxT("a page"), false);
+	genWorkingAreaBook->AddPage(profileWorkingAreaPanel, wxT("a page"), false);*/
 	filesWorkingAreaPanel = new wxPanel(genWorkingAreaBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	wxBoxSizer* filesAreaSizer;
 	filesAreaSizer = new wxBoxSizer(wxVERTICAL);
@@ -227,7 +227,7 @@ void MainFrame::CreateControls()
 
 	genSizer->Add(mainSizer, 1, wxEXPAND, 0);
 
-	genWorkingAreaBook->ChangeSelection(2);
+	genWorkingAreaBook->ChangeSelection(1);
 
 	this->SetSizer(genSizer);
 	this->Layout();
@@ -236,7 +236,7 @@ void MainFrame::CreateControls()
 void MainFrame::BindEventHandlers()
 {
 	botBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToBot, this);
-	profileBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToProfile, this);
+	//profileBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToProfile, this);
 	filesBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToFiles, this);
 	settingsBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToSettings, this);
 	browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
@@ -251,37 +251,37 @@ void MainFrame::ChangePageToBot(wxCommandEvent& event)
 	genWorkingAreaBook->ChangeSelection(0);
 
 	botBtn->Disable();
-	profileBtn->Enable(true);
+	//profileBtn->Enable(true);
 	filesBtn->Enable(true);
 	settingsBtn->Enable(true);
 }
 
-void MainFrame::ChangePageToProfile(wxCommandEvent& event)
-{
-	genWorkingAreaBook->ChangeSelection(1);
-
-	botBtn->Enable(true);;
-	profileBtn->Disable();
-	filesBtn->Enable(true);
-	settingsBtn->Enable(true);
-}
+//void MainFrame::ChangePageToProfile(wxCommandEvent& event)
+//{
+//	genWorkingAreaBook->ChangeSelection(1);
+//
+//	botBtn->Enable(true);;
+//	//profileBtn->Disable();
+//	filesBtn->Enable(true);
+//	settingsBtn->Enable(true);
+//}
 
 void MainFrame::ChangePageToFiles(wxCommandEvent& event)
 {
-	genWorkingAreaBook->ChangeSelection(2);
+	genWorkingAreaBook->ChangeSelection(1);
 
 	botBtn->Enable(true);
-	profileBtn->Enable(true);
+	//profileBtn->Enable(true);
 	filesBtn->Disable();
 	settingsBtn->Enable(true);
 }
 
 void MainFrame::ChangePageToSettings(wxCommandEvent& event)
 {
-	genWorkingAreaBook->ChangeSelection(3);
+	genWorkingAreaBook->ChangeSelection(2);
 
 	botBtn->Enable(true);;
-	profileBtn->Enable(true);
+	//profileBtn->Enable(true);
 	filesBtn->Enable(true);
 	settingsBtn->Disable();
 }
@@ -302,26 +302,26 @@ void MainFrame::FillModulesList(std::vector<Module> modules)
 	filesListCtrl->SetColumnWidth(1, wxLIST_AUTOSIZE_USEHEADER);
 }
 
-void MainFrame::FillStatsList(std::vector<Module> modules)
-{
-	statsListCtrl->InsertColumn(0, currentLang[L"FileName"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-	statsListCtrl->InsertColumn(1, currentLang[L"ModuleForStats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-	statsListCtrl->InsertColumn(2, currentLang[L"Stats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-
-	std::string stat;
-	int size = modules.size();
-	for (size_t i = 0; i < size; i++)
-	{
-		long index = statsListCtrl->InsertItem(i, modules[i].GetFileName());
-		statsListCtrl->SetItem(index, 1, modules[i].GetModuleName());
-		stat = std::to_string(modules[i].GetAnsweredCorrectly()) + '/' + std::to_string(modules[i].GetTimesAsked());
-		statsListCtrl->SetItem(index, 2, stat);
-	}
-
-	statsListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE);
-	statsListCtrl->SetColumnWidth(1, wxLIST_AUTOSIZE);
-	statsListCtrl->SetColumnWidth(2, wxLIST_AUTOSIZE_USEHEADER);
-}
+//void MainFrame::FillStatsList(std::vector<Module> modules)
+//{
+//	statsListCtrl->InsertColumn(0, currentLang[L"FileName"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+//	statsListCtrl->InsertColumn(1, currentLang[L"ModuleForStats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+//	statsListCtrl->InsertColumn(2, currentLang[L"Stats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+//
+//	std::string stat;
+//	int size = modules.size();
+//	for (size_t i = 0; i < size; i++)
+//	{
+//		long index = statsListCtrl->InsertItem(i, modules[i].GetFileName());
+//		statsListCtrl->SetItem(index, 1, modules[i].GetModuleName());
+//		stat = std::to_string(modules[i].GetAnsweredCorrectly()) + '/' + std::to_string(modules[i].GetTimesAsked());
+//		statsListCtrl->SetItem(index, 2, stat);
+//	}
+//
+//	statsListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE);
+//	statsListCtrl->SetColumnWidth(1, wxLIST_AUTOSIZE);
+//	statsListCtrl->SetColumnWidth(2, wxLIST_AUTOSIZE_USEHEADER);
+//}
 
 void MainFrame::ShowBrowseDialog(wxCommandEvent& event)
 {
@@ -451,7 +451,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	genWorkingAreaBook->ChangeSelection(0);
 
 	botBtn->Disable();
-	profileBtn->Enable(true);
+	//profileBtn->Enable(true);
 	filesBtn->Enable(true);
 	settingsBtn->Enable(true);
 	answerSendBtn->Enable(true);
@@ -1340,7 +1340,7 @@ void MainFrame::AskQuestion()
 	ScrollToBottom();
 	questionsAsked += 1;
 	currentQuestion += 1;
-	UpdateStats(localModules);
+	//UpdateStats(localModules);
 
 	if (questionsAsked < currentSymbols.size())
 	{
@@ -1443,70 +1443,70 @@ void MainFrame::ScrollToBottom()
 	chatHtmlWindow->Scroll(0, y / yUnit);
 }
 
-void MainFrame::UpdateStats(std::vector<Module>& inModules)
-{
-	//currentModule.SetStats(questionsAsked, questionsAsked - currentMistakes.size());
-	/*inCurrentModule.timesAsked = questionsAsked;
-	inCurrentModule.answeredCorrectly = questionsAsked - currentMistakes.size();*/
+//void MainFrame::UpdateStats(std::vector<Module>& inModules)
+//{
+//	//currentModule.SetStats(questionsAsked, questionsAsked - currentMistakes.size());
+//	/*inCurrentModule.timesAsked = questionsAsked;
+//	inCurrentModule.answeredCorrectly = questionsAsked - currentMistakes.size();*/
+//
+//	for (auto mod : inModules)
+//	{
+//		if (mod.GetFileName() == currentModule.GetFileName() && mod.GetModuleName() == currentModule.GetModuleName())
+//		{
+//			mod.timesAsked = questionsAsked;
+//			mod.answeredCorrectly = questionsAsked - currentMistakes.size();
+//		}
+//	}
+//
+//	SaveStatsToFile(inModules);
+//}
 
-	for (auto mod : inModules)
-	{
-		if (mod.GetFileName() == currentModule.GetFileName() && mod.GetModuleName() == currentModule.GetModuleName())
-		{
-			mod.timesAsked = questionsAsked;
-			mod.answeredCorrectly = questionsAsked - currentMistakes.size();
-		}
-	}
+//void MainFrame::SaveStatsToFile(std::vector<Module>& inModules)
+//{
+//	std::ofstream outfile;
+//	outfile.open("./Settings/stats.tsv");
+//
+//	if (!outfile.fail())
+//	{
+//		for (auto iter = inModules.begin(); iter != inModules.end(); iter++)
+//		{
+//			outfile << iter->GetFileName() << '\t' << iter->GetModuleName() << '\t' << 
+//				std::to_string(iter->timesAsked) << '\t' << std::to_string(iter->answeredCorrectly) << '\n';
+//		}
+//	}
+//}
 
-	SaveStatsToFile(inModules);
-}
-
-void MainFrame::SaveStatsToFile(std::vector<Module>& inModules)
-{
-	std::ofstream outfile;
-	outfile.open("./Settings/stats.tsv");
-
-	if (!outfile.fail())
-	{
-		for (auto iter = inModules.begin(); iter != inModules.end(); iter++)
-		{
-			outfile << iter->GetFileName() << '\t' << iter->GetModuleName() << '\t' << 
-				std::to_string(iter->timesAsked) << '\t' << std::to_string(iter->answeredCorrectly) << '\n';
-		}
-	}
-}
-
-void MainFrame::LoadStatsFromFile(std::vector<Module> inModules)
-{
-	std::ifstream infile("./Settings/stats.tsv");
-	std::string line;
-	std::vector<std::string> statsFileContents;
-
-	while (std::getline(infile, line))
-	{
-
-		FileHandler::Split(line, '\t', statsFileContents);
-
-	}
-
-	
-		
-	
-	for (auto mod : inModules)
-	{
-		int size = statsFileContents.size();
-		for (size_t i = 0; i < size; i += 4)
-		{
-			if (statsFileContents[i] == mod.GetFileName() &&
-				statsFileContents[i + 1] == mod.GetModuleName())
-			{
-				mod.timesAsked = stoi(statsFileContents[i + 2]);
-				mod.answeredCorrectly = stoi(statsFileContents[i + 3]);
-
-			}
-		}
-	}
-}
+//void MainFrame::LoadStatsFromFile(std::vector<Module> inModules)
+//{
+//	std::ifstream infile("./Settings/stats.tsv");
+//	std::string line;
+//	std::vector<std::string> statsFileContents;
+//
+//	while (std::getline(infile, line))
+//	{
+//
+//		FileHandler::Split(line, '\t', statsFileContents);
+//
+//	}
+//
+//	
+//		
+//	
+//	for (auto mod : inModules)
+//	{
+//		int size = statsFileContents.size();
+//		for (size_t i = 0; i < size; i += 4)
+//		{
+//			if (statsFileContents[i] == mod.GetFileName() &&
+//				statsFileContents[i + 1] == mod.GetModuleName())
+//			{
+//				mod.timesAsked = stoi(statsFileContents[i + 2]);
+//				mod.answeredCorrectly = stoi(statsFileContents[i + 3]);
+//
+//			}
+//		}
+//	}
+//}
 
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
 // 
@@ -1535,13 +1535,13 @@ MainFrame::MainFrame(const wxString& title)
 	const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
 	FileHandler::RunPythonScript(1, path);
 	FileHandler::ReadTablesFile(modules);
-	FileHandler::LoadModuleStats(modules);
+	//FileHandler::LoadModuleStats(modules);
 	TransferModules(modules);
 	FillModulesList(localModules);
 
 
 	//LoadStatsFromFile(localModules);
-	FillStatsList(localModules);
+	//FillStatsList(localModules);
 
 	// temp testing stuff, delete later
 

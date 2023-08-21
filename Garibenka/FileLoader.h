@@ -62,7 +62,7 @@ public:
 	void SetFromFile(std::wstring inFromFile);
 	void SetModuleName(std::wstring inModuleName);
 
-	void SetStats(int inAsked, int inCorrect);
+	//void SetStats(int inAsked, int inCorrect);
 
 	std::wstring& GetFileName();
 	std::wstring& GetModuleName();
@@ -90,8 +90,8 @@ public:
 	static void SplitWide(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems);
 	static void ReadTablesFile(std::vector<Module>& modules);
 
-	static void LoadModuleStats(std::vector<Module>& inModules);
-	static void UpdateModuleStatsFile();
+	//static void LoadModuleStats(std::vector<Module>& inModules);
+	//static void UpdateModuleStatsFile();
 
 	static void ReadUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings);
 	static void UpdateUserSettingsMap(std::string inSetting, std::string inOption, 

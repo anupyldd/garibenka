@@ -76,10 +76,10 @@ private:
 
 	void FillModulesList(std::vector<Module> modules);
 
-	void FillStatsList(std::vector<Module> modules);
+	/*void FillStatsList(std::vector<Module> modules);
 	void UpdateStats(std::vector<Module>& modules);
 	void SaveStatsToFile(std::vector<Module>& modules);
-	void LoadStatsFromFile(std::vector<Module> modules);
+	void LoadStatsFromFile(std::vector<Module> modules);*/
 
 	void ShowBrowseDialog(wxCommandEvent& event);
 	std::vector<std::wstring> FillBrowseSymbolsList(std::vector<Module> modules, long item);
@@ -151,7 +151,7 @@ private:
 
 	wxPanel* leftPanel;
 	wxBitmapButton* botBtn;
-	wxBitmapButton* profileBtn;
+	//wxBitmapButton* profileBtn;
 	wxBitmapButton* filesBtn;
 	wxStaticText* fillerLabel;
 	wxBitmapButton* settingsBtn;
@@ -161,10 +161,10 @@ private:
 	wxHtmlWindow* chatHtmlWindow;
 	wxTextCtrl* answerInputTextCtrl;
 	wxBitmapButton* answerSendBtn;
-	wxPanel* profileWorkingAreaPanel;
-	wxStaticText* userNameLabel;
-	wxBitmapButton* editNameBtn;
-	wxListCtrl* statsListCtrl;
+	//wxPanel* profileWorkingAreaPanel;
+	//wxStaticText* userNameLabel;
+	//wxBitmapButton* editNameBtn;
+	//wxListCtrl* statsListCtrl;
 	wxPanel* filesWorkingAreaPanel;
 	wxStaticText* filesTitleLabel;
 	wxButton* loadFileBtn;
