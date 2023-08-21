@@ -115,6 +115,8 @@ private:
 
 	void AskQuestion();	// also gives feedback on reply
 
+	void ScrollToBottom();
+
 private:
 
 	wxString htmlContents = "";

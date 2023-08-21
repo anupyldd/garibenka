@@ -559,6 +559,7 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 		break;
 	}
 
+	
 	//chatRichTextCtrl->ShowPosition(chatRichTextCtrl->GetLastPosition());
 	answerInputTextCtrl->Clear();
 }
@@ -784,7 +785,7 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 		std::shuffle(std::begin(currentSymbols), std::end(currentSymbols), rng);
 	}
 	//gotAnswer = false;
-		
+	ScrollToBottom();
 }
 
 void MainFrame::ProcessAnswerWhenMode()
@@ -850,6 +851,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 
 		break;
 	case MainFrame::READING:
@@ -882,6 +884,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 
 		break;
 	case MainFrame::MEANING:
@@ -914,6 +917,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 		break;
 	case MainFrame::MODE_NOT_CHOSEN:
 		break;
@@ -1026,6 +1030,7 @@ void MainFrame::ProcessAnswerWhenAskBy()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 
 		break;
 	case MainFrame::READING:
@@ -1094,6 +1099,7 @@ void MainFrame::ProcessAnswerWhenAskBy()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 
 		break;
 	case MainFrame::MODE_NOT_CHOSEN:
@@ -1115,65 +1121,72 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 	if (CheckAnswerArrays(start, answer))
 	{
 		userState = STUDYING;
-	}
+	
 
-	htmlContents += "<html><body>";
-	htmlContents += currentLang[L"Given"];
-	htmlContents += "</body></html>";
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"Given"];
+		htmlContents += "</body></html>";
 
 	
 
-	switch (currentAskBy)
-	{
-	case MainFrame::BY_TERM:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetSymbol();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::BY_READING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetReading();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::BY_MEANING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentSymbols[currentQuestion].GetMeaning();
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::ASK_BY_NOT_CHOSEN:
-		break;
-	default:
-		break;
-	}
+		switch (currentAskBy)
+		{
+		case MainFrame::BY_TERM:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentSymbols[currentQuestion].GetSymbol();
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::BY_READING:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentSymbols[currentQuestion].GetReading();
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::BY_MEANING:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentSymbols[currentQuestion].GetMeaning();
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::ASK_BY_NOT_CHOSEN:
+			break;
+		default:
+			break;
+		}
 
-	htmlContents += "<html><body>";
-	htmlContents += currentLang[L"Answer"];
-	htmlContents += "</body></html>";
+		htmlContents += "<html><body>";
+		htmlContents += currentLang[L"Answer"];
+		htmlContents += "</body></html>";
 
-	switch (currentMode)
-	{
-	case MainFrame::TERM:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentLang[L"AnswerTerm"];
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::READING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentLang[L"AnswerRead"];
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::MEANING:
-		htmlContents += "<html><body><b>";
-		htmlContents += currentLang[L"AnswerMean"];
-		htmlContents += "</b></body></html>";
-		break;
-	case MainFrame::MODE_NOT_CHOSEN:
-		break;
-	default:
-		break;
-	}
+		switch (currentMode)
+		{
+		case MainFrame::TERM:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"AnswerTerm"];
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::READING:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"AnswerRead"];
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::MEANING:
+			htmlContents += "<html><body><b>";
+			htmlContents += currentLang[L"AnswerMean"];
+			htmlContents += "</b></body></html>";
+			break;
+		case MainFrame::MODE_NOT_CHOSEN:
+			break;
+		default:
+			break;
+		}
 	
-	chatHtmlWindow->SetPage(htmlContents);
+		chatHtmlWindow->SetPage(htmlContents);
+
+		ScrollToBottom();
+	}
+	else
+	{
+		DoNotUnderstandAnswer();
+	}
 }
 
 void MainFrame::ProcessAnswerWhenStudy()
@@ -1187,6 +1200,7 @@ void MainFrame::DoNotUnderstandAnswer()
 	htmlContents+= currentLang[L"DoNotUnderstand"];
 	htmlContents += "</body></html>";
 	chatHtmlWindow->SetPage(htmlContents);
+	ScrollToBottom();
 }
 
 bool MainFrame::CheckAnswerArrays(std::vector<wxString> variants, wxString answ)
@@ -1296,6 +1310,7 @@ void MainFrame::AskQuestion()
 		break;
 	}
 	chatHtmlWindow->SetPage(htmlContents);
+	ScrollToBottom();
 	questionsAsked += 1;
 	currentQuestion += 1;
 
@@ -1387,6 +1402,18 @@ void MainFrame::AskQuestion()
 			userState = GETTING_READY;
 		}
 	}
+}
+
+void MainFrame::ScrollToBottom()
+{
+	int x;
+	int y;
+	int xUnit;
+	int yUnit;
+
+	chatHtmlWindow->GetVirtualSize(&x, &y);
+	chatHtmlWindow->GetScrollPixelsPerUnit(&xUnit, &yUnit);
+	chatHtmlWindow->Scroll(0, y / yUnit);
 }
 
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
