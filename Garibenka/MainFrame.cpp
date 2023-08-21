@@ -559,9 +559,9 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 		break;
 	}
 
+	
 	//chatRichTextCtrl->ShowPosition(chatRichTextCtrl->GetLastPosition());
 	answerInputTextCtrl->Clear();
-	ScrollToBottom();
 }
 
 void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
@@ -785,7 +785,7 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 		std::shuffle(std::begin(currentSymbols), std::end(currentSymbols), rng);
 	}
 	//gotAnswer = false;
-		
+	ScrollToBottom();
 }
 
 void MainFrame::ProcessAnswerWhenMode()
@@ -851,6 +851,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 
 		break;
 	case MainFrame::READING:
@@ -883,6 +884,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 
 		break;
 	case MainFrame::MEANING:
@@ -915,6 +917,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 		break;
 	case MainFrame::MODE_NOT_CHOSEN:
 		break;
@@ -1027,6 +1030,7 @@ void MainFrame::ProcessAnswerWhenAskBy()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 
 		break;
 	case MainFrame::READING:
@@ -1095,6 +1099,7 @@ void MainFrame::ProcessAnswerWhenAskBy()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 
 		break;
 	case MainFrame::MODE_NOT_CHOSEN:
@@ -1175,6 +1180,8 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 		}
 	
 		chatHtmlWindow->SetPage(htmlContents);
+
+		ScrollToBottom();
 	}
 	else
 	{
@@ -1193,6 +1200,7 @@ void MainFrame::DoNotUnderstandAnswer()
 	htmlContents+= currentLang[L"DoNotUnderstand"];
 	htmlContents += "</body></html>";
 	chatHtmlWindow->SetPage(htmlContents);
+	ScrollToBottom();
 }
 
 bool MainFrame::CheckAnswerArrays(std::vector<wxString> variants, wxString answ)
@@ -1302,6 +1310,7 @@ void MainFrame::AskQuestion()
 		break;
 	}
 	chatHtmlWindow->SetPage(htmlContents);
+	ScrollToBottom();
 	questionsAsked += 1;
 	currentQuestion += 1;
 
@@ -1397,14 +1406,14 @@ void MainFrame::AskQuestion()
 
 void MainFrame::ScrollToBottom()
 {
-	/*int x;
+	int x;
 	int y;
 	int xUnit;
 	int yUnit;
 
 	chatHtmlWindow->GetVirtualSize(&x, &y);
 	chatHtmlWindow->GetScrollPixelsPerUnit(&xUnit, &yUnit);
-	chatHtmlWindow->Scroll(0, y / yUnit);*/
+	chatHtmlWindow->Scroll(0, y / yUnit);
 }
 
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
