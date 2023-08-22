@@ -577,6 +577,7 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 	htmlContents += answerInputTextCtrl->GetValue();
 	htmlContents += "</div></body></html><br><br>";
 	chatHtmlWindow->SetPage(htmlContents);
+	ScrollToBottom();
 
 	wxString answ = answerInputTextCtrl->GetValue();
 
@@ -625,6 +626,7 @@ void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
 	htmlContents += answerInputTextCtrl->GetValue();
 	htmlContents += "</div></body></html><br><br>";
 	chatHtmlWindow->SetPage(htmlContents);
+	ScrollToBottom();
 
 	wxString answ = answerInputTextCtrl->GetValue();
 
@@ -693,6 +695,7 @@ void MainFrame::ResetStudy()
 	htmlContents += "</body></html>";
 
 	chatHtmlWindow->SetPage(htmlContents);
+	ScrollToBottom();
 }
 
 void MainFrame::ResetStudyOnFinish()
@@ -719,6 +722,7 @@ void MainFrame::ResetStudyOnFinish()
 	htmlContents += "</body></html>";
 
 	chatHtmlWindow->SetPage(htmlContents);
+	ScrollToBottom();
 }
 
 void MainFrame::ProcessAnswerWhenVocOrKan()
@@ -789,7 +793,7 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
-		
+		ScrollToBottom();
 	}
 	else if (currentVocabOrKanji == KANJI)
 	{
@@ -826,7 +830,7 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
-		
+		ScrollToBottom();
 	}
 
 	if (currentVocabOrKanji != NOT_CHOSEN)
@@ -1115,6 +1119,7 @@ void MainFrame::ProcessAnswerWhenAskBy()
 		htmlContents += "</u></body></html>";
 
 		chatHtmlWindow->SetPage(htmlContents);
+		ScrollToBottom();
 
 		break;
 	case MainFrame::MEANING:
@@ -1451,7 +1456,7 @@ void MainFrame::AskQuestion()
 			htmlContents += "</body></html>";
 
 			chatHtmlWindow->SetPage(htmlContents);
-
+			ScrollToBottom();
 			userState = GETTING_READY;
 		}
 	}
