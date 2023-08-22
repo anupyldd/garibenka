@@ -238,6 +238,15 @@ void MainFrame::CreateControls()
 		langChoice->SetStringSelection(currentLang[L"EN"]);
 	}
 
+	if (userSettings["Theme"] == "dark")
+	{
+		themeChoice->SetStringSelection(currentLang[L"Dark"]);
+	}
+	else if (userSettings["Theme"] == "light")
+	{
+		themeChoice->SetStringSelection(currentLang[L"Light"]);
+	}
+
 	this->SetSizer(genSizer);
 	this->Layout();
 }
@@ -254,6 +263,7 @@ void MainFrame::BindEventHandlers()
 	answerSendBtn->Bind(wxEVT_BUTTON, &MainFrame::ReadAnswer, this);
 	answerInputTextCtrl->Bind(wxEVT_TEXT_ENTER, &MainFrame::ReadAnswerOnEnter, this);
 	langChoice->Bind(wxEVT_CHOICE, &MainFrame::ChangeLangSettings, this);
+	themeChoice->Bind(wxEVT_CHOICE, &MainFrame::ChangeThemeSettings, this);
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
@@ -437,6 +447,20 @@ void MainFrame::ChangeLangSettings(wxCommandEvent& event)
 	else if (langChoice->GetStringSelection() == currentLang[L"RU"])
 	{
 		FileHandler::UpdateUserSettingsMap("Language", "ru", userSettings);
+		FileHandler::UpdateUserSettingsFile(userSettings);
+	}
+}
+
+void MainFrame::ChangeThemeSettings(wxCommandEvent& event)
+{
+	if (themeChoice->GetStringSelection() == currentLang[L"Dark"])
+	{
+		FileHandler::UpdateUserSettingsMap("Theme", "dark", userSettings);
+		FileHandler::UpdateUserSettingsFile(userSettings);
+	}
+	else if (themeChoice->GetStringSelection() == currentLang[L"Light"])
+	{
+		FileHandler::UpdateUserSettingsMap("Theme", "light", userSettings);
 		FileHandler::UpdateUserSettingsFile(userSettings);
 	}
 }
