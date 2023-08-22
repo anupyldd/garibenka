@@ -229,6 +229,15 @@ void MainFrame::CreateControls()
 
 	genWorkingAreaBook->ChangeSelection(1);
 
+	if (userSettings["Language"] == "ru")
+	{
+		langChoice->SetStringSelection(currentLang[L"RU"]);
+	}
+	else if (userSettings["Language"] == "en")
+	{
+		langChoice->SetStringSelection(currentLang[L"EN"]);
+	}
+
 	this->SetSizer(genSizer);
 	this->Layout();
 }
@@ -244,6 +253,7 @@ void MainFrame::BindEventHandlers()
 	studyBtn->Bind(wxEVT_BUTTON, &MainFrame::ChooseModule, this);
 	answerSendBtn->Bind(wxEVT_BUTTON, &MainFrame::ReadAnswer, this);
 	answerInputTextCtrl->Bind(wxEVT_TEXT_ENTER, &MainFrame::ReadAnswerOnEnter, this);
+	langChoice->Bind(wxEVT_CHOICE, &MainFrame::ChangeLangSettings, this);
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
@@ -415,6 +425,20 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 void MainFrame::TransferModules(std::vector<Module> modules)
 {
 	localModules = modules;
+}
+
+void MainFrame::ChangeLangSettings(wxCommandEvent& event)
+{
+	if (langChoice->GetStringSelection() == currentLang[L"EN"])
+	{
+		FileHandler::UpdateUserSettingsMap("Language", "en", userSettings);
+		FileHandler::UpdateUserSettingsFile(userSettings);
+	}
+	else if (langChoice->GetStringSelection() == currentLang[L"RU"])
+	{
+		FileHandler::UpdateUserSettingsMap("Language", "ru", userSettings);
+		FileHandler::UpdateUserSettingsFile(userSettings);
+	}
 }
 
 void MainFrame::ChooseModule(wxCommandEvent& event)
