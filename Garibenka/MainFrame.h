@@ -70,7 +70,7 @@ private:
 	void BindEventHandlers();
 
 	void ChangePageToBot(wxCommandEvent& event);
-	void ChangePageToProfile(wxCommandEvent& event);
+	//void ChangePageToProfile(wxCommandEvent& event);
 	void ChangePageToFiles(wxCommandEvent& event);
 	void ChangePageToSettings(wxCommandEvent& event);
 
@@ -90,6 +90,11 @@ private:
 	//void KillChatRichTextFocus(wxFocusEvent& event);
 
 	void TransferModules(std::vector<Module> modules);
+
+	void ChangeLangSettings(wxCommandEvent& event);
+	void SetAllText();
+
+	void ChangeThemeSettings(wxCommandEvent& event);
 
 private:
 		
