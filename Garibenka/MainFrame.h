@@ -92,7 +92,6 @@ private:
 	void TransferModules(std::vector<Module> modules);
 
 	void ChangeLangSettings(wxCommandEvent& event);
-	void SetAllText();
 
 	void ChangeThemeSettings(wxCommandEvent& event);
 
