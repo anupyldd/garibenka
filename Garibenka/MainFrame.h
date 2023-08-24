@@ -56,14 +56,27 @@ private:
 	};
 
 	// for checking answers
-	std::vector<wxString> vocab = { "vocab", "vocabulary", "лексика", "лексику", "words", "слова" };
-	std::vector<wxString> kanji = { "kanji", "kan", "кандзи", "иероглифы" };
-	std::vector<wxString> terms = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам" };
-	std::vector<wxString> readings = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям" };
-	std::vector<wxString> meanings = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям" };
-	std::vector<wxString> start = { "start","begin","начать", "начнем", "старт", "yes", "да" };
+	std::vector<wxString> vocab = { "vocab", "vocabulary", "лексика", "лексику", "words", "слова",
+									"Vocab", "Vocabulary", "Лексика", "Лексику", "Words", "Слова"};
+
+	std::vector<wxString> kanji = { "kanji", "kan", "кандзи", "иероглифы",
+									"Kanji", "Kan", "Кандзи", "Иероглифы" };
+
+	std::vector<wxString> terms = { "term", "terms", "термины", "терминах", "термин", "терминам", "по терминам",
+									"Term", "Terms", "Термины", "Терминах", "Термин", "Терминам", "По терминам" };
+
+	std::vector<wxString> readings = { "reading", "readings", "чтения", "чтениях", "чтение", "чтениям", "по чтениям",
+										"Reading", "Readings", "Чтения", "Чтениях", "Чтение", "Чтениям", "По чтениям" };
+
+	std::vector<wxString> meanings = { "meaning", "meanings", "значения", "значениях", "значение", "значениям", "по значениям",
+										"Meaning", "Meanings", "Значения", "Значениях", "Значение", "Значениям", "По значениям" };
+
+	std::vector<wxString> start = { "start","begin","начать", "начнем", "старт", "yes", "да",
+									"Start","Begin","Начать", "Начнем", "Старт", "Yes", "Да" };
+
 	std::vector<wxString> stop = { "!stop", "!стоп" };
-	std::vector<wxString> no = { "no","нет" };
+
+	std::vector<wxString> no = { "no","нет","No","Нет" };
 
 
 private:
