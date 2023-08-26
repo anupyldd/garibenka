@@ -14,6 +14,10 @@
 #include <fstream>
 #include <iterator>
 #include <wx/wx.h>
+#include <filesystem>
+#include <locale>
+#include <codecvt>
+#include <Windows.h>
 
 #define PY_SSIZE_T_CLEAN
 
@@ -85,6 +89,8 @@ public:
 	
 
 	static void RunPythonScript(int argc, const char* argv[]);
+
+	static void ReadTsvFiles(std::vector<Module>& modules);
 
 	static void Split(const std::string& s, char delim, std::vector<std::string>& elems);
 	static void SplitWide(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems);
