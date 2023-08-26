@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
+#include <filesystem>
 
 using namespace std::literals;
 
@@ -29,14 +30,26 @@ void FileHandler::RunPythonScript(int argc, const char* argv[])
 
 	Py_Initialize();
 
-	//PyRun_SimpleString("exec('Tables.py')");
+	//PyConfig config;
+	//PyConfig_InitPythonConfig(&config);
+	//config.isolated = 1;
+	////std::filesystem::path cwd;
+	////cwd = std::filesystem::current_path();
+	////cwd.c_str();
+	//wchar_t pyPath[] = { L'\\Python\\' };
+	//config.pythonpath_env = pyPath;
 
 	PyObject* obj = Py_BuildValue("s", "Tables.py");
 	FILE* file = _Py_fopen_obj(obj, "r+");
-	if (file != NULL) 
+
+	a = PyRun_SimpleFile(file, "Tables.py");
+	std::cout << a;
+
+	//PyRun_SimpleFileExFlags(file, "Tables.py", 1, )
+
+	/*if (file != NULL) 
 	{
-		PyRun_SimpleFile(file, "Tables.py");
-	}
+	}*/
 
 	if (Py_FinalizeEx() < 0)
 	{

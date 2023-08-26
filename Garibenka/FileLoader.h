@@ -115,3 +115,4 @@ static std::unordered_map<std::string, std::string> userSettings;
 //stores current selected language
 static std::unordered_map<std::wstring, std::wstring> currentLang;
 
+static int a = 99;

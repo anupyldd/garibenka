@@ -409,7 +409,8 @@ std::vector<std::wstring> MainFrame::FillBrowseSymbolsList(std::vector<Module> m
 void MainFrame::LoadFile(wxCommandEvent& event)
 {
 	wxString pathToFile;
-	const wxString pathtoDest = "D:/Projects/Garibenka/Garibenka/Garibenka/Tables/";
+
+	const wxString pathtoDest = wxGetCwd() + "\\Tables\\";
 
 	wxFileDialog fileDialog(this, "Select file", "", "", "Excel Files (*.xls;*.xlsx) | *.xls;*.xlsx", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 	
