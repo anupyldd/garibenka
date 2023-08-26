@@ -12,52 +12,112 @@
 #include <fstream>
 #include <iterator>
 #include <filesystem>
+#include <locale>
+#include <codecvt>
+#include <Windows.h>
+
+//#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+//#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 
 using namespace std::literals;
 
 
 
-void FileHandler::RunPythonScript(int argc, const char* argv[])
+//void FileHandler::RunPythonScript(int argc, const char* argv[])
+//{
+//	wchar_t* program = Py_DecodeLocale(argv[0], NULL);
+//
+//	if (program == NULL)
+//	{
+//		exit(1);
+//	}
+//
+//	//Py_SetProgramName(program);
+//
+//	Py_Initialize();
+//
+//	//PyConfig config;
+//	//PyConfig_InitPythonConfig(&config);
+//	//config.isolated = 1;
+//	////std::filesystem::path cwd;
+//	////cwd = std::filesystem::current_path();
+//	////cwd.c_str();
+//	//wchar_t pyPath[] = { L'\\Python\\' };
+//	//config.pythonpath_env = pyPath;
+//
+//	PyObject* obj = Py_BuildValue("s", "Tables.py");
+//	FILE* file = _Py_fopen_obj(obj, "r+");
+//
+//	a = PyRun_SimpleFile(file, "Tables.py");
+//	std::cout << a;
+//
+//	//PyRun_SimpleFileExFlags(file, "Tables.py", 1, )
+//
+//	/*if (file != NULL) 
+//	{
+//	}*/
+//
+//	if (Py_FinalizeEx() < 0)
+//	{
+//		exit(120);
+//	}
+//
+//	PyMem_RawFree(program);
+//
+//}
+
+void FileHandler::ReadTsvFiles(std::vector<Module>& modules)
 {
-	wchar_t* program = Py_DecodeLocale(argv[0], NULL);
+	std::filesystem::path pathToCwd = std::filesystem::current_path();
+	std::filesystem::path pathToTables = pathToCwd / "Tables";
 
-	if (program == NULL)
+	for (const auto& dirEntry : std::filesystem::recursive_directory_iterator(pathToTables))
 	{
-		exit(1);
+		int moduleCounter = 0;
+
+		if (dirEntry.exists())
+		{
+			std::filesystem::path filePath = dirEntry.path();
+			std::string strFilePath = filePath.string();
+			std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
+			std::string::size_type const p(baseFilename.find_last_of('.'));
+			std::string fileWithoutExtention = baseFilename.substr(0, p);
+			/*std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::wstring wFileWithoutExtention = converter.from_bytes(fileWithoutExtention);*/
+
+			int wchars_num = MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, NULL, 0);
+			wchar_t* wFileWithoutExtention = new wchar_t[wchars_num];
+			MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, wFileWithoutExtention, wchars_num);
+
+			modules.push_back(Module{ wFileWithoutExtention });
+			
+			delete[] wFileWithoutExtention;
+
+			std::wifstream infile(dirEntry.path());
+			infile.imbue(std::locale("en_US.UTF8"));
+			std::wstring line;
+			std::vector<std::wstring> allFileContents;
+
+			while (std::getline(infile, line))
+			{
+				SplitWide(line, '\t', allFileContents);
+			}
+
+			int headerCount = 0; // counter to cut off first two rows which are headers
+			int size = allFileContents.size();
+			for (int i = 0; i < size; i + 6)
+			{
+				if (headerCount >= 2)
+				{
+					
+
+
+				}
+				headerCount++;
+			}
+			headerCount = 0;
+		}
 	}
-
-	//Py_SetProgramName(program);
-
-	Py_Initialize();
-
-	//PyConfig config;
-	//PyConfig_InitPythonConfig(&config);
-	//config.isolated = 1;
-	////std::filesystem::path cwd;
-	////cwd = std::filesystem::current_path();
-	////cwd.c_str();
-	//wchar_t pyPath[] = { L'\\Python\\' };
-	//config.pythonpath_env = pyPath;
-
-	PyObject* obj = Py_BuildValue("s", "Tables.py");
-	FILE* file = _Py_fopen_obj(obj, "r+");
-
-	a = PyRun_SimpleFile(file, "Tables.py");
-	std::cout << a;
-
-	//PyRun_SimpleFileExFlags(file, "Tables.py", 1, )
-
-	/*if (file != NULL) 
-	{
-	}*/
-
-	if (Py_FinalizeEx() < 0)
-	{
-		exit(120);
-	}
-
-	PyMem_RawFree(program);
-
 }
 
 void FileHandler::Split(const std::string& s, char delim, std::vector<std::string>& elems)
@@ -83,57 +143,57 @@ void FileHandler::SplitWide(const std::wstring& s, wchar_t delim, std::vector<st
 }
 
 
-void FileHandler::ReadTablesFile(std::vector<Module>& modules)
-{
-	std::wifstream infile("./Tables/PyOutput.txt");
-	infile.imbue(std::locale("en_US.UTF8"));
-	std::wstring line;
-	std::vector<std::wstring> allFileContents;
-
-	while (std::getline(infile, line))
-	{
-		
-		SplitWide(line, '\t', allFileContents);
-
-	}
-	
-	int moduleCounter = -1; //counts modules in the for loop for referencing
-	int size = allFileContents.size();
-
-	for (size_t i = 0; i < size; i++)
-	{
-		if (allFileContents[i].at(0) == '@')
-		{
-			modules.push_back(Module{ allFileContents[i].substr(1) });
-			moduleCounter++;
-		}
-
-		else if (allFileContents[i].at(0) == '#')
-		{
-			modules[moduleCounter].SetFromFile(allFileContents[i].substr(1));
-		}
-
-		else if (allFileContents[i].at(0) == '!')
-		{
-			modules[moduleCounter].AddToWords(Symbol{ allFileContents[i].substr(1), 
-				allFileContents[i + 1],allFileContents[i + 2] });
-		}
-		
-		else if (allFileContents[i].at(0) == '?')
-		{
-			modules[moduleCounter].AddToKanji(Symbol{ allFileContents[i].substr(1), 
-				allFileContents[i + 1],allFileContents[i + 2] });
-		}
-
-		else
-		{
-			continue;
-		}
-
-	}
-
-
-}
+//void FileHandler::ReadTablesFile(std::vector<Module>& modules)
+//{
+//	std::wifstream infile("./Tables/PyOutput.txt");
+//	infile.imbue(std::locale("en_US.UTF8"));
+//	std::wstring line;
+//	std::vector<std::wstring> allFileContents;
+//
+//	while (std::getline(infile, line))
+//	{
+//		
+//		SplitWide(line, '\t', allFileContents);
+//
+//	}
+//	
+//	int moduleCounter = -1; //counts modules in the for loop for referencing
+//	int size = allFileContents.size();
+//
+//	for (size_t i = 0; i < size; i++)
+//	{
+//		if (allFileContents[i].at(0) == '@')
+//		{
+//			modules.push_back(Module{ allFileContents[i].substr(1) });
+//			moduleCounter++;
+//		}
+//
+//		else if (allFileContents[i].at(0) == '#')
+//		{
+//			modules[moduleCounter].SetFromFile(allFileContents[i].substr(1));
+//		}
+//
+//		else if (allFileContents[i].at(0) == '!')
+//		{
+//			modules[moduleCounter].AddToWords(Symbol{ allFileContents[i].substr(1), 
+//				allFileContents[i + 1],allFileContents[i + 2] });
+//		}
+//		
+//		else if (allFileContents[i].at(0) == '?')
+//		{
+//			modules[moduleCounter].AddToKanji(Symbol{ allFileContents[i].substr(1), 
+//				allFileContents[i + 1],allFileContents[i + 2] });
+//		}
+//
+//		else
+//		{
+//			continue;
+//		}
+//
+//	}
+//
+//
+//}
 
 //void FileHandler::LoadModuleStats(std::vector<Module>& inModules)
 //{

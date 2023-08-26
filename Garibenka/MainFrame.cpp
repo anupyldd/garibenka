@@ -1595,15 +1595,16 @@ MainFrame::MainFrame(const wxString& title)
 	std::filesystem::path absP = std::filesystem::absolute(p);
 
 	//wxString ap = wxStandardPaths::Get().GetExecutablePath();
-	wxString ap = wxGetCwd();
+	/*wxString ap = wxGetCwd();
 	ap = ap + "/Tables.py";
 	std::string aps = ap.ToStdString();
-	const char* apc[1] = { aps.c_str() };
+	const char* apc[1] = { aps.c_str() };*/
 	
+	FileHandler::ReadTsvFiles(modules);
 
 	//const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
-	FileHandler::RunPythonScript(1, apc);
-	FileHandler::ReadTablesFile(modules);
+	//FileHandler::RunPythonScript(1, apc);
+	//FileHandler::ReadTablesFile(modules);
 	//FileHandler::LoadModuleStats(modules);
 	TransferModules(modules);
 	FillModulesList(localModules);
