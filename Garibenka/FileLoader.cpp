@@ -129,7 +129,42 @@ void FileHandler::ReadTsvFiles(std::vector<Module>& inModules)
 		}
 	}
 
+	int iter = 0;
+	for (auto& mod : readModules)
+	{
+		iter = 0;
+		int wordSize = mod.GetWordList().size();
+		for (int i = 0; i < wordSize; i++)
+		{
+			if (mod.GetWordList()[i].GetSymbol() == L"")
+			{
+				iter = i;
+				break;
+			}
+		}
+		if (iter != 0)
+		{
+			mod.GetWordList().erase(mod.GetWordList().begin() + iter, mod.GetWordList().end());
+			mod.GetWordList().shrink_to_fit();
+		}
+		iter = 0;
 
+		int kanjiSize = mod.GetKanjiList().size();
+		for (int i = 0; i < kanjiSize; i++)
+		{
+			if (mod.GetKanjiList()[i].GetSymbol() == L"")
+			{
+				iter = i;
+				break;
+			}
+		}
+		if (iter != 0)
+		{
+			mod.GetKanjiList().erase(mod.GetKanjiList().begin() + iter, mod.GetKanjiList().end());
+			mod.GetKanjiList().shrink_to_fit();
+		}
+		
+	}
 
 	inModules = readModules;
 }
