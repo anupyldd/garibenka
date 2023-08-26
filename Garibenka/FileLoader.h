@@ -1,8 +1,10 @@
 #pragma once
 
+#define _NO_CRT_STDIO_INLINE
+
 //#include <C:/Program Files/Python311/include/Python.h>  //put it in properties additional include libs
 
-#include <Python.h>
+//#include <Python.h>
 
 #include <string>
 #include <string_view>
@@ -17,7 +19,8 @@
 #include <filesystem>
 #include <locale>
 #include <codecvt>
-#include <Windows.h>
+#include <exception>
+//#include <Windows.h>
 
 #define PY_SSIZE_T_CLEAN
 
@@ -46,7 +49,7 @@ class Module
 {
 private:
 	std::wstring fromFile;
-	std::wstring moduleName;
+	std::string moduleName;
 	std::vector<Symbol> wordList;
 	std::vector<Symbol> kanjiList;
 
@@ -57,7 +60,7 @@ public:
 	int answeredCorrectly = 0;	// how many of those symbols were answered correctly
 
 	Module() = default;
-	Module(std::wstring inModuleName);
+	Module(std::string inModuleName);
 	Module(std::wstring inFromFile, std::wstring inModuleName);
 
 	void AddToWords(Symbol inWord);
@@ -69,7 +72,7 @@ public:
 	//void SetStats(int inAsked, int inCorrect);
 
 	std::wstring& GetFileName();
-	std::wstring& GetModuleName();
+	std::string& GetModuleName();
 
 	std::vector<Symbol>& GetWordList();
 	std::vector<Symbol>& GetKanjiList();
@@ -84,11 +87,14 @@ public:
 
 class FileHandler
 {
+private:
+
+	
 
 public:
 	
 
-	static void RunPythonScript(int argc, const char* argv[]);
+	//static void RunPythonScript(int argc, const char* argv[]);
 
 	static void ReadTsvFiles(std::vector<Module>& modules);
 
@@ -121,4 +127,4 @@ static std::unordered_map<std::string, std::string> userSettings;
 //stores current selected language
 static std::unordered_map<std::wstring, std::wstring> currentLang;
 
-static int a = 99;
+static int moduleCounter = -1;

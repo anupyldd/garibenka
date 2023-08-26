@@ -1585,14 +1585,15 @@ MainFrame::MainFrame(const wxString& title)
 	:
 	wxFrame(nullptr, wxID_ANY, title)
 {
+	FileHandler::ReadTsvFiles(modules);
 	FileHandler::ReadUserSettingsFile(userSettings);
 	FileHandler::ReadLocFile(currentLang, userSettings);
 
 	CreateControls();
 	BindEventHandlers();
 
-	std::filesystem::path p = "Tables.py";
-	std::filesystem::path absP = std::filesystem::absolute(p);
+	/*std::filesystem::path p = "Tables.py";
+	std::filesystem::path absP = std::filesystem::absolute(p);*/
 
 	//wxString ap = wxStandardPaths::Get().GetExecutablePath();
 	/*wxString ap = wxGetCwd();
@@ -1600,7 +1601,6 @@ MainFrame::MainFrame(const wxString& title)
 	std::string aps = ap.ToStdString();
 	const char* apc[1] = { aps.c_str() };*/
 	
-	FileHandler::ReadTsvFiles(modules);
 
 	//const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
 	//FileHandler::RunPythonScript(1, apc);

@@ -1,4 +1,7 @@
 #pragma once
+
+#define _NO_CRT_STDIO_INLINE
+
 #include "FileLoader.h"
 #include "BrowseDialog.h"
 #include <wx/wx.h>

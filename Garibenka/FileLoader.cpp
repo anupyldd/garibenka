@@ -1,6 +1,8 @@
+#pragma warning(disable : 4996)
+
 #include "FileLoader.h"
 
-#include <Python.h>
+//#include <Python.h>
 
 #include <string>
 #include <string_view>
@@ -14,10 +16,11 @@
 #include <filesystem>
 #include <locale>
 #include <codecvt>
-#include <Windows.h>
+
 
 //#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 //#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
+//#define _CRT_SECURE_NO_WARNINGS
 
 using namespace std::literals;
 
@@ -66,14 +69,15 @@ using namespace std::literals;
 //
 //}
 
-void FileHandler::ReadTsvFiles(std::vector<Module>& modules)
+void FileHandler::ReadTsvFiles(std::vector<Module>& inModules)
 {
 	std::filesystem::path pathToCwd = std::filesystem::current_path();
 	std::filesystem::path pathToTables = pathToCwd / "Tables";
+	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	std::vector<Module> readModules;
 
 	for (const auto& dirEntry : std::filesystem::recursive_directory_iterator(pathToTables))
 	{
-		int moduleCounter = 0;
 
 		if (dirEntry.exists())
 		{
@@ -82,16 +86,26 @@ void FileHandler::ReadTsvFiles(std::vector<Module>& modules)
 			std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
 			std::string::size_type const p(baseFilename.find_last_of('.'));
 			std::string fileWithoutExtention = baseFilename.substr(0, p);
-			/*std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-			std::wstring wFileWithoutExtention = converter.from_bytes(fileWithoutExtention);*/
+			//std::wstring wFilePath = std::wstring(filePath);
+			//std::wstring revFilePath = 
+			//std::wstring wBaseName = wFilePath.substr(wFilePath.find_last_of("/\\") + 1)
+			//std::string strFilePath = filePath.string();
+			/*std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
+			std::string::size_type const p(baseFilename.find_last_of('.'));
+			std::string fileWithoutExtention = baseFilename.substr(0, p);
+			std::wstring wFileWithoutExtention;
+			wFileWithoutExtention = converter.from_bytes(fileWithoutExtention.c_str());*/
+			
 
-			int wchars_num = MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, NULL, 0);
+			/*int wchars_num = MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, NULL, 0);
 			wchar_t* wFileWithoutExtention = new wchar_t[wchars_num];
 			MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, wFileWithoutExtention, wchars_num);
+			std::wstring wFileName(wFileWithoutExtention);*/
 
-			modules.push_back(Module{ wFileWithoutExtention });
+			readModules.push_back(Module{ fileWithoutExtention });
+			moduleCounter++;
 			
-			delete[] wFileWithoutExtention;
+			//delete[] wFileWithoutExtention;
 
 			std::wifstream infile(dirEntry.path());
 			infile.imbue(std::locale("en_US.UTF8"));
@@ -103,21 +117,21 @@ void FileHandler::ReadTsvFiles(std::vector<Module>& modules)
 				SplitWide(line, '\t', allFileContents);
 			}
 
-			int headerCount = 0; // counter to cut off first two rows which are headers
-			int size = allFileContents.size();
-			for (int i = 0; i < size; i + 6)
+			allFileContents.erase(allFileContents.begin(), allFileContents.begin() + 13);
+			allFileContents.shrink_to_fit();
+
+			
+			for (int i = 0; i < allFileContents.size(); i += 6)
 			{
-				if (headerCount >= 2)
-				{
-					
-
-
-				}
-				headerCount++;
+				readModules[moduleCounter].AddToWords(Symbol{ allFileContents[i], allFileContents[i + 1], allFileContents[i + 2] });
+				readModules[moduleCounter].AddToKanji(Symbol{ allFileContents[i + 3], allFileContents[i + 4], allFileContents[i + 5] });
 			}
-			headerCount = 0;
 		}
 	}
+
+
+
+	inModules = readModules;
 }
 
 void FileHandler::Split(const std::string& s, char delim, std::vector<std::string>& elems)
@@ -357,7 +371,7 @@ void Symbol::SetIsLearnt(bool inIsLearnt)
 	isLearnt = inIsLearnt;
 }
 
-Module::Module(std::wstring inModuleName)
+Module::Module(std::string inModuleName)
 	:
 	moduleName(inModuleName)
 {
@@ -365,8 +379,8 @@ Module::Module(std::wstring inModuleName)
 
 Module::Module(std::wstring inFromFile, std::wstring inModuleName)
 	:
-	fromFile(inFromFile),
-	moduleName(inModuleName)
+	fromFile(inFromFile)
+	//moduleName(inModuleName)
 {
 }
 
@@ -387,7 +401,7 @@ void Module::SetFromFile(std::wstring inFromFile)
 
 void Module::SetModuleName(std::wstring inModuleName)
 {
-	moduleName = inModuleName;
+	//moduleName = inModuleName;
 }
 
 std::wstring& Module::GetFileName()
@@ -395,7 +409,7 @@ std::wstring& Module::GetFileName()
 	return fromFile;
 }
 
-std::wstring& Module::GetModuleName()
+std::string& Module::GetModuleName()
 {
 	return moduleName;
 }
