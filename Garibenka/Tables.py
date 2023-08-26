@@ -1,6 +1,17 @@
-import pandas as pd
 import os
+import sys
 import pathlib
+import site
+
+path1 = os.getcwd()
+
+
+pathToWorkDir = os.getcwd()
+pathToWorkDir += "/Python/Lib/site-packages"
+
+sys.path.append(pathToWorkDir)
+
+import pandas as pd
 
 currentTable = list()
 loadedFiles = list()
