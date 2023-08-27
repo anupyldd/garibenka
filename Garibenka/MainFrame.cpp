@@ -717,7 +717,7 @@ void MainFrame::ResetStudy()
 
 	htmlContents += "<html><body>";
 	htmlContents += currentLang[L"ResetStudy2"];
-	htmlContents += "</body></html>";
+	htmlContents += "</body></html><br><br>";
 
 	chatHtmlWindow->SetPage(htmlContents);
 	ScrollToBottom();
