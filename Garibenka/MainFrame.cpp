@@ -424,7 +424,7 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 	}
 	
 
-	//UpdateModuleList(modules);
+	UpdateModuleList(modules);
 }
 
 //void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
@@ -1566,19 +1566,19 @@ void MainFrame::ScrollToBottom()
 
 // FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
 // 
-//void MainFrame::UpdateModuleList(std::vector<Module>& inModules)
-//{
-//	//filesListCtrl->ClearAll();
-//	filesListCtrl->DeleteAllItems();
-//	filesListCtrl->DeleteAllColumns();
-//
-//	inModules.clear();
-//	const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
-//	FileHandler::RunPythonScript(1, path);
-//	FileHandler::ReadTablesFile(inModules);
-//	FillModulesList(inModules);
-//	filesListCtrl->RefreshItems(filesListCtrl->GetTopItem(), filesListCtrl->GetItemCount() - 1);
-//}
+void MainFrame::UpdateModuleList(std::vector<Module>& inModules)
+{
+	filesListCtrl->ClearAll();
+	//filesListCtrl->DeleteAllItems();
+	//filesListCtrl->DeleteAllColumns();
+
+	inModules.clear();
+
+	FileHandler::ReadTsvFiles(inModules);
+
+	FillModulesList(inModules);
+	filesListCtrl->RefreshItems(filesListCtrl->GetTopItem(), filesListCtrl->GetItemCount() - 1);
+}
 
 
 MainFrame::MainFrame(const wxString& title)
