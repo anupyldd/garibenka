@@ -21,13 +21,13 @@ void MainFrame::CreateControls()
 	wxBoxSizer* mainSizer;
 	mainSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, this->FromDIP(wxSize(80, -1)), wxTAB_TRAVERSAL);
+	leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, this->FromDIP(wxSize(-1, -1)), wxTAB_TRAVERSAL);
 	leftPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
 
 	wxBoxSizer* leftPanelSizer;
 	leftPanelSizer = new wxBoxSizer(wxVERTICAL);
 
-	leftPanelSizer->SetMinSize(this->FromDIP(wxSize(80, -1)));
+	leftPanelSizer->SetMinSize(this->FromDIP(wxSize(-1, -1)));
 	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
 	botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
