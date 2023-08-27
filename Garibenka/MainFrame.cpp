@@ -393,7 +393,7 @@ std::vector<std::wstring> MainFrame::FillBrowseSymbolsList(std::vector<Module> m
 
 	for (auto mod : modules)
 	{
-		if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 1) && mod.GetFileName() == filesListCtrl->GetItemText(item, 0))
+		if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 0))
 		{
 			for (auto sym : mod.GetWordList())
 			{
@@ -432,6 +432,11 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 	}
 	
 
+	
+}
+
+void MainFrame::RemoveFile(wxCommandEvent& event)
+{
 	
 }
 
@@ -572,6 +577,7 @@ void MainFrame::ChooseVocabOrKanji()
 void MainFrame::WriteInitialGreeting()
 {
 	htmlContents += "<FONT SIZE = +2>";
+	htmlContents += "<FONT FACE = \"Cascadia Code\"";
 	htmlContents += "<html><body>";
 	htmlContents += currentLang[L"Greeting1"];
 	htmlContents += "</body></html><br>";
