@@ -41,6 +41,9 @@
     <ClInclude Include="BrowseDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ThemeColors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="main.manifest" />

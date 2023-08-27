@@ -159,6 +159,7 @@
     <ClInclude Include="BrowseDialog.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="ThemeColors.h" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="main.manifest" />

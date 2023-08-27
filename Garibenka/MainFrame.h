@@ -19,7 +19,7 @@
 #include <iterator> 
 #include <wx/stdpaths.h>
 #include <wx/filefn.h> 
-
+#include "ThemeColors.h"
 
 
 class MainFrame : public wxFrame
@@ -86,6 +86,8 @@ private:
 
 	void CreateControls();
 	void BindEventHandlers();
+
+	void ApplyTheme();
 
 	void ChangePageToBot(wxCommandEvent& event);
 	//void ChangePageToProfile(wxCommandEvent& event);
@@ -190,11 +192,15 @@ private:
 	//wxListCtrl* statsListCtrl;
 	wxPanel* filesWorkingAreaPanel;
 	wxStaticText* filesTitleLabel;
-	wxButton* loadFileBtn;
-	wxButton* delFileButton;
+	/*wxButton* loadFileBtn;
+	wxButton* delFileButton;*/
+	wxBitmapButton* loadFileBtn;
+	wxBitmapButton* delFileButton;
+	wxBitmapButton* studyBtn;
+	wxBitmapButton* browseBtn;
 	wxListCtrl* filesListCtrl;
-	wxButton* studyBtn;
-	wxButton* browseBtn;
+	/*wxButton* studyBtn;
+	wxButton* browseBtn;*/
 	wxPanel* settingsWorkingAreaPanel;
 	wxStaticText* languageOptionLabel;
 	wxChoice* langChoice;
