@@ -268,6 +268,7 @@ void MainFrame::BindEventHandlers()
 	settingsBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToSettings, this);
 	browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
 	loadFileBtn->Bind(wxEVT_BUTTON, &MainFrame::LoadFile, this);
+	delFileButton->Bind(wxEVT_BUTTON, &MainFrame::RemoveFile, this);
 	studyBtn->Bind(wxEVT_BUTTON, &MainFrame::ChooseModule, this);
 	answerSendBtn->Bind(wxEVT_BUTTON, &MainFrame::ReadAnswer, this);
 	answerInputTextCtrl->Bind(wxEVT_TEXT_ENTER, &MainFrame::ReadAnswerOnEnter, this);
@@ -437,7 +438,47 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 
 void MainFrame::RemoveFile(wxCommandEvent& event)
 {
+	if (filesListCtrl->GetSelectedItemCount() < 1)
+	{
+		return;
+	}
+
+	if (userState != CHOOSING_MODULE)
+	{
+		return;
+	}
 	
+	long item = -1;
+	wxString modName;
+
+	for (;;)
+	{
+		item = filesListCtrl->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+		if (item == -1)
+			break;
+
+		modName = filesListCtrl->GetItemText(item, 0);
+	}
+
+	//modName += "\\.t\\";
+
+	std::filesystem::path pathToCwd = std::filesystem::current_path();
+	std::filesystem::path pathToTables = pathToCwd / "Tables";
+	for (const auto& dirEntry : std::filesystem::recursive_directory_iterator(pathToTables))
+	{
+		std::filesystem::path filePath = dirEntry.path();
+		std::string strFilePath = filePath.string();
+		std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
+		std::string::size_type const p(baseFilename.find_last_of('.'));
+		std::string fileWithoutExtention = baseFilename.substr(0, p);
+
+		if (fileWithoutExtention == modName)
+		{
+			wxRemoveFile(strFilePath);
+			UpdateModuleList(modules);
+			break;
+		}
+	}
 }
 
 //void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
