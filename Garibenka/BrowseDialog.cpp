@@ -2,13 +2,13 @@
 
 BrowseDialog::BrowseDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxDialog(parent, id, title, pos, size, style)
 {
-	this->SetSizeHints(wxSize(720, 480), wxDefaultSize);
+	this->SetSizeHints(this->FromDIP(wxSize(720, 480)), wxDefaultSize);
 
 	wxBoxSizer* browseSizer;
 	browseSizer = new wxBoxSizer(wxVERTICAL);
 
 	browseList = new wxListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES | wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
-	browseSizer->Add(browseList, 1, wxALL | wxEXPAND, 5);
+	browseSizer->Add(browseList, 1, wxALL | wxEXPAND, this->FromDIP(5));
 	browseList->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	
 

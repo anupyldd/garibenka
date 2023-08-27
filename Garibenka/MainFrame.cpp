@@ -21,18 +21,18 @@ void MainFrame::CreateControls()
 	wxBoxSizer* mainSizer;
 	mainSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(80, -1), wxTAB_TRAVERSAL);
+	leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, this->FromDIP(wxSize(80, -1)), wxTAB_TRAVERSAL);
 	leftPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
 
 	wxBoxSizer* leftPanelSizer;
 	leftPanelSizer = new wxBoxSizer(wxVERTICAL);
 
-	leftPanelSizer->SetMinSize(wxSize(80, -1));
+	leftPanelSizer->SetMinSize(this->FromDIP(wxSize(80, -1)));
 	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 	botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
 	botBtn->SetToolTip(currentLang[L"Helper Bot"]);
-	leftPanelSizer->Add(botBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);
+	leftPanelSizer->Add(botBtn, 0, wxLEFT | wxRIGHT | wxTOP, this->FromDIP(5));
 
 	/*profileBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
@@ -45,7 +45,7 @@ void MainFrame::CreateControls()
 	filesBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.png"), wxBITMAP_TYPE_ANY));
 	filesBtn->SetToolTip(currentLang[L"Files"]);
 	filesBtn->Disable();
-	leftPanelSizer->Add(filesBtn, 0, wxALL, 5);
+	leftPanelSizer->Add(filesBtn, 0, wxALL, this->FromDIP(5));
 
 	fillerLabel = new wxStaticText(leftPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
 	fillerLabel->Wrap(-1);
@@ -55,12 +55,12 @@ void MainFrame::CreateControls()
 
 	settingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.png"), wxBITMAP_TYPE_ANY));
 	settingsBtn->SetToolTip(currentLang[L"Settings"]);
-	leftPanelSizer->Add(settingsBtn, 0, wxALL, 5);
+	leftPanelSizer->Add(settingsBtn, 0, wxALL, this->FromDIP(5));
 
 
 	leftPanel->SetSizer(leftPanelSizer);
 	leftPanel->Layout();
-	mainSizer->Add(leftPanel, 0, wxEXPAND | wxALL, 0);
+	mainSizer->Add(leftPanel, 0, wxEXPAND | wxALL, this->FromDIP(0));
 
 	genWorkingAreaBook = new wxSimplebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
 	genWorkingAreaBook->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
@@ -74,17 +74,17 @@ void MainFrame::CreateControls()
 	
 	chatHtmlWindow = new wxHtmlWindow(chatWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_NO_SELECTION | wxHW_SCROLLBAR_AUTO);
 	chatHtmlWindow->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-	chatAreaSizer->Add(chatHtmlWindow, 1, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 5);
+	chatAreaSizer->Add(chatHtmlWindow, 1, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, this->FromDIP(5));
 
 	//chatAreaSizer->Add(chatRichTextCtrl, 1, wxEXPAND | wxALL, 5);
 
 	wxBoxSizer* answerAreaSizer;
 	answerAreaSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	answerAreaSizer->SetMinSize(wxSize(-1, 80));
+	answerAreaSizer->SetMinSize(this->FromDIP(wxSize(-1, 80)));
 	answerInputTextCtrl = new wxTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
 	answerInputTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-	answerAreaSizer->Add(answerInputTextCtrl, 1, wxALL | wxEXPAND, 5);
+	answerAreaSizer->Add(answerInputTextCtrl, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
 	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
@@ -92,10 +92,10 @@ void MainFrame::CreateControls()
 	answerSendBtn->SetToolTip(currentLang[L"Send"]);
 	answerSendBtn->Disable();
 	
-	answerAreaSizer->Add(answerSendBtn, 0, wxBOTTOM | wxRIGHT | wxTOP, 5);
+	answerAreaSizer->Add(answerSendBtn, 0, wxBOTTOM | wxRIGHT | wxTOP, this->FromDIP(5));
 
 
-	chatAreaSizer->Add(answerAreaSizer, 0, wxEXPAND, 5);
+	chatAreaSizer->Add(answerAreaSizer, 0, wxEXPAND, this->FromDIP(5));
 
 
 	chatWorkingAreaPanel->SetSizer(chatAreaSizer);
@@ -142,37 +142,37 @@ void MainFrame::CreateControls()
 	filesTitleLabel->Wrap(-1);
 	filesTitleLabel->SetFont(wxFont(40, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
-	filesAreaSizer->Add(filesTitleLabel, 0, wxALL | wxEXPAND, 5);
+	filesAreaSizer->Add(filesTitleLabel, 0, wxALL | wxEXPAND, this->FromDIP(5));
 
 	wxBoxSizer* loadDelSizer;
 	loadDelSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Import File"], wxDefaultPosition, wxSize(-1, -1), 0);
-	loadDelSizer->Add(loadFileBtn, 1, wxALL | wxEXPAND, 5);
+	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Import File"], wxDefaultPosition, this->FromDIP(wxSize(-1, -1)), 0);
+	loadDelSizer->Add(loadFileBtn, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
 	delFileButton = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Delete File"], wxDefaultPosition, wxDefaultSize, 0);
-	loadDelSizer->Add(delFileButton, 1, wxALL, 5);
+	loadDelSizer->Add(delFileButton, 1, wxALL, this->FromDIP(5));
 
 
-	filesAreaSizer->Add(loadDelSizer, 0, wxEXPAND, 5);
+	filesAreaSizer->Add(loadDelSizer, 0, wxEXPAND, this->FromDIP(5));
 
 	filesListCtrl = new wxListCtrl(filesWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT);
 	filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	//filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans")));
-	filesAreaSizer->Add(filesListCtrl, 1, wxALL | wxEXPAND, 0);
+	filesAreaSizer->Add(filesListCtrl, 1, wxALL | wxEXPAND, this->FromDIP(0));
 
 	wxBoxSizer* studyOrBrowseSizer;
 	studyOrBrowseSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	studyOrBrowseSizer->SetMinSize(wxSize(-1, 40));
+	studyOrBrowseSizer->SetMinSize(this->FromDIP(wxSize(-1, 40)));
 	studyBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Study"], wxDefaultPosition, wxDefaultSize, 0);
-	studyOrBrowseSizer->Add(studyBtn, 1, wxALL | wxEXPAND, 5);
+	studyOrBrowseSizer->Add(studyBtn, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
 	browseBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Browse"], wxDefaultPosition, wxDefaultSize, 0);
-	studyOrBrowseSizer->Add(browseBtn, 1, wxALL | wxEXPAND, 5);
+	studyOrBrowseSizer->Add(browseBtn, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
 
-	filesAreaSizer->Add(studyOrBrowseSizer, 0, wxEXPAND, 0);
+	filesAreaSizer->Add(studyOrBrowseSizer, 0, wxEXPAND, this->FromDIP(0));
 
 
 	filesWorkingAreaPanel->SetSizer(filesAreaSizer);
@@ -190,7 +190,7 @@ void MainFrame::CreateControls()
 	languageOptionLabel->Wrap(-1);
 	languageOptionLabel->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
-	languageOptionSizer->Add(languageOptionLabel, 2, wxALL | wxEXPAND, 5);
+	languageOptionSizer->Add(languageOptionLabel, 2, wxALL | wxEXPAND, this->FromDIP(5));
 
 	wxArrayString langChoiceChoices;
 	langChoiceChoices.push_back(currentLang[L"EN"]);
@@ -199,10 +199,10 @@ void MainFrame::CreateControls()
 	langChoice = new wxChoice(settingsWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, langChoiceChoices, wxCB_SORT);
 	langChoice->SetSelection(0);
 	langChoice->SetFont(wxFont(19, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-	languageOptionSizer->Add(langChoice, 1, wxALL | wxEXPAND, 5);
+	languageOptionSizer->Add(langChoice, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
 
-	settingsAreaSizer->Add(languageOptionSizer, 0, wxEXPAND, 0);
+	settingsAreaSizer->Add(languageOptionSizer, 0, wxEXPAND, this->FromDIP(0));
 
 	wxBoxSizer* themeOptionSizer;
 	themeOptionSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -211,7 +211,7 @@ void MainFrame::CreateControls()
 	themeOptionLabel->Wrap(-1);
 	themeOptionLabel->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
-	themeOptionSizer->Add(themeOptionLabel, 2, wxALL | wxEXPAND, 5);
+	themeOptionSizer->Add(themeOptionLabel, 2, wxALL | wxEXPAND, this->FromDIP(5));
 
 	wxArrayString themeChoiceChoices;
 	themeChoiceChoices.push_back(currentLang[L"Dark"]);
@@ -220,10 +220,10 @@ void MainFrame::CreateControls()
 	themeChoice = new wxChoice(settingsWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, themeChoiceChoices, wxCB_SORT);
 	themeChoice->SetSelection(0);
 	themeChoice->SetFont(wxFont(19, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-	themeOptionSizer->Add(themeChoice, 1, wxALL | wxEXPAND, 5);
+	themeOptionSizer->Add(themeChoice, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
 
-	settingsAreaSizer->Add(themeOptionSizer, 0, wxEXPAND, 0);
+	settingsAreaSizer->Add(themeOptionSizer, 0, wxEXPAND, this->FromDIP(0));
 
 
 	settingsWorkingAreaPanel->SetSizer(settingsAreaSizer);
@@ -231,10 +231,10 @@ void MainFrame::CreateControls()
 	settingsAreaSizer->Fit(settingsWorkingAreaPanel);
 	genWorkingAreaBook->AddPage(settingsWorkingAreaPanel, wxT("a page"), false);
 
-	mainSizer->Add(genWorkingAreaBook, 1, wxEXPAND | wxALL, 0);
+	mainSizer->Add(genWorkingAreaBook, 1, wxEXPAND | wxALL, this->FromDIP(0));
 
 
-	genSizer->Add(mainSizer, 1, wxEXPAND, 0);
+	genSizer->Add(mainSizer, 1, wxEXPAND, this->FromDIP(0));
 
 	genWorkingAreaBook->ChangeSelection(1);
 
@@ -1677,7 +1677,7 @@ MainFrame::MainFrame(const wxString& title)
 	// end of temp stuff
 	
 	this->Centre(wxBOTH);
-	this->SetMinClientSize(wxSize(720, 480));
+	this->SetMinClientSize(this->FromDIP(wxSize(720, 480)));
 	
 	WriteInitialGreeting();
 }
