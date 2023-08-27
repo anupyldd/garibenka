@@ -28,7 +28,7 @@ void MainFrame::CreateControls()
 	leftPanelSizer = new wxBoxSizer(wxVERTICAL);
 
 	leftPanelSizer->SetMinSize(this->FromDIP(wxSize(80, -1)));
-	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
 	botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
 	botBtn->SetToolTip(currentLang[L"Helper Bot"]);
@@ -40,7 +40,7 @@ void MainFrame::CreateControls()
 	profileBtn->SetToolTip(currentLang[L"Profile"]);
 	leftPanelSizer->Add(profileBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);*/
 
-	filesBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	filesBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
 	filesBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.png"), wxBITMAP_TYPE_ANY));
 	filesBtn->SetToolTip(currentLang[L"Files"]);
@@ -51,7 +51,7 @@ void MainFrame::CreateControls()
 	fillerLabel->Wrap(-1);
 	leftPanelSizer->Add(fillerLabel, 1, wxALL | wxEXPAND, 0);
 
-	settingsBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	settingsBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
 	settingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.png"), wxBITMAP_TYPE_ANY));
 	settingsBtn->SetToolTip(currentLang[L"Settings"]);
@@ -81,12 +81,12 @@ void MainFrame::CreateControls()
 	wxBoxSizer* answerAreaSizer;
 	answerAreaSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	answerAreaSizer->SetMinSize(this->FromDIP(wxSize(-1, 80)));
-	answerInputTextCtrl = new wxTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
+	answerAreaSizer->SetMinSize(this->FromDIP(wxSize(-1, 40)));
+	answerInputTextCtrl = new wxTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER | wxBORDER_NONE);
 	answerInputTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	answerAreaSizer->Add(answerInputTextCtrl, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
-	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
 	answerSendBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.png"), wxBITMAP_TYPE_ANY));
 	answerSendBtn->SetToolTip(currentLang[L"Send"]);
@@ -138,41 +138,61 @@ void MainFrame::CreateControls()
 	wxBoxSizer* filesAreaSizer;
 	filesAreaSizer = new wxBoxSizer(wxVERTICAL);
 
+	wxBoxSizer* HeaderSizer;
+	HeaderSizer = new wxBoxSizer(wxHORIZONTAL);
+
 	filesTitleLabel = new wxStaticText(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Files"], wxDefaultPosition, wxDefaultSize, 0);
 	filesTitleLabel->Wrap(-1);
 	filesTitleLabel->SetFont(wxFont(40, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+	//filesTitleLabel->SetForegroundColour(wxColour(37, 68, 65));
 
-	filesAreaSizer->Add(filesTitleLabel, 0, wxALL | wxEXPAND, this->FromDIP(5));
+	HeaderSizer->Add(filesTitleLabel, 1, wxALL, this->FromDIP(5));
 
 	wxBoxSizer* loadDelSizer;
-	loadDelSizer = new wxBoxSizer(wxHORIZONTAL);
+	loadDelSizer = new wxBoxSizer(wxVERTICAL);
 
-	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Import File"], wxDefaultPosition, this->FromDIP(wxSize(-1, -1)), 0);
-	loadDelSizer->Add(loadFileBtn, 1, wxALL | wxEXPAND, this->FromDIP(5));
+	loadFileBtn = new wxBitmapButton(filesWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
+	loadDelSizer->Add(loadFileBtn, 0, wxALL, this->FromDIP(5));
 
-	delFileButton = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Delete File"], wxDefaultPosition, wxDefaultSize, 0);
-	loadDelSizer->Add(delFileButton, 1, wxALL, this->FromDIP(5));
+	delFileButton = new wxBitmapButton(filesWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
+	loadDelSizer->Add(delFileButton, 0, wxALL, this->FromDIP(5));
 
 
-	filesAreaSizer->Add(loadDelSizer, 0, wxEXPAND, this->FromDIP(5));
-
-	filesListCtrl = new wxListCtrl(filesWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT);
-	filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-	//filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans")));
-	filesAreaSizer->Add(filesListCtrl, 1, wxALL | wxEXPAND, this->FromDIP(0));
+	HeaderSizer->Add(loadDelSizer, 0, wxEXPAND, this->FromDIP(0));
 
 	wxBoxSizer* studyOrBrowseSizer;
+	studyOrBrowseSizer = new wxBoxSizer(wxVERTICAL);
+
+	studyOrBrowseSizer->SetMinSize(this->FromDIP(wxSize(-1, 40)));
+	studyBtn = new wxBitmapButton(filesWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
+	studyOrBrowseSizer->Add(studyBtn, 0, wxALL, this->FromDIP(5));
+
+	browseBtn = new wxBitmapButton(filesWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
+	studyOrBrowseSizer->Add(browseBtn, 0, wxALL, this->FromDIP(5));
+
+
+	HeaderSizer->Add(studyOrBrowseSizer, 0, wxEXPAND, this->FromDIP(0));
+
+
+	filesAreaSizer->Add(HeaderSizer, 0, wxEXPAND, this->FromDIP(0));
+
+	filesListCtrl = new wxListCtrl(filesWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_HEADER | wxLC_ICON | wxLC_REPORT | wxBORDER_NONE);
+	filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+	//filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans")));
+	filesAreaSizer->Add(filesListCtrl, 1, wxALL | wxEXPAND, this->FromDIP(5));
+
+	/*wxBoxSizer* studyOrBrowseSizer;
 	studyOrBrowseSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	studyOrBrowseSizer->SetMinSize(this->FromDIP(wxSize(-1, 40)));
-	studyBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Study"], wxDefaultPosition, wxDefaultSize, 0);
+	studyBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Study"], wxDefaultPosition, wxDefaultSize, wxBORDER_NONE);
 	studyOrBrowseSizer->Add(studyBtn, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
-	browseBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Browse"], wxDefaultPosition, wxDefaultSize, 0);
+	browseBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Browse"], wxDefaultPosition, wxDefaultSize, wxBORDER_NONE);
 	studyOrBrowseSizer->Add(browseBtn, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
 
-	filesAreaSizer->Add(studyOrBrowseSizer, 0, wxEXPAND, this->FromDIP(0));
+	filesAreaSizer->Add(studyOrBrowseSizer, 0, wxEXPAND, this->FromDIP(0));*/
 
 
 	filesWorkingAreaPanel->SetSizer(filesAreaSizer);
@@ -274,6 +294,184 @@ void MainFrame::BindEventHandlers()
 	answerInputTextCtrl->Bind(wxEVT_TEXT_ENTER, &MainFrame::ReadAnswerOnEnter, this);
 	langChoice->Bind(wxEVT_CHOICE, &MainFrame::ChangeLangSettings, this);
 	themeChoice->Bind(wxEVT_CHOICE, &MainFrame::ChangeThemeSettings, this);
+
+
+	// workaroung for setting wxChoice bg color
+	if (userSettings["Theme"] == "dark")
+	{
+		langChoice->Bind(wxEVT_PAINT, [=](wxPaintEvent& event) {
+
+			wxPaintDC dc(langChoice);
+			wxRect rect(0, 0, dc.GetSize().GetWidth(), dc.GetSize().GetHeight());
+
+			dc.SetBrush(DarkTheme::darkBrush);
+			dc.SetPen(DarkTheme::darkPen);
+			dc.DrawRectangle(rect);
+
+			dc.DrawBitmap(wxArtProvider::GetBitmap(wxART_GO_DOWN, wxART_OTHER, wxSize(10, 10)), wxPoint(rect.GetWidth() - 15, (rect.GetHeight() / 2) - 5));
+			const wxString sel = langChoice->GetStringSelection();
+
+			if (!sel.IsEmpty())
+			{
+				dc.DrawLabel(sel, rect, wxALIGN_CENTER_VERTICAL);
+			}
+			});
+	}
+	else if (userSettings["Theme"] == "light")
+	{
+		langChoice->Bind(wxEVT_PAINT, [=](wxPaintEvent& event) {
+
+			wxPaintDC dc(langChoice);
+			wxRect rect(0, 0, dc.GetSize().GetWidth(), dc.GetSize().GetHeight());
+
+			dc.SetBrush(LightTheme::cyanBrush);
+			dc.SetPen(LightTheme::cyanPen);
+			dc.DrawRectangle(rect);
+
+			dc.DrawBitmap(wxArtProvider::GetBitmap(wxART_GO_DOWN, wxART_OTHER, wxSize(10, 10)), wxPoint(rect.GetWidth() - 15, (rect.GetHeight() / 2) - 5));
+			const wxString sel = langChoice->GetStringSelection();
+
+			if (!sel.IsEmpty())
+			{
+				dc.DrawLabel(sel, rect, wxALIGN_CENTER_VERTICAL);
+			}
+			});
+	}
+
+	if (userSettings["Theme"] == "dark")
+	{
+		themeChoice->Bind(wxEVT_PAINT, [=](wxPaintEvent& event) {
+
+			wxPaintDC dc(themeChoice);
+			wxRect rect(0, 0, dc.GetSize().GetWidth(), dc.GetSize().GetHeight());
+
+			dc.SetBrush(DarkTheme::darkBrush);
+			dc.SetPen(DarkTheme::darkPen);
+			dc.DrawRectangle(rect);
+
+			dc.DrawBitmap(wxArtProvider::GetBitmap(wxART_GO_DOWN, wxART_OTHER, wxSize(10, 10)), wxPoint(rect.GetWidth() - 15, (rect.GetHeight() / 2) - 5));
+			const wxString sel = themeChoice->GetStringSelection();
+
+			if (!sel.IsEmpty())
+			{
+				dc.DrawLabel(sel, rect, wxALIGN_CENTER_VERTICAL);
+			}
+			});
+	}
+	else if (userSettings["Theme"] == "light")
+	{
+		themeChoice->Bind(wxEVT_PAINT, [=](wxPaintEvent& event) {
+
+			wxPaintDC dc(themeChoice);
+			wxRect rect(0, 0, dc.GetSize().GetWidth(), dc.GetSize().GetHeight());
+
+			dc.SetBrush(LightTheme::cyanBrush);
+			dc.SetPen(LightTheme::cyanPen);
+			dc.DrawRectangle(rect);
+
+			dc.DrawBitmap(wxArtProvider::GetBitmap(wxART_GO_DOWN, wxART_OTHER, wxSize(10, 10)), wxPoint(rect.GetWidth() - 15, (rect.GetHeight() / 2) - 5));
+			const wxString sel = themeChoice->GetStringSelection();
+
+			if (!sel.IsEmpty())
+			{
+				dc.DrawLabel(sel, rect, wxALIGN_CENTER_VERTICAL);
+			}
+			});
+	}
+}
+
+void MainFrame::ApplyTheme()
+{
+	wxString pathToFileIcons = wxGetCwd() + "\\Icons\\FileIcons\\";
+
+	if (userSettings["Theme"] == "dark")
+	{
+		leftPanel->SetBackgroundColour(DarkTheme::darkest);
+		botBtn->SetBackgroundColour(DarkTheme::darkest);
+		filesBtn->SetBackgroundColour(DarkTheme::darkest);
+		settingsBtn->SetBackgroundColour(DarkTheme::darkest);
+		genWorkingAreaBook->SetBackgroundColour(DarkTheme::darkest);
+		chatWorkingAreaPanel->SetBackgroundColour(DarkTheme::darkest);
+		chatHtmlWindow->SetBackgroundColour(DarkTheme::dark);
+		answerSendBtn->SetBackgroundColour(DarkTheme::darkest);
+		filesWorkingAreaPanel->SetBackgroundColour(DarkTheme::darkest);
+		loadFileBtn->SetBackgroundColour(DarkTheme::dark);
+		delFileButton->SetBackgroundColour(DarkTheme::dark);
+		filesListCtrl->SetBackgroundColour(DarkTheme::dark);
+		studyBtn->SetBackgroundColour(DarkTheme::dark);
+		browseBtn->SetBackgroundColour(DarkTheme::dark);
+		answerInputTextCtrl->SetBackgroundColour(DarkTheme::dark);
+		settingsWorkingAreaPanel->SetBackgroundColour(DarkTheme::darkest);
+		langChoice->SetBackgroundColour(DarkTheme::dark);
+		themeChoice->SetBackgroundColour(DarkTheme::dark);
+		langChoice->SetOwnBackgroundColour(DarkTheme::dark);
+
+		//chatHtmlWindow->SetForegroundColour(DarkTheme::dark);
+		filesTitleLabel->SetForegroundColour(DarkTheme::light);
+		loadFileBtn->SetForegroundColour(DarkTheme::light);
+		delFileButton->SetForegroundColour(DarkTheme::light);
+		filesListCtrl->SetForegroundColour(DarkTheme::light);
+		studyBtn->SetForegroundColour(DarkTheme::light);
+		browseBtn->SetForegroundColour(DarkTheme::light);
+		answerInputTextCtrl->SetForegroundColour(DarkTheme::light);
+		languageOptionLabel->SetForegroundColour(DarkTheme::light);
+		langChoice->SetForegroundColour(DarkTheme::light);
+		themeOptionLabel->SetForegroundColour(DarkTheme::light);
+		themeChoice->SetForegroundColour(DarkTheme::light);
+
+		if (userSettings["Language"] == "en")
+		{
+			loadFileBtn->SetBitmap(wxBitmap(pathToFileIcons + "ImportDarkEn.png", wxBITMAP_TYPE_ANY));
+			loadFileBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "ImportDarkPressedEn.png", wxBITMAP_TYPE_ANY));
+
+			delFileButton->SetBitmap(wxBitmap(pathToFileIcons + "DeleteDarkEn.png", wxBITMAP_TYPE_ANY));
+			delFileButton->SetBitmapPressed(wxBitmap(pathToFileIcons + "DeleteDarkPressedEn.png", wxBITMAP_TYPE_ANY));
+
+			studyBtn->SetBitmap(wxBitmap(pathToFileIcons + "StudyDarkEn.png", wxBITMAP_TYPE_ANY));
+			studyBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "StudyDarkPressedEn.png", wxBITMAP_TYPE_ANY));
+
+			browseBtn->SetBitmap(wxBitmap(pathToFileIcons + "BrowseDarkEn.png", wxBITMAP_TYPE_ANY));
+			browseBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "BrowseDarkPressedEn.png", wxBITMAP_TYPE_ANY));
+		}
+		else if (userSettings["Language"] == "ru")
+		{
+
+		}
+	}
+	else if (userSettings["Theme"] == "light")
+	{
+		/*leftPanel->SetBackgroundColour(DarkTheme::darkest);
+		botBtn->SetBackgroundColour(DarkTheme::darkest);
+		filesBtn->SetBackgroundColour(DarkTheme::darkest);
+		settingsBtn->SetBackgroundColour(DarkTheme::darkest);
+		genWorkingAreaBook->SetBackgroundColour(DarkTheme::darkest);
+		chatWorkingAreaPanel->SetBackgroundColour(DarkTheme::darkest);
+		chatHtmlWindow->SetBackgroundColour(DarkTheme::dark);
+		answerSendBtn->SetBackgroundColour(DarkTheme::darkest);
+		filesWorkingAreaPanel->SetBackgroundColour();
+		loadFileBtn->SetBackgroundColour();
+		delFileButton->SetBackgroundColour();
+		filesListCtrl->SetBackgroundColour();
+		studyBtn->SetBackgroundColour();
+		browseBtn->SetBackgroundColour();
+		answerInputTextCtrl->SetBackgroundColour();
+		settingsWorkingAreaPanel->SetBackgroundColour();
+		langChoice->SetBackgroundColour();
+		themeChoice->SetBackgroundColour();
+
+		chatHtmlWindow->SetForegroundColour();
+		filesTitleLabel->SetForegroundColour();
+		loadFileBtn->SetForegroundColour();
+		delFileButton->SetForegroundColour();
+		filesListCtrl->SetForegroundColour();
+		studyBtn->SetForegroundColour();
+		browseBtn->SetForegroundColour();
+		answerInputTextCtrl->SetForegroundColour();
+		languageOptionLabel->SetForegroundColour();
+		langChoice->SetForegroundColour();
+		themeOptionLabel->SetForegroundColour();
+		themeChoice->SetForegroundColour();*/
+	}
 }
 
 void MainFrame::ChangePageToBot(wxCommandEvent& event)
@@ -589,6 +787,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 
 	chatHtmlWindow->SetPage(htmlContents);
 	
+	
 }
 
 void MainFrame::FillCurrentSymbols(std::vector<Module>& modules)
@@ -617,7 +816,7 @@ void MainFrame::ChooseVocabOrKanji()
 void MainFrame::WriteInitialGreeting()
 {
 	htmlContents += "<FONT SIZE = +2>";
-	htmlContents += "<FONT FACE = \"Cascadia Code\"";
+	//htmlContents += "<FONT FACE = \"Cascadia Code\"";
 	htmlContents += "<html><body>";
 	htmlContents += currentLang[L"Greeting1"];
 	htmlContents += "</body></html><br>";
@@ -1675,6 +1874,7 @@ MainFrame::MainFrame(const wxString& title)
 	//wxString t7 = userSettings["Language"];
 	//filesTitleLabel->SetLabel(t7);
 	// end of temp stuff
+	ApplyTheme();
 	
 	this->Centre(wxBOTH);
 	this->SetMinClientSize(this->FromDIP(wxSize(720, 480)));
