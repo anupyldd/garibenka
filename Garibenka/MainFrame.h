@@ -190,6 +190,7 @@ private:
 	wxPanel* filesWorkingAreaPanel;
 	wxStaticText* filesTitleLabel;
 	wxButton* loadFileBtn;
+	wxButton* delFileButton;
 	wxListCtrl* filesListCtrl;
 	wxButton* studyBtn;
 	wxButton* browseBtn;
