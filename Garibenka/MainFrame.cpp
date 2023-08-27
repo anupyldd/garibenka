@@ -504,8 +504,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 		currentFile = filesListCtrl->GetItemText(item, 0);*/
 		for (auto mod : localModules)
 		{
-			if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 1) && 
-				mod.GetFileName() == filesListCtrl->GetItemText(item, 0))
+			if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 0))
 			{
 				currentModule = mod;
 			}
@@ -1637,7 +1636,7 @@ MainFrame::MainFrame(const wxString& title)
 	// end of temp stuff
 	
 	this->Centre(wxBOTH);
-	this->SetMinClientSize(wxSize(640, 480));
+	this->SetMinClientSize(wxSize(720, 480));
 	
 	WriteInitialGreeting();
 }
