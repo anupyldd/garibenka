@@ -83,7 +83,7 @@ void MainFrame::CreateControls()
 
 	answerAreaSizer->SetMinSize(this->FromDIP(wxSize(-1, 40)));
 	answerInputTextCtrl = new wxTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER | wxBORDER_NONE);
-	answerInputTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+	answerInputTextCtrl->SetFont(wxFont(19, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	answerAreaSizer->Add(answerInputTextCtrl, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
 	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
@@ -437,6 +437,9 @@ void MainFrame::ApplyTheme()
 		{
 
 		}
+
+		htmlContents += "<BODY BGCOLOR=\"#151E3F\">";
+		htmlContents += "<FONT COLOR=\"#F2F3D9\"";
 	}
 	else if (userSettings["Theme"] == "light")
 	{
