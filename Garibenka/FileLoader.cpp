@@ -75,6 +75,7 @@ void FileHandler::ReadTsvFiles(std::vector<Module>& inModules)
 	std::filesystem::path pathToTables = pathToCwd / "Tables";
 	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 	std::vector<Module> readModules;
+	moduleCounter = -1;
 
 	for (const auto& dirEntry : std::filesystem::recursive_directory_iterator(pathToTables))
 	{
