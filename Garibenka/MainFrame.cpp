@@ -147,10 +147,10 @@ void MainFrame::CreateControls()
 	wxBoxSizer* loadDelSizer;
 	loadDelSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Load File"), wxDefaultPosition, wxSize(-1, -1), 0);
+	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Import File"], wxDefaultPosition, wxSize(-1, -1), 0);
 	loadDelSizer->Add(loadFileBtn, 1, wxALL | wxEXPAND, 5);
 
-	delFileButton = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Delete File"), wxDefaultPosition, wxDefaultSize, 0);
+	delFileButton = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Delete File"], wxDefaultPosition, wxDefaultSize, 0);
 	loadDelSizer->Add(delFileButton, 1, wxALL, 5);
 
 
@@ -318,7 +318,7 @@ void MainFrame::ChangePageToSettings(wxCommandEvent& event)
 void MainFrame::FillModulesList(std::vector<Module> modules)
 {
 	//filesListCtrl->InsertColumn(0, "File", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-	filesListCtrl->InsertColumn(1, "Module", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	filesListCtrl->InsertColumn(1, currentLang[L"ModuleForStats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
 
 	int size = modules.size();
 	for (size_t i = 0; i < size; i++)
