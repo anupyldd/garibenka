@@ -21,13 +21,13 @@ void MainFrame::CreateControls()
 	wxBoxSizer* mainSizer;
 	mainSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, this->FromDIP(wxSize(80, -1)), wxTAB_TRAVERSAL);
+	leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, this->FromDIP(wxSize(-1, -1)), wxTAB_TRAVERSAL);
 	leftPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
 
 	wxBoxSizer* leftPanelSizer;
 	leftPanelSizer = new wxBoxSizer(wxVERTICAL);
 
-	leftPanelSizer->SetMinSize(this->FromDIP(wxSize(80, -1)));
+	leftPanelSizer->SetMinSize(this->FromDIP(wxSize(-1, -1)));
 	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
 	botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
@@ -386,6 +386,17 @@ void MainFrame::ApplyTheme()
 
 	if (userSettings["Theme"] == "dark")
 	{
+		browseDialog->browseList->SetBackgroundColour(DarkTheme::dark);
+		browseDialog->browseList->SetForegroundColour(DarkTheme::light);
+	}
+	else if (userSettings["Theme"] == "light")
+	{
+		browseDialog->browseList->SetBackgroundColour(LightTheme::cyan);
+		browseDialog->browseList->SetForegroundColour(LightTheme::green);
+	}
+
+	if (userSettings["Theme"] == "dark")
+	{
 		leftPanel->SetBackgroundColour(DarkTheme::darkest);
 		botBtn->SetBackgroundColour(DarkTheme::darkest);
 		filesBtn->SetBackgroundColour(DarkTheme::darkest);
@@ -395,11 +406,11 @@ void MainFrame::ApplyTheme()
 		chatHtmlWindow->SetBackgroundColour(DarkTheme::dark);
 		answerSendBtn->SetBackgroundColour(DarkTheme::darkest);
 		filesWorkingAreaPanel->SetBackgroundColour(DarkTheme::darkest);
-		loadFileBtn->SetBackgroundColour(DarkTheme::dark);
+		/*loadFileBtn->SetBackgroundColour(DarkTheme::dark);
 		delFileButton->SetBackgroundColour(DarkTheme::dark);
-		filesListCtrl->SetBackgroundColour(DarkTheme::dark);
-		studyBtn->SetBackgroundColour(DarkTheme::dark);
 		browseBtn->SetBackgroundColour(DarkTheme::dark);
+		studyBtn->SetBackgroundColour(DarkTheme::dark);*/
+		filesListCtrl->SetBackgroundColour(DarkTheme::dark);
 		answerInputTextCtrl->SetBackgroundColour(DarkTheme::dark);
 		settingsWorkingAreaPanel->SetBackgroundColour(DarkTheme::darkest);
 		langChoice->SetBackgroundColour(DarkTheme::dark);
@@ -435,7 +446,17 @@ void MainFrame::ApplyTheme()
 		}
 		else if (userSettings["Language"] == "ru")
 		{
+			loadFileBtn->SetBitmap(wxBitmap(pathToFileIcons + "ImportDarkRu.png", wxBITMAP_TYPE_ANY));
+			loadFileBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "ImportDarkPressedRu.png", wxBITMAP_TYPE_ANY));
 
+			delFileButton->SetBitmap(wxBitmap(pathToFileIcons + "DeleteDarkRu.png", wxBITMAP_TYPE_ANY));
+			delFileButton->SetBitmapPressed(wxBitmap(pathToFileIcons + "DeleteDarkPressedRu.png", wxBITMAP_TYPE_ANY));
+
+			studyBtn->SetBitmap(wxBitmap(pathToFileIcons + "StudyDarkRu.png", wxBITMAP_TYPE_ANY));
+			studyBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "StudyDarkPressedRu.png", wxBITMAP_TYPE_ANY));
+
+			browseBtn->SetBitmap(wxBitmap(pathToFileIcons + "BrowseDarkRu.png", wxBITMAP_TYPE_ANY));
+			browseBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "BrowseDarkPressedRu.png", wxBITMAP_TYPE_ANY));
 		}
 
 		htmlContents += "<BODY BGCOLOR=\"#151E3F\">";
@@ -443,37 +464,70 @@ void MainFrame::ApplyTheme()
 	}
 	else if (userSettings["Theme"] == "light")
 	{
-		/*leftPanel->SetBackgroundColour(DarkTheme::darkest);
-		botBtn->SetBackgroundColour(DarkTheme::darkest);
-		filesBtn->SetBackgroundColour(DarkTheme::darkest);
-		settingsBtn->SetBackgroundColour(DarkTheme::darkest);
-		genWorkingAreaBook->SetBackgroundColour(DarkTheme::darkest);
-		chatWorkingAreaPanel->SetBackgroundColour(DarkTheme::darkest);
-		chatHtmlWindow->SetBackgroundColour(DarkTheme::dark);
-		answerSendBtn->SetBackgroundColour(DarkTheme::darkest);
-		filesWorkingAreaPanel->SetBackgroundColour();
-		loadFileBtn->SetBackgroundColour();
-		delFileButton->SetBackgroundColour();
-		filesListCtrl->SetBackgroundColour();
-		studyBtn->SetBackgroundColour();
-		browseBtn->SetBackgroundColour();
-		answerInputTextCtrl->SetBackgroundColour();
-		settingsWorkingAreaPanel->SetBackgroundColour();
-		langChoice->SetBackgroundColour();
-		themeChoice->SetBackgroundColour();
+		leftPanel->SetBackgroundColour(LightTheme::cyan);
+		botBtn->SetBackgroundColour(LightTheme::cyan);
+		filesBtn->SetBackgroundColour(LightTheme::cyan);
+		settingsBtn->SetBackgroundColour(LightTheme::cyan);
+		genWorkingAreaBook->SetBackgroundColour(LightTheme::cyan);
+		chatWorkingAreaPanel->SetBackgroundColour(LightTheme::cyan);
+		chatHtmlWindow->SetBackgroundColour(LightTheme::cyan);
+		answerSendBtn->SetBackgroundColour(LightTheme::cyan);
+		filesWorkingAreaPanel->SetBackgroundColour(LightTheme::cyan);
+		/*loadFileBtn->SetBackgroundColour(DarkTheme::dark);
+		delFileButton->SetBackgroundColour(DarkTheme::dark);
+		studyBtn->SetBackgroundColour(DarkTheme::dark);
+		browseBtn->SetBackgroundColour(DarkTheme::dark);*/
+		filesListCtrl->SetBackgroundColour(LightTheme::cyan);
+		answerInputTextCtrl->SetBackgroundColour(LightTheme::cyan);
+		settingsWorkingAreaPanel->SetBackgroundColour(LightTheme::cyan);
+		langChoice->SetBackgroundColour(DarkTheme::dark);
+		themeChoice->SetBackgroundColour(DarkTheme::dark);
+		langChoice->SetOwnBackgroundColour(DarkTheme::dark);
 
-		chatHtmlWindow->SetForegroundColour();
-		filesTitleLabel->SetForegroundColour();
-		loadFileBtn->SetForegroundColour();
-		delFileButton->SetForegroundColour();
-		filesListCtrl->SetForegroundColour();
-		studyBtn->SetForegroundColour();
-		browseBtn->SetForegroundColour();
-		answerInputTextCtrl->SetForegroundColour();
-		languageOptionLabel->SetForegroundColour();
-		langChoice->SetForegroundColour();
-		themeOptionLabel->SetForegroundColour();
-		themeChoice->SetForegroundColour();*/
+		//chatHtmlWindow->SetForegroundColour(DarkTheme::dark);
+		filesTitleLabel->SetForegroundColour(LightTheme::green);
+		loadFileBtn->SetForegroundColour(LightTheme::green);
+		delFileButton->SetForegroundColour(LightTheme::green);
+		filesListCtrl->SetForegroundColour(LightTheme::green);
+		studyBtn->SetForegroundColour(LightTheme::green);
+		browseBtn->SetForegroundColour(LightTheme::green);
+		answerInputTextCtrl->SetForegroundColour(LightTheme::green);
+		languageOptionLabel->SetForegroundColour(LightTheme::green);
+		langChoice->SetForegroundColour(LightTheme::green);
+		themeOptionLabel->SetForegroundColour(LightTheme::green);
+		themeChoice->SetForegroundColour(LightTheme::green);
+
+		if (userSettings["Language"] == "en")
+		{
+			loadFileBtn->SetBitmap(wxBitmap(pathToFileIcons + "ImportLightEn.png", wxBITMAP_TYPE_ANY));
+			loadFileBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "ImportLightPressedEn.png", wxBITMAP_TYPE_ANY));
+
+			delFileButton->SetBitmap(wxBitmap(pathToFileIcons + "DeleteLightEn.png", wxBITMAP_TYPE_ANY));
+			delFileButton->SetBitmapPressed(wxBitmap(pathToFileIcons + "DeleteLightPressedEn.png", wxBITMAP_TYPE_ANY));
+
+			studyBtn->SetBitmap(wxBitmap(pathToFileIcons + "StudyLightEn.png", wxBITMAP_TYPE_ANY));
+			studyBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "StudyLightPressedEn.png", wxBITMAP_TYPE_ANY));
+
+			browseBtn->SetBitmap(wxBitmap(pathToFileIcons + "BrowseLightEn.png", wxBITMAP_TYPE_ANY));
+			browseBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "BrowseLightPressedEn.png", wxBITMAP_TYPE_ANY));
+		}
+		else if (userSettings["Language"] == "ru")
+		{
+			loadFileBtn->SetBitmap(wxBitmap(pathToFileIcons + "ImportLightRu.png", wxBITMAP_TYPE_ANY));
+			loadFileBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "ImportLightPressedRu.png", wxBITMAP_TYPE_ANY));
+
+			delFileButton->SetBitmap(wxBitmap(pathToFileIcons + "DeleteLightRu.png", wxBITMAP_TYPE_ANY));
+			delFileButton->SetBitmapPressed(wxBitmap(pathToFileIcons + "DeleteLightPressedRu.png", wxBITMAP_TYPE_ANY));
+
+			studyBtn->SetBitmap(wxBitmap(pathToFileIcons + "StudyLightRu.png", wxBITMAP_TYPE_ANY));
+			studyBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "StudyLightPressedRu.png", wxBITMAP_TYPE_ANY));
+
+			browseBtn->SetBitmap(wxBitmap(pathToFileIcons + "BrowseLightRu.png", wxBITMAP_TYPE_ANY));
+			browseBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "BrowseLightPressedRu.png", wxBITMAP_TYPE_ANY));
+		}
+
+		htmlContents += "<BODY BGCOLOR=\"#151E3F\">";
+		htmlContents += "<FONT COLOR=\"#254441\"";
 	}
 }
 

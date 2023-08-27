@@ -1,4 +1,6 @@
 #include "BrowseDialog.h"
+#include "FileLoader.h"
+#include "ThemeColors.h"
 
 BrowseDialog::BrowseDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxDialog(parent, id, title, pos, size, style)
 {
@@ -7,10 +9,11 @@ BrowseDialog::BrowseDialog(wxWindow* parent, wxWindowID id, const wxString& titl
 	wxBoxSizer* browseSizer;
 	browseSizer = new wxBoxSizer(wxVERTICAL);
 
-	browseList = new wxListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES | wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
-	browseSizer->Add(browseList, 1, wxALL | wxEXPAND, this->FromDIP(5));
+	browseList = new wxListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_HEADER | wxLC_HRULES | wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL | wxBORDER_NONE);
+	browseSizer->Add(browseList, 1, wxALL | wxEXPAND, this->FromDIP(0));
 	browseList->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	
+	browseList->SetScrollbar(wxVERTICAL, 0, 0, 0);
 
 	this->SetSizer(browseSizer);
 	this->Layout();
