@@ -386,6 +386,17 @@ void MainFrame::ApplyTheme()
 
 	if (userSettings["Theme"] == "dark")
 	{
+		browseDialog->browseList->SetBackgroundColour(DarkTheme::dark);
+		browseDialog->browseList->SetForegroundColour(DarkTheme::light);
+	}
+	else if (userSettings["Theme"] == "light")
+	{
+		browseDialog->browseList->SetBackgroundColour(LightTheme::cyan);
+		browseDialog->browseList->SetForegroundColour(LightTheme::green);
+	}
+
+	if (userSettings["Theme"] == "dark")
+	{
 		leftPanel->SetBackgroundColour(DarkTheme::darkest);
 		botBtn->SetBackgroundColour(DarkTheme::darkest);
 		filesBtn->SetBackgroundColour(DarkTheme::darkest);
