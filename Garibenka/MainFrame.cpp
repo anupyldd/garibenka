@@ -419,12 +419,11 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 		pathToFile = fileDialog.GetPath();
 		
 		wxCopyFile(pathToFile, pathtoDest + fileDialog.GetFilename(), false);
-
-		
+		UpdateModuleList(modules);
 	}
 	
 
-	UpdateModuleList(modules);
+	
 }
 
 //void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
@@ -717,7 +716,7 @@ void MainFrame::ResetStudy()
 
 	htmlContents += "<html><body>";
 	htmlContents += currentLang[L"ResetStudy2"];
-	htmlContents += "</body></html>";
+	htmlContents += "</body></html><br><br>";
 
 	chatHtmlWindow->SetPage(htmlContents);
 	ScrollToBottom();
@@ -1575,8 +1574,9 @@ void MainFrame::UpdateModuleList(std::vector<Module>& inModules)
 	inModules.clear();
 
 	FileHandler::ReadTsvFiles(inModules);
+	TransferModules(inModules);
 
-	FillModulesList(inModules);
+	FillModulesList(localModules);
 	filesListCtrl->RefreshItems(filesListCtrl->GetTopItem(), filesListCtrl->GetItemCount() - 1);
 }
 
