@@ -147,10 +147,10 @@ void MainFrame::CreateControls()
 	wxBoxSizer* loadDelSizer;
 	loadDelSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Load File"), wxDefaultPosition, wxSize(-1, -1), 0);
+	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Import File"], wxDefaultPosition, wxSize(-1, -1), 0);
 	loadDelSizer->Add(loadFileBtn, 1, wxALL | wxEXPAND, 5);
 
-	delFileButton = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Delete File"), wxDefaultPosition, wxDefaultSize, 0);
+	delFileButton = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Delete File"], wxDefaultPosition, wxDefaultSize, 0);
 	loadDelSizer->Add(delFileButton, 1, wxALL, 5);
 
 
@@ -318,7 +318,7 @@ void MainFrame::ChangePageToSettings(wxCommandEvent& event)
 void MainFrame::FillModulesList(std::vector<Module> modules)
 {
 	//filesListCtrl->InsertColumn(0, "File", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-	filesListCtrl->InsertColumn(1, "Module", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	filesListCtrl->InsertColumn(1, currentLang[L"ModuleForStats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
 
 	int size = modules.size();
 	for (size_t i = 0; i < size; i++)
@@ -393,7 +393,7 @@ std::vector<std::wstring> MainFrame::FillBrowseSymbolsList(std::vector<Module> m
 
 	for (auto mod : modules)
 	{
-		if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 1) && mod.GetFileName() == filesListCtrl->GetItemText(item, 0))
+		if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 0))
 		{
 			for (auto sym : mod.GetWordList())
 			{
@@ -432,6 +432,11 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 	}
 	
 
+	
+}
+
+void MainFrame::RemoveFile(wxCommandEvent& event)
+{
 	
 }
 
@@ -499,8 +504,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 		currentFile = filesListCtrl->GetItemText(item, 0);*/
 		for (auto mod : localModules)
 		{
-			if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 1) && 
-				mod.GetFileName() == filesListCtrl->GetItemText(item, 0))
+			if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 0))
 			{
 				currentModule = mod;
 			}
@@ -572,6 +576,7 @@ void MainFrame::ChooseVocabOrKanji()
 void MainFrame::WriteInitialGreeting()
 {
 	htmlContents += "<FONT SIZE = +2>";
+	htmlContents += "<FONT FACE = \"Cascadia Code\"";
 	htmlContents += "<html><body>";
 	htmlContents += currentLang[L"Greeting1"];
 	htmlContents += "</body></html><br>";
@@ -1631,7 +1636,7 @@ MainFrame::MainFrame(const wxString& title)
 	// end of temp stuff
 	
 	this->Centre(wxBOTH);
-	this->SetMinClientSize(wxSize(640, 480));
+	this->SetMinClientSize(wxSize(720, 480));
 	
 	WriteInitialGreeting();
 }

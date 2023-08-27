@@ -103,7 +103,8 @@ private:
 	std::vector<std::wstring> FillBrowseSymbolsList(std::vector<Module> modules, long item);
 
 	void LoadFile(wxCommandEvent& event);
-	void UpdateModuleList(std::vector<Module>& modules);	// needs fixing, does not update shit
+	void RemoveFile(wxCommandEvent& event);
+	void UpdateModuleList(std::vector<Module>& modules);	
 
 	//void KillChatRichTextFocus(wxFocusEvent& event);
 
