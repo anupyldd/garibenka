@@ -144,8 +144,17 @@ void MainFrame::CreateControls()
 
 	filesAreaSizer->Add(filesTitleLabel, 0, wxALL | wxEXPAND, 5);
 
-	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Import File"], wxDefaultPosition, wxSize(-1, -1), 0);
-	filesAreaSizer->Add(loadFileBtn, 0, wxALL | wxEXPAND, 5);
+	wxBoxSizer* loadDelSizer;
+	loadDelSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	loadFileBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Load File"), wxDefaultPosition, wxSize(-1, -1), 0);
+	loadDelSizer->Add(loadFileBtn, 1, wxALL | wxEXPAND, 5);
+
+	delFileButton = new wxButton(filesWorkingAreaPanel, wxID_ANY, wxT("Delete File"), wxDefaultPosition, wxDefaultSize, 0);
+	loadDelSizer->Add(delFileButton, 1, wxALL, 5);
+
+
+	filesAreaSizer->Add(loadDelSizer, 0, wxEXPAND, 5);
 
 	filesListCtrl = new wxListCtrl(filesWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT);
 	filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
