@@ -81,50 +81,65 @@ void FileHandler::ReadTsvFiles(std::vector<Module>& inModules)
 
 		if (dirEntry.exists())
 		{
-			std::filesystem::path filePath = dirEntry.path();
-			std::string strFilePath = filePath.string();
-			std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
-			std::string::size_type const p(baseFilename.find_last_of('.'));
-			std::string fileWithoutExtention = baseFilename.substr(0, p);
-			//std::wstring wFilePath = std::wstring(filePath);
-			//std::wstring revFilePath = 
-			//std::wstring wBaseName = wFilePath.substr(wFilePath.find_last_of("/\\") + 1)
-			//std::string strFilePath = filePath.string();
-			/*std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
-			std::string::size_type const p(baseFilename.find_last_of('.'));
-			std::string fileWithoutExtention = baseFilename.substr(0, p);
-			std::wstring wFileWithoutExtention;
-			wFileWithoutExtention = converter.from_bytes(fileWithoutExtention.c_str());*/
-			
-
-			/*int wchars_num = MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, NULL, 0);
-			wchar_t* wFileWithoutExtention = new wchar_t[wchars_num];
-			MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, wFileWithoutExtention, wchars_num);
-			std::wstring wFileName(wFileWithoutExtention);*/
-
-			readModules.push_back(Module{ fileWithoutExtention });
-			moduleCounter++;
-			
-			//delete[] wFileWithoutExtention;
-
-			std::wifstream infile(dirEntry.path());
-			infile.imbue(std::locale("en_US.UTF8"));
-			std::wstring line;
-			std::vector<std::wstring> allFileContents;
-
-			while (std::getline(infile, line))
+			if (dirEntry.file_size() != 0)
 			{
-				SplitWide(line, '\t', allFileContents);
-			}
 
-			allFileContents.erase(allFileContents.begin(), allFileContents.begin() + 13);
-			allFileContents.shrink_to_fit();
+				std::filesystem::path filePath = dirEntry.path();
+				std::string strFilePath = filePath.string();
+				std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
+				std::string::size_type const p(baseFilename.find_last_of('.'));
+				std::string fileWithoutExtention = baseFilename.substr(0, p);
+				//std::wstring wFilePath = std::wstring(filePath);
+				//std::wstring revFilePath = 
+				//std::wstring wBaseName = wFilePath.substr(wFilePath.find_last_of("/\\") + 1)
+				//std::string strFilePath = filePath.string();
+				/*std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
+				std::string::size_type const p(baseFilename.find_last_of('.'));
+				std::string fileWithoutExtention = baseFilename.substr(0, p);
+				std::wstring wFileWithoutExtention;
+				wFileWithoutExtention = converter.from_bytes(fileWithoutExtention.c_str());*/
 
-			
-			for (int i = 0; i < allFileContents.size(); i += 6)
-			{
-				readModules[moduleCounter].AddToWords(Symbol{ allFileContents[i], allFileContents[i + 1], allFileContents[i + 2] });
-				readModules[moduleCounter].AddToKanji(Symbol{ allFileContents[i + 3], allFileContents[i + 4], allFileContents[i + 5] });
+
+				/*int wchars_num = MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, NULL, 0);
+				wchar_t* wFileWithoutExtention = new wchar_t[wchars_num];
+				MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, wFileWithoutExtention, wchars_num);
+				std::wstring wFileName(wFileWithoutExtention);*/
+
+				readModules.push_back(Module{ fileWithoutExtention });
+				moduleCounter++;
+
+				//delete[] wFileWithoutExtention;
+
+				std::wifstream infile(dirEntry.path());
+				infile.imbue(std::locale("en_US.UTF8"));
+				std::wstring line;
+				std::vector<std::wstring> allFileContents;
+
+				while (std::getline(infile, line))
+				{
+					SplitWide(line, '\t', allFileContents);
+				}
+
+				if (allFileContents.size() > 13)
+				{
+					allFileContents.erase(allFileContents.begin(), allFileContents.begin() + 13);
+					allFileContents.shrink_to_fit();
+
+					for (int i = 0; i < allFileContents.size(); i += 6)
+					{
+						readModules[moduleCounter].AddToWords(Symbol{ allFileContents[i], allFileContents[i + 1], allFileContents[i + 2] });
+						readModules[moduleCounter].AddToKanji(Symbol{ allFileContents[i + 3], allFileContents[i + 4], allFileContents[i + 5] });
+					}
+				}
+				else
+				{
+					std::cout << "Wrong file structure. For more info on how files has to be structured refer to the Info section" << std::endl;
+					readModules.pop_back();
+					moduleCounter--;
+				}
+
+
+				
 			}
 		}
 	}

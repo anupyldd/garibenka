@@ -412,7 +412,7 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 
 	const wxString pathtoDest = wxGetCwd() + "\\Tables\\";
 
-	wxFileDialog fileDialog(this, "Select file", "", "", "Excel Files (*.xls;*.xlsx) | *.xls;*.xlsx", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+	wxFileDialog fileDialog(this, "Select file", "", "", "TSV Files (*.tsv;*.txt) | *.tsv;*.txt", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 	
 	if (fileDialog.ShowModal() == wxID_OK)
 	{
