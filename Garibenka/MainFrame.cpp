@@ -419,12 +419,11 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 		pathToFile = fileDialog.GetPath();
 		
 		wxCopyFile(pathToFile, pathtoDest + fileDialog.GetFilename(), false);
-
-		
+		UpdateModuleList(modules);
 	}
 	
 
-	UpdateModuleList(modules);
+	
 }
 
 //void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
@@ -1575,8 +1574,9 @@ void MainFrame::UpdateModuleList(std::vector<Module>& inModules)
 	inModules.clear();
 
 	FileHandler::ReadTsvFiles(inModules);
+	TransferModules(inModules);
 
-	FillModulesList(inModules);
+	FillModulesList(localModules);
 	filesListCtrl->RefreshItems(filesListCtrl->GetTopItem(), filesListCtrl->GetItemCount() - 1);
 }
 
