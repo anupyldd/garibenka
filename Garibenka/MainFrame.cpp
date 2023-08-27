@@ -317,18 +317,18 @@ void MainFrame::ChangePageToSettings(wxCommandEvent& event)
 
 void MainFrame::FillModulesList(std::vector<Module> modules)
 {
-	filesListCtrl->InsertColumn(0, "File", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
+	//filesListCtrl->InsertColumn(0, "File", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
 	filesListCtrl->InsertColumn(1, "Module", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
 
 	int size = modules.size();
 	for (size_t i = 0; i < size; i++)
 	{
 		//filesListCtrl->InsertItem(i, modules.at(i).GetFileName());
-		filesListCtrl->SetItem(filesListCtrl->InsertItem(i, modules.at(i).GetFileName()), 1, modules.at(i).GetModuleName());
+		filesListCtrl->SetItem(filesListCtrl->InsertItem(i, modules.at(i).GetModuleName()), 0, modules.at(i).GetModuleName());
 	}
 
-	filesListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE);
-	filesListCtrl->SetColumnWidth(1, wxLIST_AUTOSIZE_USEHEADER);
+	//filesListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE);
+	filesListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE_USEHEADER);
 }
 
 //void MainFrame::FillStatsList(std::vector<Module> modules)
