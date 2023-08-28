@@ -324,8 +324,8 @@ void MainFrame::BindEventHandlers()
 			wxPaintDC dc(langChoice);
 			wxRect rect(0, 0, dc.GetSize().GetWidth(), dc.GetSize().GetHeight());
 
-			dc.SetBrush(LightTheme::cyanBrush);
-			dc.SetPen(LightTheme::cyanPen);
+			dc.SetBrush(LightTheme::lightBrush);
+			dc.SetPen(LightTheme::lightPen);
 			dc.DrawRectangle(rect);
 
 			dc.DrawBitmap(wxArtProvider::GetBitmap(wxART_GO_DOWN, wxART_OTHER, wxSize(10, 10)), wxPoint(rect.GetWidth() - 15, (rect.GetHeight() / 2) - 5));
@@ -365,8 +365,8 @@ void MainFrame::BindEventHandlers()
 			wxPaintDC dc(themeChoice);
 			wxRect rect(0, 0, dc.GetSize().GetWidth(), dc.GetSize().GetHeight());
 
-			dc.SetBrush(LightTheme::cyanBrush);
-			dc.SetPen(LightTheme::cyanPen);
+			dc.SetBrush(LightTheme::lightBrush);
+			dc.SetPen(LightTheme::lightPen);
 			dc.DrawRectangle(rect);
 
 			dc.DrawBitmap(wxArtProvider::GetBitmap(wxART_GO_DOWN, wxART_OTHER, wxSize(10, 10)), wxPoint(rect.GetWidth() - 15, (rect.GetHeight() / 2) - 5));
@@ -477,8 +477,8 @@ void MainFrame::ApplyTheme()
 		delFileButton->SetBackgroundColour(DarkTheme::dark);
 		studyBtn->SetBackgroundColour(DarkTheme::dark);
 		browseBtn->SetBackgroundColour(DarkTheme::dark);*/
-		filesListCtrl->SetBackgroundColour(LightTheme::cyan);
-		answerInputTextCtrl->SetBackgroundColour(LightTheme::cyan);
+		filesListCtrl->SetBackgroundColour(LightTheme::light);
+		answerInputTextCtrl->SetBackgroundColour(LightTheme::light);
 		settingsWorkingAreaPanel->SetBackgroundColour(LightTheme::cyan);
 		langChoice->SetBackgroundColour(DarkTheme::dark);
 		themeChoice->SetBackgroundColour(DarkTheme::dark);
@@ -526,7 +526,7 @@ void MainFrame::ApplyTheme()
 			browseBtn->SetBitmapPressed(wxBitmap(pathToFileIcons + "BrowseLightPressedRu.png", wxBITMAP_TYPE_ANY));
 		}
 
-		htmlContents += "<BODY BGCOLOR=\"#151E3F\">";
+		htmlContents += "<BODY BGCOLOR=\"#FFFFFF\">";
 		htmlContents += "<FONT COLOR=\"#254441\"";
 	}
 }
