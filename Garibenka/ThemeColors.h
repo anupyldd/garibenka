@@ -21,8 +21,9 @@ namespace LightTheme
 	static wxColor orange(255, 111, 89);
 	static wxColor green(37, 68, 65);
 	static wxColor cyan(67, 170, 139);
-	static wxColor light(178, 176, 155);
+	//static wxColor light(178, 176, 155);
+	static wxColor light(255, 255, 255);
 
-	static wxBrush cyanBrush(cyan, wxBRUSHSTYLE_SOLID);
-	static wxPen cyanPen(cyan, wxPENSTYLE_SOLID);
+	static wxBrush lightBrush(light, wxBRUSHSTYLE_SOLID);
+	static wxPen lightPen(light, wxPENSTYLE_SOLID);
 }
