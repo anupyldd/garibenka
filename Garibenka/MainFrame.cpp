@@ -480,9 +480,9 @@ void MainFrame::ApplyTheme()
 		filesListCtrl->SetBackgroundColour(LightTheme::light);
 		answerInputTextCtrl->SetBackgroundColour(LightTheme::light);
 		settingsWorkingAreaPanel->SetBackgroundColour(LightTheme::cyan);
-		langChoice->SetBackgroundColour(DarkTheme::dark);
-		themeChoice->SetBackgroundColour(DarkTheme::dark);
-		langChoice->SetOwnBackgroundColour(DarkTheme::dark);
+		langChoice->SetBackgroundColour(LightTheme::light);
+		themeChoice->SetBackgroundColour(LightTheme::light);
+		langChoice->SetOwnBackgroundColour(LightTheme::light);
 
 		//chatHtmlWindow->SetForegroundColour(DarkTheme::dark);
 		filesTitleLabel->SetForegroundColour(LightTheme::green);
