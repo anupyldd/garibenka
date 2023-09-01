@@ -882,6 +882,8 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 		ResetStudy();
 	}
 
+	
+
 	switch (userState)
 	{
 	case CHOOSING_MODULE:
@@ -1460,6 +1462,13 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 {
 	wxString answer;
 	answer = answerInputTextCtrl->GetValue();
+	if (CheckAnswerArrays(no, answer))
+	{
+		ResetStudy();
+		userState = CHOOSING_MODULE;
+		return;
+	}
+
 	if (answer.empty())
 	{
 		return;
