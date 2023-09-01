@@ -867,6 +867,12 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 	}
 
 
+	wxString answ = answerInputTextCtrl->GetValue();
+
+	if (answ.IsEmpty())
+	{
+		return;
+	}
 
 	htmlContents += "<br><html><body>";
 	htmlContents += "<div ALIGN = \"RIGHT\">";
@@ -875,7 +881,6 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 	chatHtmlWindow->SetPage(htmlContents);
 	ScrollToBottom();
 
-	wxString answ = answerInputTextCtrl->GetValue();
 
 	if (DetectStop(answ))
 	{
@@ -918,6 +923,13 @@ void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
 		return;
 	}
 
+	wxString answ = answerInputTextCtrl->GetValue();
+
+	if (answ.IsEmpty())
+	{
+		return;
+	}
+
 	htmlContents += "<br><html><body>";
 	htmlContents += "<div ALIGN = \"RIGHT\">";
 	htmlContents += answerInputTextCtrl->GetValue();
@@ -925,7 +937,6 @@ void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
 	chatHtmlWindow->SetPage(htmlContents);
 	ScrollToBottom();
 
-	wxString answ = answerInputTextCtrl->GetValue();
 
 	if (DetectStop(answ))
 	{
