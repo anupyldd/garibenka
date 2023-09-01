@@ -1467,7 +1467,7 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 	if (CheckAnswerArrays(start, answer))
 	{
 		userState = STUDYING;
-	
+		questionsAsked = 0;
 
 		htmlContents += "<html><body>";
 		htmlContents += currentLang[L"Given"];
