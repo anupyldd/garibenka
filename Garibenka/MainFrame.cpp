@@ -10,7 +10,6 @@ void MainFrame::CreateControls()
 
 	
 	this->SetSizeHints(wxDefaultSize, wxDefaultSize);
-	//this->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans")));
 
 	browseDialog = new BrowseDialog(this, wxID_ANY, currentLang[L"Module Browser"], wxDefaultPosition, wxDefaultSize,
 		wxCLOSE_BOX | wxDEFAULT_DIALOG_STYLE | wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxRESIZE_BORDER);
@@ -69,14 +68,10 @@ void MainFrame::CreateControls()
 	wxBoxSizer* chatAreaSizer;
 	chatAreaSizer = new wxBoxSizer(wxVERTICAL);
 
-	/*chatRichTextCtrl = new wxRichTextCtrl(chatWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxHSCROLL | wxVSCROLL);
-	chatRichTextCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));*/
-	
 	chatHtmlWindow = new wxHtmlWindow(chatWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_NO_SELECTION | wxHW_SCROLLBAR_AUTO);
 	chatHtmlWindow->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 	chatAreaSizer->Add(chatHtmlWindow, 1, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, this->FromDIP(5));
 
-	//chatAreaSizer->Add(chatRichTextCtrl, 1, wxEXPAND | wxALL, 5);
 
 	wxBoxSizer* answerAreaSizer;
 	answerAreaSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -144,7 +139,6 @@ void MainFrame::CreateControls()
 	filesTitleLabel = new wxStaticText(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Files"], wxDefaultPosition, wxDefaultSize, 0);
 	filesTitleLabel->Wrap(-1);
 	filesTitleLabel->SetFont(wxFont(40, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-	//filesTitleLabel->SetForegroundColour(wxColour(37, 68, 65));
 
 	HeaderSizer->Add(filesTitleLabel, 1, wxALL, this->FromDIP(5));
 
@@ -178,21 +172,8 @@ void MainFrame::CreateControls()
 
 	filesListCtrl = new wxListCtrl(filesWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_HEADER | wxLC_ICON | wxLC_REPORT | wxBORDER_NONE);
 	filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-	//filesListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans")));
 	filesAreaSizer->Add(filesListCtrl, 1, wxALL | wxEXPAND, this->FromDIP(5));
 
-	/*wxBoxSizer* studyOrBrowseSizer;
-	studyOrBrowseSizer = new wxBoxSizer(wxHORIZONTAL);
-
-	studyOrBrowseSizer->SetMinSize(this->FromDIP(wxSize(-1, 40)));
-	studyBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Study"], wxDefaultPosition, wxDefaultSize, wxBORDER_NONE);
-	studyOrBrowseSizer->Add(studyBtn, 1, wxALL | wxEXPAND, this->FromDIP(5));
-
-	browseBtn = new wxButton(filesWorkingAreaPanel, wxID_ANY, currentLang[L"Browse"], wxDefaultPosition, wxDefaultSize, wxBORDER_NONE);
-	studyOrBrowseSizer->Add(browseBtn, 1, wxALL | wxEXPAND, this->FromDIP(5));
-
-
-	filesAreaSizer->Add(studyOrBrowseSizer, 0, wxEXPAND, this->FromDIP(0));*/
 
 
 	filesWorkingAreaPanel->SetSizer(filesAreaSizer);
@@ -406,10 +387,6 @@ void MainFrame::ApplyTheme()
 		chatHtmlWindow->SetBackgroundColour(DarkTheme::dark);
 		answerSendBtn->SetBackgroundColour(DarkTheme::darkest);
 		filesWorkingAreaPanel->SetBackgroundColour(DarkTheme::darkest);
-		/*loadFileBtn->SetBackgroundColour(DarkTheme::dark);
-		delFileButton->SetBackgroundColour(DarkTheme::dark);
-		browseBtn->SetBackgroundColour(DarkTheme::dark);
-		studyBtn->SetBackgroundColour(DarkTheme::dark);*/
 		filesListCtrl->SetBackgroundColour(DarkTheme::dark);
 		answerInputTextCtrl->SetBackgroundColour(DarkTheme::dark);
 		settingsWorkingAreaPanel->SetBackgroundColour(DarkTheme::darkest);
@@ -417,7 +394,6 @@ void MainFrame::ApplyTheme()
 		themeChoice->SetBackgroundColour(DarkTheme::dark);
 		langChoice->SetOwnBackgroundColour(DarkTheme::dark);
 
-		//chatHtmlWindow->SetForegroundColour(DarkTheme::dark);
 		filesTitleLabel->SetForegroundColour(DarkTheme::light);
 		loadFileBtn->SetForegroundColour(DarkTheme::light);
 		delFileButton->SetForegroundColour(DarkTheme::light);
@@ -473,10 +449,6 @@ void MainFrame::ApplyTheme()
 		chatHtmlWindow->SetBackgroundColour(LightTheme::cyan);
 		answerSendBtn->SetBackgroundColour(LightTheme::cyan);
 		filesWorkingAreaPanel->SetBackgroundColour(LightTheme::cyan);
-		/*loadFileBtn->SetBackgroundColour(DarkTheme::dark);
-		delFileButton->SetBackgroundColour(DarkTheme::dark);
-		studyBtn->SetBackgroundColour(DarkTheme::dark);
-		browseBtn->SetBackgroundColour(DarkTheme::dark);*/
 		filesListCtrl->SetBackgroundColour(LightTheme::light);
 		answerInputTextCtrl->SetBackgroundColour(LightTheme::light);
 		settingsWorkingAreaPanel->SetBackgroundColour(LightTheme::cyan);
@@ -484,7 +456,6 @@ void MainFrame::ApplyTheme()
 		themeChoice->SetBackgroundColour(LightTheme::light);
 		langChoice->SetOwnBackgroundColour(LightTheme::light);
 
-		//chatHtmlWindow->SetForegroundColour(DarkTheme::dark);
 		filesTitleLabel->SetForegroundColour(LightTheme::green);
 		loadFileBtn->SetForegroundColour(LightTheme::green);
 		delFileButton->SetForegroundColour(LightTheme::green);
@@ -573,13 +544,11 @@ void MainFrame::ChangePageToSettings(wxCommandEvent& event)
 
 void MainFrame::FillModulesList(std::vector<Module> modules)
 {
-	//filesListCtrl->InsertColumn(0, "File", wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
 	filesListCtrl->InsertColumn(1, currentLang[L"ModuleForStats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
 
 	int size = modules.size();
 	for (size_t i = 0; i < size; i++)
 	{
-		//filesListCtrl->InsertItem(i, modules.at(i).GetFileName());
 		filesListCtrl->SetItem(filesListCtrl->InsertItem(i, modules.at(i).GetModuleName()), 0, modules.at(i).GetModuleName());
 	}
 
@@ -619,7 +588,6 @@ void MainFrame::ShowBrowseDialog(wxCommandEvent& event)
 
 	browseDialog->ClearList();
 	browseDialog->AddColumns();
-	//browseDialog->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans")));
 
 	for (;;)
 	{
@@ -715,7 +683,6 @@ void MainFrame::RemoveFile(wxCommandEvent& event)
 		modName = filesListCtrl->GetItemText(item, 0);
 	}
 
-	//modName += "\\.t\\";
 
 	std::filesystem::path pathToCwd = std::filesystem::current_path();
 	std::filesystem::path pathToTables = pathToCwd / "Tables";
@@ -736,11 +703,6 @@ void MainFrame::RemoveFile(wxCommandEvent& event)
 	}
 }
 
-//void MainFrame::KillChatRichTextFocus(wxFocusEvent& event)
-//{
-//	answerInputTextCtrl->SetFocus();
-//	chatRichTextCtrl->SetInsertionPointEnd();
-//}
 
 void MainFrame::TransferModules(std::vector<Module> modules)
 {
@@ -873,7 +835,6 @@ void MainFrame::ChooseVocabOrKanji()
 void MainFrame::WriteInitialGreeting()
 {
 	htmlContents += "<FONT SIZE = +2>";
-	//htmlContents += "<FONT FACE = \"Cascadia Code\"";
 	htmlContents += "<html><body>";
 	htmlContents += currentLang[L"Greeting1"];
 	htmlContents += "</body></html><br>";
@@ -945,7 +906,6 @@ void MainFrame::ReadAnswer(wxCommandEvent& event)
 	}
 
 	
-	//chatRichTextCtrl->ShowPosition(chatRichTextCtrl->GetLastPosition());
 	answerInputTextCtrl->Clear();
 }
 
@@ -993,7 +953,6 @@ void MainFrame::ReadAnswerOnEnter(wxCommandEvent& event)
 		break;
 	}
 
-	//chatRichTextCtrl->ShowPosition(chatRichTextCtrl->GetLastPosition());
 	answerInputTextCtrl->Clear();
 }
 
@@ -1077,14 +1036,12 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 	{
 		currentVocabOrKanji = VOCAB;
 		currentSymbols = currentModule.GetWordList();
-		//gotAnswer = true;
 		userState = CHOOSING_MODE;
 	}
 	else if (CheckAnswerArrays(kanji, answer))
 	{
 		currentVocabOrKanji = KANJI;
 		currentSymbols = currentModule.GetKanjiList();
-		//gotAnswer = true;
 		userState = CHOOSING_MODE;
 	}
 	else
@@ -1172,7 +1129,6 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 	{
 		std::shuffle(std::begin(currentSymbols), std::end(currentSymbols), rng);
 	}
-	//gotAnswer = false;
 	ScrollToBottom();
 
 }
@@ -1874,8 +1830,7 @@ void MainFrame::ScrollToBottom()
 //	}
 //}
 
-// FIX THIS SHIT IT DOESNT UPDATE THE LIST FOR SOME REASON
-// 
+
 void MainFrame::UpdateModuleList(std::vector<Module>& inModules)
 {
 	filesListCtrl->ClearAll();
@@ -1903,34 +1858,12 @@ MainFrame::MainFrame(const wxString& title)
 	CreateControls();
 	BindEventHandlers();
 
-	/*std::filesystem::path p = "Tables.py";
-	std::filesystem::path absP = std::filesystem::absolute(p);*/
-
-	//wxString ap = wxStandardPaths::Get().GetExecutablePath();
-	/*wxString ap = wxGetCwd();
-	ap = ap + "/Tables.py";
-	std::string aps = ap.ToStdString();
-	const char* apc[1] = { aps.c_str() };*/
 	
-
-	//const char* path[1] = { "D:/Projects/Garibenka/Garibenka/Garibenka/Tables.py" };
-	//FileHandler::RunPythonScript(1, apc);
-	//FileHandler::ReadTablesFile(modules);
-	//FileHandler::LoadModuleStats(modules);
 	TransferModules(modules);
 	FillModulesList(localModules);
 
 
-	//LoadStatsFromFile(localModules);
-	//FillStatsList(localModules);
-
-	// temp testing stuff, delete later
-
-	//FileHandler::UpdateUserSettingsMap("Language", "ru", userSettings);
-	//wxString title9 = moduleVector[0].GetModuleName();
-	//wxString t7 = userSettings["Language"];
-	//filesTitleLabel->SetLabel(t7);
-	// end of temp stuff
+	
 	ApplyTheme();
 	
 	this->Centre(wxBOTH);

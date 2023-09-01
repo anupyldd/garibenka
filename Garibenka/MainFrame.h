@@ -192,15 +192,11 @@ private:
 	//wxListCtrl* statsListCtrl;
 	wxPanel* filesWorkingAreaPanel;
 	wxStaticText* filesTitleLabel;
-	/*wxButton* loadFileBtn;
-	wxButton* delFileButton;*/
 	wxBitmapButton* loadFileBtn;
 	wxBitmapButton* delFileButton;
 	wxBitmapButton* studyBtn;
 	wxBitmapButton* browseBtn;
 	wxListCtrl* filesListCtrl;
-	/*wxButton* studyBtn;
-	wxButton* browseBtn;*/
 	wxPanel* settingsWorkingAreaPanel;
 	wxStaticText* languageOptionLabel;
 	wxChoice* langChoice;
