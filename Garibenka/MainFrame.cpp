@@ -364,6 +364,7 @@ void MainFrame::BindEventHandlers()
 void MainFrame::ApplyTheme()
 {
 	wxString pathToFileIcons = wxGetCwd() + "\\Icons\\FileIcons\\";
+	wxString pathToIcons = wxGetCwd() + "\\Icons\\";
 
 	if (userSettings["Theme"] == "dark")
 	{
@@ -405,6 +406,18 @@ void MainFrame::ApplyTheme()
 		langChoice->SetForegroundColour(DarkTheme::light);
 		themeOptionLabel->SetForegroundColour(DarkTheme::light);
 		themeChoice->SetForegroundColour(DarkTheme::light);
+
+		botBtn->SetBitmap(wxBitmap(pathToIcons + "darkBotBtn.png", wxBITMAP_TYPE_ANY));
+		botBtn->SetBitmapDisabled(wxBitmap(pathToIcons + "darkBotBtnPressed.png", wxBITMAP_TYPE_ANY));
+
+		filesBtn->SetBitmap(wxBitmap(pathToIcons + "darkFileBtn.png", wxBITMAP_TYPE_ANY));
+		filesBtn->SetBitmapDisabled(wxBitmap(pathToIcons + "darkFileBtnPressed.png", wxBITMAP_TYPE_ANY));
+
+		settingsBtn->SetBitmap(wxBitmap(pathToIcons + "darkSettingsBtn.png", wxBITMAP_TYPE_ANY));
+		settingsBtn->SetBitmapDisabled(wxBitmap(pathToIcons + "darkSettingsBtnPressed.png", wxBITMAP_TYPE_ANY));
+
+		answerSendBtn->SetBitmap(wxBitmap(pathToIcons + "darkSendBtn.png", wxBITMAP_TYPE_ANY));
+		answerSendBtn->SetBitmapPressed(wxBitmap(pathToIcons + "darkSendBtnPressed.png", wxBITMAP_TYPE_ANY));
 
 		if (userSettings["Language"] == "en")
 		{
@@ -467,6 +480,18 @@ void MainFrame::ApplyTheme()
 		langChoice->SetForegroundColour(LightTheme::green);
 		themeOptionLabel->SetForegroundColour(LightTheme::green);
 		themeChoice->SetForegroundColour(LightTheme::green);
+
+		botBtn->SetBitmap(wxBitmap(pathToIcons + "lightBotBtn.png", wxBITMAP_TYPE_ANY));
+		botBtn->SetBitmapDisabled(wxBitmap(pathToIcons + "lightBotBtnPressed.png", wxBITMAP_TYPE_ANY));
+
+		filesBtn->SetBitmap(wxBitmap(pathToIcons + "lightFileBtn.png", wxBITMAP_TYPE_ANY));
+		filesBtn->SetBitmapDisabled(wxBitmap(pathToIcons + "lightFileBtnPressed.png", wxBITMAP_TYPE_ANY));
+
+		settingsBtn->SetBitmap(wxBitmap(pathToIcons + "lightSettingsBtn.png", wxBITMAP_TYPE_ANY));
+		settingsBtn->SetBitmapDisabled(wxBitmap(pathToIcons + "lightSettingsBtnPressed.png", wxBITMAP_TYPE_ANY));
+
+		answerSendBtn->SetBitmap(wxBitmap(pathToIcons + "lightSendBtn.png", wxBITMAP_TYPE_ANY));
+		answerSendBtn->SetBitmapPressed(wxBitmap(pathToIcons + "lightSendBtnPressed.png", wxBITMAP_TYPE_ANY));
 
 		if (userSettings["Language"] == "en")
 		{
