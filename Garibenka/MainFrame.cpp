@@ -226,6 +226,30 @@ void MainFrame::CreateControls()
 
 	settingsAreaSizer->Add(themeOptionSizer, 0, wxEXPAND, this->FromDIP(0));
 
+	wxBoxSizer* helpOptionSizer;
+	helpOptionSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	helpOptionLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, currentLang[L"HelpOption"], wxDefaultPosition, wxDefaultSize, 0);
+	helpOptionLabel->Wrap(-1);
+	helpOptionLabel->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+
+	helpOptionSizer->Add(helpOptionLabel, 1, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+	helpOptionBtn = new wxBitmapButton(settingsWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
+	helpOptionSizer->Add(helpOptionBtn, 0, wxALL, 5);
+
+
+	settingsAreaSizer->Add(helpOptionSizer, 0, wxEXPAND, 0);
+
+	settingsFillerLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	settingsFillerLabel->Wrap(-1);
+	settingsAreaSizer->Add(settingsFillerLabel, 1, wxALL | wxEXPAND, 5);
+
+	aboutLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, currentLang[L"AboutMain"] + '\n' +
+		currentLang[L"AboutProgramming"] + '\n' + currentLang[L"AboutIcons"] + '\n' + 
+		currentLang[L"AboutTables"], wxDefaultPosition, wxDefaultSize, 0);
+	aboutLabel->Wrap(-1);
+	settingsAreaSizer->Add(aboutLabel, 0, wxALL, 5);
 
 	settingsWorkingAreaPanel->SetSizer(settingsAreaSizer);
 	settingsWorkingAreaPanel->Layout();
@@ -406,6 +430,8 @@ void MainFrame::ApplyTheme()
 		langChoice->SetForegroundColour(DarkTheme::light);
 		themeOptionLabel->SetForegroundColour(DarkTheme::light);
 		themeChoice->SetForegroundColour(DarkTheme::light);
+		helpOptionLabel->SetForegroundColour(DarkTheme::light);
+		aboutLabel->SetForegroundColour(DarkTheme::light);
 
 		botBtn->SetBitmap(wxBitmap(pathToIcons + "darkBotBtn.png", wxBITMAP_TYPE_ANY));
 		botBtn->SetBitmapDisabled(wxBitmap(pathToIcons + "darkBotBtnPressed.png", wxBITMAP_TYPE_ANY));
@@ -418,6 +444,10 @@ void MainFrame::ApplyTheme()
 
 		answerSendBtn->SetBitmap(wxBitmap(pathToIcons + "darkSendBtn.png", wxBITMAP_TYPE_ANY));
 		answerSendBtn->SetBitmapPressed(wxBitmap(pathToIcons + "darkSendBtnPressed.png", wxBITMAP_TYPE_ANY));
+
+		helpOptionBtn->SetBitmap(wxBitmap(pathToIcons + "darkHelp.png", wxBITMAP_TYPE_ANY));
+		helpOptionBtn->SetBitmapPressed(wxBitmap(pathToIcons + "darkHelpPressed.png", wxBITMAP_TYPE_ANY));
+		helpOptionBtn->SetBackgroundColour(DarkTheme::darkest);
 
 		if (userSettings["Language"] == "en")
 		{
@@ -480,6 +510,8 @@ void MainFrame::ApplyTheme()
 		langChoice->SetForegroundColour(LightTheme::green);
 		themeOptionLabel->SetForegroundColour(LightTheme::green);
 		themeChoice->SetForegroundColour(LightTheme::green);
+		helpOptionLabel->SetForegroundColour(LightTheme::green);
+		aboutLabel->SetForegroundColour(LightTheme::green);
 
 		botBtn->SetBitmap(wxBitmap(pathToIcons + "lightBotBtn.png", wxBITMAP_TYPE_ANY));
 		botBtn->SetBitmapDisabled(wxBitmap(pathToIcons + "lightBotBtnPressed.png", wxBITMAP_TYPE_ANY));
@@ -492,6 +524,10 @@ void MainFrame::ApplyTheme()
 
 		answerSendBtn->SetBitmap(wxBitmap(pathToIcons + "lightSendBtn.png", wxBITMAP_TYPE_ANY));
 		answerSendBtn->SetBitmapPressed(wxBitmap(pathToIcons + "lightSendBtnPressed.png", wxBITMAP_TYPE_ANY));
+
+		helpOptionBtn->SetBitmap(wxBitmap(pathToIcons + "lightHelp.png", wxBITMAP_TYPE_ANY));
+		helpOptionBtn->SetBitmapPressed(wxBitmap(pathToIcons + "lightHelpPressed.png", wxBITMAP_TYPE_ANY));
+		helpOptionBtn->SetBackgroundColour(LightTheme::cyan);
 
 		if (userSettings["Language"] == "en")
 		{
