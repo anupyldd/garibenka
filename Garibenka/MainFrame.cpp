@@ -247,9 +247,9 @@ void MainFrame::CreateControls()
 
 	aboutLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, currentLang[L"AboutMain"] + '\n' +
 		currentLang[L"AboutProgramming"] + '\n' + currentLang[L"AboutIcons"] + '\n' + 
-		currentLang[L"AboutTables"], wxDefaultPosition, wxDefaultSize, 0);
+		currentLang[L"AboutTables"], wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT);
 	aboutLabel->Wrap(-1);
-	settingsAreaSizer->Add(aboutLabel, 0, wxALL, 5);
+	settingsAreaSizer->Add(aboutLabel, 0, wxEXPAND | wxALL, 5);
 
 	settingsWorkingAreaPanel->SetSizer(settingsAreaSizer);
 	settingsWorkingAreaPanel->Layout();
