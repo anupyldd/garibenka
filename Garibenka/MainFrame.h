@@ -203,6 +203,10 @@ private:
 	wxStaticText* themeOptionLabel;
 	wxChoice* themeChoice;
 	BrowseDialog* browseDialog;
+	wxStaticText* aboutLabel;
+	wxStaticText* helpOptionLabel;
+	wxBitmapButton* helpOptionBtn;
+	wxStaticText* settingsFillerLabel;
 
 public:
 	MainFrame(const wxString& title);
