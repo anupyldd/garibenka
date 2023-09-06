@@ -53,6 +53,10 @@ void MainFrame::CreateControls()
 	fillerLabel->Wrap(-1);
 	leftPanelSizer->Add(fillerLabel, 1, wxALL | wxEXPAND, 0);
 
+	helpOptionBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
+	helpOptionBtn->SetToolTip(currentLang[L"HelpOption"]);
+	leftPanelSizer->Add(helpOptionBtn, 0, wxALL, this->FromDIP(5));
+
 	settingsBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
 	settingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.png"), wxBITMAP_TYPE_ANY));
@@ -229,7 +233,7 @@ void MainFrame::CreateControls()
 
 	settingsAreaSizer->Add(themeOptionSizer, 0, wxEXPAND, this->FromDIP(0));
 
-	wxBoxSizer* helpOptionSizer;
+	/*wxBoxSizer* helpOptionSizer;
 	helpOptionSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	helpOptionLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, currentLang[L"HelpOption"], wxDefaultPosition, wxDefaultSize, 0);
@@ -242,7 +246,7 @@ void MainFrame::CreateControls()
 	helpOptionSizer->Add(helpOptionBtn, 0, wxALL, 5);
 
 
-	settingsAreaSizer->Add(helpOptionSizer, 0, wxEXPAND, 0);
+	settingsAreaSizer->Add(helpOptionSizer, 0, wxEXPAND, 0);*/
 
 	settingsFillerLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
 	settingsFillerLabel->Wrap(-1);
@@ -530,7 +534,7 @@ void MainFrame::ApplyTheme()
 		langChoice->SetForegroundColour(LightTheme::green);
 		themeOptionLabel->SetForegroundColour(LightTheme::green);
 		themeChoice->SetForegroundColour(LightTheme::green);
-		helpOptionLabel->SetForegroundColour(LightTheme::green);
+		//helpOptionLabel->SetForegroundColour(LightTheme::green);
 		aboutLabel->SetForegroundColour(LightTheme::green);
 
 		botBtn->SetBitmap(wxBitmap(pathToIcons + "lightBotBtn.png", wxBITMAP_TYPE_ANY));
