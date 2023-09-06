@@ -408,11 +408,17 @@ void MainFrame::ApplyTheme()
 	{
 		browseDialog->browseList->SetBackgroundColour(DarkTheme::dark);
 		browseDialog->browseList->SetForegroundColour(DarkTheme::light);
+
+		helpDialog->helpText->SetBackgroundColour(DarkTheme::dark);
+		helpDialog->helpText->SetBasicStyle(wxRichTextAttr(wxTextAttr(DarkTheme::light)));
 	}
 	else if (userSettings["Theme"] == "light")
 	{
 		browseDialog->browseList->SetBackgroundColour(LightTheme::cyan);
 		browseDialog->browseList->SetForegroundColour(LightTheme::green);
+
+		helpDialog->helpText->SetBackgroundColour(LightTheme::cyan);
+		helpDialog->helpText->SetBasicStyle(wxRichTextAttr(wxTextAttr(LightTheme::green)));
 	}
 
 	if (userSettings["Theme"] == "dark")
