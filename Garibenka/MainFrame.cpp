@@ -716,7 +716,192 @@ std::vector<std::wstring> MainFrame::FillBrowseSymbolsList(std::vector<Module> m
 
 void MainFrame::ShowHelpDialog(wxCommandEvent& event)
 {
+	//helpDialog->helpText->WriteText("hello world");
+	FillHelpDialog();
 	helpDialog->Show();
+}
+
+void MainFrame::FillHelpDialog()
+{
+	//contents
+	helpDialog->helpText->BeginBold();
+	helpDialog->helpText->WriteText(currentLang[L"HelpContents"] + '\n');
+	helpDialog->helpText->EndBold();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpContentsBot"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpContentsFiles"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpContentsTrouble"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpContentsContact"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	//Bot part
+	helpDialog->helpText->BeginBold();
+	helpDialog->helpText->BeginUnderline();
+	helpDialog->helpText->WriteText(currentLang[L"HelpContentsBot"] + '\n');
+	helpDialog->helpText->EndUnderline();
+	helpDialog->helpText->EndBold();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpBotBody1"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpBotBody2"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpBotBody3"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpBotBody4"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpBotBody5"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpBotBody6"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	// files
+	helpDialog->helpText->BeginBold();
+	helpDialog->helpText->BeginUnderline();
+	helpDialog->helpText->WriteText(currentLang[L"HelpContentsFiles"] + '\n');
+	helpDialog->helpText->EndUnderline();
+	helpDialog->helpText->EndBold();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpFilesBody1"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpFilesBody2"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpFilesBody3"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->BeginUnderline();
+	helpDialog->helpText->WriteText(currentLang[L"HelpFilesBody4"] + '\n');
+	helpDialog->helpText->EndUnderline();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpFilesBody5"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpFilesBody6"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpFilesBody7"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	// troubleshooting
+	helpDialog->helpText->BeginBold();
+	helpDialog->helpText->BeginUnderline();
+	helpDialog->helpText->WriteText(currentLang[L"HelpContentsTrouble"] + '\n');
+	helpDialog->helpText->EndUnderline();
+	helpDialog->helpText->EndBold();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->BeginBold();
+	helpDialog->helpText->WriteText(currentLang[L"HelpTroubleBody1"] + '\n');
+	helpDialog->helpText->EndBold();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->BeginItalic();
+	helpDialog->helpText->WriteText(currentLang[L"HelpTroubleBody2"] + '\n');
+	helpDialog->helpText->EndItalic();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpTroubleBody3"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->BeginItalic();
+	helpDialog->helpText->WriteText(currentLang[L"HelpTroubleBody4"] + '\n');
+	helpDialog->helpText->EndItalic();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpTroubleBody5"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->BeginBold();
+	helpDialog->helpText->WriteText(currentLang[L"HelpTroubleBody6"] + '\n');
+	helpDialog->helpText->EndBold();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpTroubleBody7"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	// contacts
+	helpDialog->helpText->BeginBold();
+	helpDialog->helpText->BeginUnderline();
+	helpDialog->helpText->WriteText(currentLang[L"HelpContentsContact"] + '\n');
+	helpDialog->helpText->EndUnderline();
+	helpDialog->helpText->EndBold();
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpContactBody1"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText('\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpContactBody2"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
+
+	helpDialog->helpText->WriteText(currentLang[L"HelpContactBody3"] + '\n');
+	helpDialog->helpText->SetInsertionPointEnd();
 }
 
 void MainFrame::LoadFile(wxCommandEvent& event)
