@@ -14,6 +14,9 @@ void MainFrame::CreateControls()
 	browseDialog = new BrowseDialog(this, wxID_ANY, currentLang[L"Module Browser"], wxDefaultPosition, wxDefaultSize,
 		wxCLOSE_BOX | wxDEFAULT_DIALOG_STYLE | wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxRESIZE_BORDER);
 
+	helpDialog = new HelpDialog(this, wxID_ANY, currentLang[L"HelpOption"], wxDefaultPosition, wxDefaultSize,
+		wxCLOSE_BOX | wxDEFAULT_DIALOG_STYLE | wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxRESIZE_BORDER);
+
 	wxBoxSizer* genSizer;
 	genSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -309,6 +312,7 @@ void MainFrame::BindEventHandlers()
 	answerInputTextCtrl->Bind(wxEVT_TEXT_ENTER, &MainFrame::ReadAnswerOnEnter, this);
 	langChoice->Bind(wxEVT_CHOICE, &MainFrame::ChangeLangSettings, this);
 	themeChoice->Bind(wxEVT_CHOICE, &MainFrame::ChangeThemeSettings, this);
+	helpOptionBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowHelpDialog, this);
 
 
 	// workaroung for setting wxChoice bg color
@@ -708,6 +712,11 @@ std::vector<std::wstring> MainFrame::FillBrowseSymbolsList(std::vector<Module> m
 	}
 
 	return symbolsData;
+}
+
+void MainFrame::ShowHelpDialog(wxCommandEvent& event)
+{
+	helpDialog->Show();
 }
 
 void MainFrame::LoadFile(wxCommandEvent& event)

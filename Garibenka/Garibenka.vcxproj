@@ -152,12 +152,14 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="BrowseDialog.cpp" />
     <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="HelpDialog.cpp" />
     <ClCompile Include="MainFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="BrowseDialog.h" />
     <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="HelpDialog.h" />
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="ThemeColors.h" />
   </ItemGroup>
