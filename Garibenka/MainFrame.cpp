@@ -454,7 +454,7 @@ void MainFrame::ApplyTheme()
 		langChoice->SetForegroundColour(DarkTheme::light);
 		themeOptionLabel->SetForegroundColour(DarkTheme::light);
 		themeChoice->SetForegroundColour(DarkTheme::light);
-		helpOptionLabel->SetForegroundColour(DarkTheme::light);
+		//helpOptionLabel->SetForegroundColour(DarkTheme::light);
 		aboutLabel->SetForegroundColour(DarkTheme::light);
 
 		botBtn->SetBitmap(wxBitmap(pathToIcons + "darkBotBtn.png", wxBITMAP_TYPE_ANY));
