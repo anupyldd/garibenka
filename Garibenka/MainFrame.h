@@ -106,6 +106,7 @@ private:
 	std::vector<std::wstring> FillBrowseSymbolsList(std::vector<Module> modules, long item);
 
 	void ShowHelpDialog(wxCommandEvent& event);
+	void FillHelpDialog();
 
 	void LoadFile(wxCommandEvent& event);
 	void RemoveFile(wxCommandEvent& event);

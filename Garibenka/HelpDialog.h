@@ -6,9 +6,9 @@ class HelpDialog : public wxDialog
 {
 private:
 
-	wxRichTextCtrl* helpText;
 
 public:
+	wxRichTextCtrl* helpText;
 
 	HelpDialog(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(640, 480), long style = wxDEFAULT_DIALOG_STYLE);
 
