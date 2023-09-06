@@ -245,9 +245,19 @@ void MainFrame::CreateControls()
 	settingsFillerLabel->Wrap(-1);
 	settingsAreaSizer->Add(settingsFillerLabel, 1, wxALL | wxEXPAND, 5);
 
-	aboutLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, currentLang[L"AboutMain"] + '\n' +
-		currentLang[L"AboutProgramming"] + '\n' + currentLang[L"AboutIcons"] + '\n' + 
-		currentLang[L"AboutTables"], wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT);
+	aboutLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, 
+		currentLang[L"AboutMain"] + '\n' +
+		"" + '\n' +
+		currentLang[L"AboutDevelop"] + '\n' + 
+		currentLang[L"AboutDima"] + '\n' +
+		currentLang[L"AboutKatya"] + '\n' +
+		"" + '\n' +
+		currentLang[L"AboutIcons"] + '\n' +
+		currentLang[L"AboutSYD"] + '\n' + 
+		"" + '\n' +
+		"2023", 
+		wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT);
+
 	aboutLabel->Wrap(-1);
 	settingsAreaSizer->Add(aboutLabel, 0, wxEXPAND | wxALL, 5);
 
