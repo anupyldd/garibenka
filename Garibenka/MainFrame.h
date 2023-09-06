@@ -4,6 +4,7 @@
 
 #include "FileLoader.h"
 #include "BrowseDialog.h"
+#include "HelpDialog.h"
 #include <wx/wx.h>
 #include <wx/simplebook.h>
 #include <wx/listctrl.h>
@@ -104,6 +105,8 @@ private:
 	void ShowBrowseDialog(wxCommandEvent& event);
 	std::vector<std::wstring> FillBrowseSymbolsList(std::vector<Module> modules, long item);
 
+	void ShowHelpDialog(wxCommandEvent& event);
+
 	void LoadFile(wxCommandEvent& event);
 	void RemoveFile(wxCommandEvent& event);
 	void UpdateModuleList(std::vector<Module>& modules);	
@@ -203,6 +206,7 @@ private:
 	wxStaticText* themeOptionLabel;
 	wxChoice* themeChoice;
 	BrowseDialog* browseDialog;
+	HelpDialog* helpDialog;
 	wxStaticText* aboutLabel;
 	wxStaticText* helpOptionLabel;
 	wxBitmapButton* helpOptionBtn;
