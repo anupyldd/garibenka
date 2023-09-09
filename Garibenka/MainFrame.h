@@ -16,7 +16,7 @@
 #include <algorithm>
 #include <random>
 #include <wx/html/htmlwin.h>
-#include <wx/wxhtml.h.>
+#include <wx/wxhtml.h>
 #include <iterator> 
 #include <wx/stdpaths.h>
 #include <wx/filefn.h> 
