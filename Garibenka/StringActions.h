@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <regex>
 
 namespace StringActions
 {
@@ -22,24 +23,20 @@ namespace StringActions
     // for splitting input and answers
     std::vector<std::wstring> SplitByChar(std::wstring& line)
     {
+        if (line.find(L"、") != std::string::npos)
+        {
+            line = std::regex_replace(line, std::wregex(L"\\、"), L",");
+        }
+
         std::wstringstream lineToSplit(line);
         std::wstring segment;
         std::vector<std::wstring> splitList;
-
-        if (line.find(L",") != std::string::npos)
+        
+        while (std::getline(lineToSplit, segment, L','))
         {
-            while (std::getline(lineToSplit, segment, L','))
-            {
-                splitList.push_back(segment);
-            }
+            splitList.push_back(segment);
         }
-        else
-        {
-            while (std::getline(lineToSplit, segment, L'、'))
-            {
-                splitList.push_back(segment);
-            }
-        }
+        
 
         return splitList;
     }
