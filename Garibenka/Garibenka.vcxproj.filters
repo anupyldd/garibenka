@@ -50,6 +50,9 @@
     <ClInclude Include="HelpDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StringActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="main.manifest" />
