@@ -1,6 +1,7 @@
 ﻿#include "MainFrame.h"
 #include "FileLoader.h"
 #include <wx/wx.h>
+#include "StringActions.h"
 
 
 
@@ -1318,7 +1319,11 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 	{
 		return;
 	}
-
+	
+	std::string answ = answer.ToStdString();
+	StringActions::LeftTrim(answ);
+	StringActions::RightTrim(answ);
+	answer = answ;
 
 	if (CheckAnswerArrays(vocab, answer))
 	{
@@ -1429,6 +1434,11 @@ void MainFrame::ProcessAnswerWhenMode()
 	{
 		return;
 	}
+
+	std::string answ = answer.ToStdString();
+	StringActions::LeftTrim(answ);
+	StringActions::RightTrim(answ);
+	answer = answ;
 
 	if (CheckAnswerArrays(terms, answer))
 	{
@@ -1568,6 +1578,11 @@ void MainFrame::ProcessAnswerWhenAskBy()
 	{
 		return;
 	}
+
+	std::string answ = answer.ToStdString();
+	StringActions::LeftTrim(answ);
+	StringActions::RightTrim(answ);
+	answer = answ;
 
 	switch (currentMode)
 	{
@@ -1748,6 +1763,12 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 {
 	wxString answer;
 	answer = answerInputTextCtrl->GetValue();
+
+	std::string answ = answer.ToStdString();
+	StringActions::LeftTrim(answ);
+	StringActions::RightTrim(answ);
+	answer = answ;
+
 	if (CheckAnswerArrays(no, answer))
 	{
 		ResetStudy();
