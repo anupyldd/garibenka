@@ -161,6 +161,7 @@
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="HelpDialog.h" />
     <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="StringActions.h" />
     <ClInclude Include="ThemeColors.h" />
   </ItemGroup>
   <ItemGroup>
