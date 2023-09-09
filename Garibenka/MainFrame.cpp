@@ -1320,7 +1320,7 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 		return;
 	}
 	
-	std::string answ = answer.ToStdString();
+	std::wstring answ = answer.ToStdWstring();
 	StringActions::LeftTrim(answ);
 	StringActions::RightTrim(answ);
 	answer = answ;
@@ -1435,7 +1435,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		return;
 	}
 
-	std::string answ = answer.ToStdString();
+	std::wstring answ = answer.ToStdWstring();
 	StringActions::LeftTrim(answ);
 	StringActions::RightTrim(answ);
 	answer = answ;
@@ -1579,7 +1579,7 @@ void MainFrame::ProcessAnswerWhenAskBy()
 		return;
 	}
 
-	std::string answ = answer.ToStdString();
+	std::wstring answ = answer.ToStdWstring();
 	StringActions::LeftTrim(answ);
 	StringActions::RightTrim(answ);
 	answer = answ;
@@ -1764,7 +1764,7 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 	wxString answer;
 	answer = answerInputTextCtrl->GetValue();
 
-	std::string answ = answer.ToStdString();
+	std::wstring answ = answer.ToStdWstring();
 	StringActions::LeftTrim(answ);
 	StringActions::RightTrim(answ);
 	answer = answ;
@@ -1891,11 +1891,18 @@ void MainFrame::AskQuestion()
 		return;
 	}
 
+	std::string strAnswer = answer.ToStdString();
+
 	
+
+
 
 	switch (currentMode)
 	{
 	case MainFrame::TERM:
+		//std::vector<std::string> userList = StringActions::SplitByChar(strAnswer, ',');
+		//std::vector<std::string> correctList = StringActions::SplitByChar(currentSymbols[currentQuestion].GetSymbol());
+
 		if (currentSymbols[currentQuestion].GetSymbol().find(answer) != std::string::npos)
 		{
 			htmlContents += "<html><body>";
