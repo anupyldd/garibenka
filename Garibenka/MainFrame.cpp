@@ -1320,7 +1320,7 @@ void MainFrame::ProcessAnswerWhenVocOrKan()
 		return;
 	}
 	
-	std::string answ = answer.ToStdString();
+	std::wstring answ = answer.ToStdWstring();
 	StringActions::LeftTrim(answ);
 	StringActions::RightTrim(answ);
 	answer = answ;
@@ -1435,7 +1435,7 @@ void MainFrame::ProcessAnswerWhenMode()
 		return;
 	}
 
-	std::string answ = answer.ToStdString();
+	std::wstring answ = answer.ToStdWstring();
 	StringActions::LeftTrim(answ);
 	StringActions::RightTrim(answ);
 	answer = answ;
@@ -1579,7 +1579,7 @@ void MainFrame::ProcessAnswerWhenAskBy()
 		return;
 	}
 
-	std::string answ = answer.ToStdString();
+	std::wstring answ = answer.ToStdWstring();
 	StringActions::LeftTrim(answ);
 	StringActions::RightTrim(answ);
 	answer = answ;
@@ -1764,7 +1764,7 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 	wxString answer;
 	answer = answerInputTextCtrl->GetValue();
 
-	std::string answ = answer.ToStdString();
+	std::wstring answ = answer.ToStdWstring();
 	StringActions::LeftTrim(answ);
 	StringActions::RightTrim(answ);
 	answer = answ;
@@ -1891,12 +1891,18 @@ void MainFrame::AskQuestion()
 		return;
 	}
 
-	
+	std::wstring strAnswer = answer.ToStdWstring();
+	std::vector<std::wstring> userList;
+	std::vector<std::wstring> correctList;
 
 	switch (currentMode)
 	{
 	case MainFrame::TERM:
-		if (currentSymbols[currentQuestion].GetSymbol().find(answer) != std::string::npos)
+		userList = StringActions::SplitByChar(strAnswer);
+		correctList = StringActions::SplitByChar(currentSymbols[currentQuestion].GetSymbol());
+
+		//if (currentSymbols[currentQuestion].GetSymbol().find(answer) != std::string::npos)
+		if(StringActions::CompareLists(userList, correctList))
 		{
 			htmlContents += "<html><body>";
 			htmlContents += currentLang[L"CorrectAnswer"];
@@ -1921,7 +1927,11 @@ void MainFrame::AskQuestion()
 		}
 		break;
 	case MainFrame::READING:
-		if (currentSymbols[currentQuestion].GetReading().find(answer) != std::string::npos)
+		userList = StringActions::SplitByChar(strAnswer);
+		correctList = StringActions::SplitByChar(currentSymbols[currentQuestion].GetReading());
+
+		//if (currentSymbols[currentQuestion].GetReading().find(answer) != std::string::npos)
+		if(StringActions::CompareLists(userList, correctList))
 		{
 			htmlContents += "<html><body>";
 			htmlContents += currentLang[L"CorrectAnswer"];
@@ -1946,7 +1956,11 @@ void MainFrame::AskQuestion()
 		}
 		break;
 	case MainFrame::MEANING:
-		if (currentSymbols[currentQuestion].GetMeaning().find(answer) != std::string::npos)
+		userList = StringActions::SplitByChar(strAnswer);
+		correctList = StringActions::SplitByChar(currentSymbols[currentQuestion].GetMeaning());
+
+		//if (currentSymbols[currentQuestion].GetMeaning().find(answer) != std::string::npos)
+		if(StringActions::CompareLists(userList, correctList))
 		{
 			htmlContents += "<html><body>";
 			htmlContents += currentLang[L"CorrectAnswer"];
