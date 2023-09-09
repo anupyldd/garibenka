@@ -1891,19 +1891,18 @@ void MainFrame::AskQuestion()
 		return;
 	}
 
-	std::string strAnswer = answer.ToStdString();
-
-	
-
-
+	std::wstring strAnswer = answer.ToStdWstring();
+	std::vector<std::wstring> userList;
+	std::vector<std::wstring> correctList;
 
 	switch (currentMode)
 	{
 	case MainFrame::TERM:
-		//std::vector<std::string> userList = StringActions::SplitByChar(strAnswer, ',');
-		//std::vector<std::string> correctList = StringActions::SplitByChar(currentSymbols[currentQuestion].GetSymbol());
+		userList = StringActions::SplitByChar(strAnswer);
+		correctList = StringActions::SplitByChar(currentSymbols[currentQuestion].GetSymbol());
 
-		if (currentSymbols[currentQuestion].GetSymbol().find(answer) != std::string::npos)
+		//if (currentSymbols[currentQuestion].GetSymbol().find(answer) != std::string::npos)
+		if(StringActions::CompareLists(userList, correctList))
 		{
 			htmlContents += "<html><body>";
 			htmlContents += currentLang[L"CorrectAnswer"];
@@ -1928,7 +1927,11 @@ void MainFrame::AskQuestion()
 		}
 		break;
 	case MainFrame::READING:
-		if (currentSymbols[currentQuestion].GetReading().find(answer) != std::string::npos)
+		userList = StringActions::SplitByChar(strAnswer);
+		correctList = StringActions::SplitByChar(currentSymbols[currentQuestion].GetReading());
+
+		//if (currentSymbols[currentQuestion].GetReading().find(answer) != std::string::npos)
+		if(StringActions::CompareLists(userList, correctList))
 		{
 			htmlContents += "<html><body>";
 			htmlContents += currentLang[L"CorrectAnswer"];
@@ -1953,7 +1956,11 @@ void MainFrame::AskQuestion()
 		}
 		break;
 	case MainFrame::MEANING:
-		if (currentSymbols[currentQuestion].GetMeaning().find(answer) != std::string::npos)
+		userList = StringActions::SplitByChar(strAnswer);
+		correctList = StringActions::SplitByChar(currentSymbols[currentQuestion].GetMeaning());
+
+		//if (currentSymbols[currentQuestion].GetMeaning().find(answer) != std::string::npos)
+		if(StringActions::CompareLists(userList, correctList))
 		{
 			htmlContents += "<html><body>";
 			htmlContents += currentLang[L"CorrectAnswer"];
