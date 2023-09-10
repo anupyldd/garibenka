@@ -21,7 +21,7 @@ namespace StringActions
     }
 
     // for splitting input and answers
-    std::vector<std::wstring> SplitByChar(std::wstring& line)
+    std::vector<std::wstring> SplitByChar(std::wstring line)
     {
         if (line.find(L"、") != std::string::npos)
         {
@@ -43,6 +43,7 @@ namespace StringActions
 
     bool CompareLists(std::vector<std::wstring>& userList, std::vector<std::wstring>& correctList)
     {
+        //bool isCorrect = true;
         // clean up user answers
         for (auto elem : userList)
         {
@@ -57,13 +58,25 @@ namespace StringActions
             RightTrim(elem);
         }
 
-        for (auto elem : correctList)
+        std::sort(userList.begin(), userList.end());
+        std::sort(correctList.begin(), correctList.end());
+
+        /*for (auto elem : correctList)
         {
             if (std::find(userList.begin(), userList.end(), elem) == userList.end())
             {
-                return false;
+                isCorrect = false;
             }
         }
-        return true;
+
+        for (auto elem : userList)
+        {
+            if (std::find(correctList.begin(), correctList.end(), elem) == correctList.end())
+            {
+                isCorrect = false;
+            }
+        }*/
+
+        return (userList == correctList);
     }
 }
