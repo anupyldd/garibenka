@@ -1082,7 +1082,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 
 	chatHtmlWindow->SetPage(htmlContents);
 	
-	
+	ScrollToBottom();
 }
 
 void MainFrame::FillCurrentSymbols(std::vector<Module>& modules)
