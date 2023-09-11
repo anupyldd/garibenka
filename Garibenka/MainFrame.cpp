@@ -727,7 +727,7 @@ std::vector<std::wstring> MainFrame::FillBrowseSymbolsList(std::vector<Module> m
 
 void MainFrame::ShowHelpDialog(wxCommandEvent& event)
 {
-	//helpDialog->helpText->WriteText("hello world");
+	helpDialog->helpText->Clear();
 	FillHelpDialog();
 	helpDialog->Show();
 }
