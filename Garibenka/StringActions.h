@@ -48,7 +48,7 @@ namespace StringActions
         for (auto elem : userList)
         {
             LeftTrim(elem);
-            RightTrim(elem);
+            RightTrim(elem);            // does not trim for some reason
         }
 
         // clean up correct answers
