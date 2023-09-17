@@ -1046,6 +1046,7 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	}
 
 	genWorkingAreaBook->ChangeSelection(0);
+	answerInputTextCtrl->SetFocus();
 
 	botBtn->Disable();
 	//profileBtn->Enable(true);
