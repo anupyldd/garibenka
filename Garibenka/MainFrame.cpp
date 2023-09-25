@@ -1896,6 +1896,9 @@ void MainFrame::AskQuestion()
 	}
 
 	std::wstring strAnswer = answer.ToStdWstring();
+	StringActions::LeftTrim(strAnswer);
+	StringActions::RightTrim(strAnswer);
+
 	std::vector<std::wstring> userList;
 	std::vector<std::wstring> correctList;
 
