@@ -2,6 +2,7 @@
 #include "FileLoader.h"
 #include <wx/wx.h>
 #include "StringActions.h"
+#include <wx/log.h>
 
 
 
@@ -33,7 +34,7 @@ void MainFrame::CreateControls()
 	leftPanelSizer->SetMinSize(this->FromDIP(wxSize(-1, -1)));
 	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
-	botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
+	//botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
 	botBtn->SetToolTip(currentLang[L"Helper Bot"]);
 	leftPanelSizer->Add(botBtn, 0, wxLEFT | wxRIGHT | wxTOP, this->FromDIP(5));
 
@@ -45,7 +46,7 @@ void MainFrame::CreateControls()
 
 	filesBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
-	filesBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.png"), wxBITMAP_TYPE_ANY));
+	//filesBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.png"), wxBITMAP_TYPE_ANY));
 	filesBtn->SetToolTip(currentLang[L"Files"]);
 	filesBtn->Disable();
 	leftPanelSizer->Add(filesBtn, 0, wxALL, this->FromDIP(5));
@@ -60,7 +61,7 @@ void MainFrame::CreateControls()
 
 	settingsBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
-	settingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.png"), wxBITMAP_TYPE_ANY));
+	//settingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.png"), wxBITMAP_TYPE_ANY));
 	settingsBtn->SetToolTip(currentLang[L"Settings"]);
 	leftPanelSizer->Add(settingsBtn, 0, wxALL, this->FromDIP(5));
 
@@ -91,7 +92,7 @@ void MainFrame::CreateControls()
 
 	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
-	answerSendBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.png"), wxBITMAP_TYPE_ANY));
+	//answerSendBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.png"), wxBITMAP_TYPE_ANY));
 	answerSendBtn->SetToolTip(currentLang[L"Send"]);
 	answerSendBtn->Disable();
 	
@@ -408,6 +409,8 @@ void MainFrame::ApplyTheme()
 {
 	wxString pathToFileIcons = wxGetCwd() + "\\Icons\\FileIcons\\";
 	wxString pathToIcons = wxGetCwd() + "\\Icons\\";
+
+	wxLogNull noLog; // to ignore light theme warning
 
 	if (userSettings["Theme"] == "dark")
 	{
