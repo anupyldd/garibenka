@@ -2,10 +2,6 @@
 
 #define _NO_CRT_STDIO_INLINE
 
-//#include <C:/Program Files/Python311/include/Python.h>  //put it in properties additional include libs
-
-//#include <Python.h>
-
 #include <string>
 #include <string_view>
 #include <vector>
@@ -20,7 +16,6 @@
 #include <locale>
 #include <codecvt>
 #include <exception>
-//#include <Windows.h>
 
 #define PY_SSIZE_T_CLEAN
 
@@ -94,16 +89,12 @@ private:
 public:
 	
 
-	//static void RunPythonScript(int argc, const char* argv[]);
-
 	static void ReadTsvFiles(std::vector<Module>& modules);
 
 	static void Split(const std::string& s, char delim, std::vector<std::string>& elems);
 	static void SplitWide(const std::wstring& s, wchar_t delim, std::vector<std::wstring>& elems);
-	static void ReadTablesFile(std::vector<Module>& modules);
+	//static void ReadTablesFile(std::vector<Module>& modules);
 
-	//static void LoadModuleStats(std::vector<Module>& inModules);
-	//static void UpdateModuleStatsFile();
 
 	static void ReadUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings);
 	static void UpdateUserSettingsMap(std::string inSetting, std::string inOption, 

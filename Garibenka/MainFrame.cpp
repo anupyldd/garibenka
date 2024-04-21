@@ -34,19 +34,12 @@ void MainFrame::CreateControls()
 	leftPanelSizer->SetMinSize(this->FromDIP(wxSize(-1, -1)));
 	botBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
-	//botBtn->SetBitmap(wxBitmap(wxT("Icons/BotBtn.png"), wxBITMAP_TYPE_ANY));
 	botBtn->SetToolTip(currentLang[L"Helper Bot"]);
 	leftPanelSizer->Add(botBtn, 0, wxLEFT | wxRIGHT | wxTOP, this->FromDIP(5));
 
-	/*profileBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
-
-	profileBtn->SetBitmap(wxBitmap(wxT("Icons/ProfileBtn.png"), wxBITMAP_TYPE_ANY));
-	profileBtn->SetToolTip(currentLang[L"Profile"]);
-	leftPanelSizer->Add(profileBtn, 0, wxLEFT | wxRIGHT | wxTOP, 5);*/
 
 	filesBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
-	//filesBtn->SetBitmap(wxBitmap(wxT("Icons/FileBtn.png"), wxBITMAP_TYPE_ANY));
 	filesBtn->SetToolTip(currentLang[L"Files"]);
 	filesBtn->Disable();
 	leftPanelSizer->Add(filesBtn, 0, wxALL, this->FromDIP(5));
@@ -61,7 +54,6 @@ void MainFrame::CreateControls()
 
 	settingsBtn = new wxBitmapButton(leftPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
-	//settingsBtn->SetBitmap(wxBitmap(wxT("Icons/SettingsBtn.png"), wxBITMAP_TYPE_ANY));
 	settingsBtn->SetToolTip(currentLang[L"Settings"]);
 	leftPanelSizer->Add(settingsBtn, 0, wxALL, this->FromDIP(5));
 
@@ -92,7 +84,6 @@ void MainFrame::CreateControls()
 
 	answerSendBtn = new wxBitmapButton(chatWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
 
-	//answerSendBtn->SetBitmap(wxBitmap(wxT("Icons/SendBtn.png"), wxBITMAP_TYPE_ANY));
 	answerSendBtn->SetToolTip(currentLang[L"Send"]);
 	answerSendBtn->Disable();
 	
@@ -106,38 +97,7 @@ void MainFrame::CreateControls()
 	chatWorkingAreaPanel->Layout();
 	chatAreaSizer->Fit(chatWorkingAreaPanel);
 	genWorkingAreaBook->AddPage(chatWorkingAreaPanel, wxT("a page"), false);
-	/*profileWorkingAreaPanel = new wxPanel(genWorkingAreaBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
-	wxBoxSizer* profileAreaSizer;
-	profileAreaSizer = new wxBoxSizer(wxVERTICAL);
-
-	wxBoxSizer* profileHeaderSizer;
-	profileHeaderSizer = new wxBoxSizer(wxHORIZONTAL);
-
-	userNameLabel = new wxStaticText(profileWorkingAreaPanel, wxID_ANY, userSettings["Username"], wxDefaultPosition, wxDefaultSize, 0);
-	userNameLabel->Wrap(-1);
-	userNameLabel->SetFont(wxFont(40, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-
-	profileHeaderSizer->Add(userNameLabel, 1, wxALL, 5);
-
-	editNameBtn = new wxBitmapButton(profileWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
-
-	editNameBtn->SetBitmap(wxBitmap(wxT("Icons/editBtn.png"), wxBITMAP_TYPE_ANY));
-	editNameBtn->SetToolTip(currentLang[L"Change"]);
-	profileHeaderSizer->Add(editNameBtn, 0, wxALL, 0);
-
-
-	profileAreaSizer->Add(profileHeaderSizer, 0, wxEXPAND, 5);
-
-	statsListCtrl = new wxListCtrl(profileWorkingAreaPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_ICON | wxLC_REPORT | wxLC_SINGLE_SEL);
-	statsListCtrl->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-
-	profileAreaSizer->Add(statsListCtrl, 1, wxALL | wxEXPAND, 0);
-
-
-	profileWorkingAreaPanel->SetSizer(profileAreaSizer);
-	profileWorkingAreaPanel->Layout();
-	profileAreaSizer->Fit(profileWorkingAreaPanel);
-	genWorkingAreaBook->AddPage(profileWorkingAreaPanel, wxT("a page"), false);*/
+	
 	filesWorkingAreaPanel = new wxPanel(genWorkingAreaBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	wxBoxSizer* filesAreaSizer;
 	filesAreaSizer = new wxBoxSizer(wxVERTICAL);
@@ -235,20 +195,6 @@ void MainFrame::CreateControls()
 
 	settingsAreaSizer->Add(themeOptionSizer, 0, wxEXPAND, this->FromDIP(0));
 
-	/*wxBoxSizer* helpOptionSizer;
-	helpOptionSizer = new wxBoxSizer(wxHORIZONTAL);
-
-	helpOptionLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, currentLang[L"HelpOption"], wxDefaultPosition, wxDefaultSize, 0);
-	helpOptionLabel->Wrap(-1);
-	helpOptionLabel->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
-
-	helpOptionSizer->Add(helpOptionLabel, 1, wxALIGN_CENTER_VERTICAL | wxALL, 5);
-
-	helpOptionBtn = new wxBitmapButton(settingsWorkingAreaPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | wxBORDER_NONE);
-	helpOptionSizer->Add(helpOptionBtn, 0, wxALL, 5);
-
-
-	settingsAreaSizer->Add(helpOptionSizer, 0, wxEXPAND, 0);*/
 
 	settingsFillerLabel = new wxStaticText(settingsWorkingAreaPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
 	settingsFillerLabel->Wrap(-1);
@@ -307,7 +253,6 @@ void MainFrame::CreateControls()
 void MainFrame::BindEventHandlers()
 {
 	botBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToBot, this);
-	//profileBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToProfile, this);
 	filesBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToFiles, this);
 	settingsBtn->Bind(wxEVT_BUTTON, &MainFrame::ChangePageToSettings, this);
 	browseBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowBrowseDialog, this);
@@ -321,7 +266,7 @@ void MainFrame::BindEventHandlers()
 	helpOptionBtn->Bind(wxEVT_BUTTON, &MainFrame::ShowHelpDialog, this);
 
 
-	// workaroung for setting wxChoice bg color
+	// workaround for setting wxChoice bg color
 	if (userSettings["Theme"] == "dark")
 	{
 		langChoice->Bind(wxEVT_PAINT, [=](wxPaintEvent& event) {
@@ -601,15 +546,6 @@ void MainFrame::ChangePageToBot(wxCommandEvent& event)
 	settingsBtn->Enable(true);
 }
 
-//void MainFrame::ChangePageToProfile(wxCommandEvent& event)
-//{
-//	genWorkingAreaBook->ChangeSelection(1);
-//
-//	botBtn->Enable(true);;
-//	//profileBtn->Disable();
-//	filesBtn->Enable(true);
-//	settingsBtn->Enable(true);
-//}
 
 void MainFrame::ChangePageToFiles(wxCommandEvent& event)
 {
@@ -626,7 +562,6 @@ void MainFrame::ChangePageToSettings(wxCommandEvent& event)
 	genWorkingAreaBook->ChangeSelection(2);
 
 	botBtn->Enable(true);;
-	//profileBtn->Enable(true);
 	filesBtn->Enable(true);
 	settingsBtn->Disable();
 }
@@ -645,26 +580,6 @@ void MainFrame::FillModulesList(std::vector<Module> modules)
 	filesListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE_USEHEADER);
 }
 
-//void MainFrame::FillStatsList(std::vector<Module> modules)
-//{
-//	statsListCtrl->InsertColumn(0, currentLang[L"FileName"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-//	statsListCtrl->InsertColumn(1, currentLang[L"ModuleForStats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-//	statsListCtrl->InsertColumn(2, currentLang[L"Stats"], wxLIST_FORMAT_LEFT, wxLIST_AUTOSIZE);
-//
-//	std::string stat;
-//	int size = modules.size();
-//	for (size_t i = 0; i < size; i++)
-//	{
-//		long index = statsListCtrl->InsertItem(i, modules[i].GetFileName());
-//		statsListCtrl->SetItem(index, 1, modules[i].GetModuleName());
-//		stat = std::to_string(modules[i].GetAnsweredCorrectly()) + '/' + std::to_string(modules[i].GetTimesAsked());
-//		statsListCtrl->SetItem(index, 2, stat);
-//	}
-//
-//	statsListCtrl->SetColumnWidth(0, wxLIST_AUTOSIZE);
-//	statsListCtrl->SetColumnWidth(1, wxLIST_AUTOSIZE);
-//	statsListCtrl->SetColumnWidth(2, wxLIST_AUTOSIZE_USEHEADER);
-//}
 
 void MainFrame::ShowBrowseDialog(wxCommandEvent& event)
 {
@@ -933,9 +848,6 @@ void MainFrame::LoadFile(wxCommandEvent& event)
 		wxCopyFile(pathToFile, pathtoDest + fileDialog.GetFilename(), false);
 		UpdateModuleList(modules);
 	}
-	
-
-	
 }
 
 void MainFrame::RemoveFile(wxCommandEvent& event)
@@ -1037,8 +949,6 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 		if (item == -1)
 			break;
 
-		/*currentModule = filesListCtrl->GetItemText(item, 1);
-		currentFile = filesListCtrl->GetItemText(item, 0);*/
 		for (auto mod : localModules)
 		{
 			if (mod.GetModuleName() == filesListCtrl->GetItemText(item, 0))
@@ -1052,7 +962,6 @@ void MainFrame::ChooseModule(wxCommandEvent& event)
 	answerInputTextCtrl->SetFocus();
 
 	botBtn->Disable();
-	//profileBtn->Enable(true);
 	filesBtn->Enable(true);
 	settingsBtn->Enable(true);
 	answerSendBtn->Enable(true);
@@ -1857,10 +1766,7 @@ void MainFrame::ProcessAnswerWhenGettingReady()
 
 void MainFrame::ProcessAnswerWhenStudy()
 {
-	//UpdateStats(localModules);
-	
 	AskQuestion();
-	
 }
 
 void MainFrame::DoNotUnderstandAnswer()
@@ -1966,7 +1872,6 @@ void MainFrame::AskQuestion()
 		userList = StringActions::SplitByChar(strAnswer);
 		correctList = StringActions::SplitByChar(currentSymbols[currentQuestion].GetMeaning());
 
-		//if (currentSymbols[currentQuestion].GetMeaning().find(answer) != std::string::npos)
 		if(StringActions::CompareLists(userList, correctList))
 		{
 			htmlContents += "<html><body>";
@@ -1999,7 +1904,6 @@ void MainFrame::AskQuestion()
 	ScrollToBottom();
 	questionsAsked += 1;
 	currentQuestion += 1;
-	//UpdateStats(localModules);
 
 	if (questionsAsked < currentSymbols.size())
 	{
@@ -2102,77 +2006,10 @@ void MainFrame::ScrollToBottom()
 	chatHtmlWindow->Scroll(0, y / yUnit);
 }
 
-//void MainFrame::UpdateStats(std::vector<Module>& inModules)
-//{
-//	//currentModule.SetStats(questionsAsked, questionsAsked - currentMistakes.size());
-//	/*inCurrentModule.timesAsked = questionsAsked;
-//	inCurrentModule.answeredCorrectly = questionsAsked - currentMistakes.size();*/
-//
-//	for (auto mod : inModules)
-//	{
-//		if (mod.GetFileName() == currentModule.GetFileName() && mod.GetModuleName() == currentModule.GetModuleName())
-//		{
-//			mod.timesAsked = questionsAsked;
-//			mod.answeredCorrectly = questionsAsked - currentMistakes.size();
-//		}
-//	}
-//
-//	SaveStatsToFile(inModules);
-//}
-
-//void MainFrame::SaveStatsToFile(std::vector<Module>& inModules)
-//{
-//	std::ofstream outfile;
-//	outfile.open("./Settings/stats.tsv");
-//
-//	if (!outfile.fail())
-//	{
-//		for (auto iter = inModules.begin(); iter != inModules.end(); iter++)
-//		{
-//			outfile << iter->GetFileName() << '\t' << iter->GetModuleName() << '\t' << 
-//				std::to_string(iter->timesAsked) << '\t' << std::to_string(iter->answeredCorrectly) << '\n';
-//		}
-//	}
-//}
-
-//void MainFrame::LoadStatsFromFile(std::vector<Module> inModules)
-//{
-//	std::ifstream infile("./Settings/stats.tsv");
-//	std::string line;
-//	std::vector<std::string> statsFileContents;
-//
-//	while (std::getline(infile, line))
-//	{
-//
-//		FileHandler::Split(line, '\t', statsFileContents);
-//
-//	}
-//
-//	
-//		
-//	
-//	for (auto mod : inModules)
-//	{
-//		int size = statsFileContents.size();
-//		for (size_t i = 0; i < size; i += 4)
-//		{
-//			if (statsFileContents[i] == mod.GetFileName() &&
-//				statsFileContents[i + 1] == mod.GetModuleName())
-//			{
-//				mod.timesAsked = stoi(statsFileContents[i + 2]);
-//				mod.answeredCorrectly = stoi(statsFileContents[i + 3]);
-//
-//			}
-//		}
-//	}
-//}
-
 
 void MainFrame::UpdateModuleList(std::vector<Module>& inModules)
 {
 	filesListCtrl->ClearAll();
-	//filesListCtrl->DeleteAllItems();
-	//filesListCtrl->DeleteAllColumns();
 
 	inModules.clear();
 

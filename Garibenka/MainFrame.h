@@ -91,16 +91,11 @@ private:
 	void ApplyTheme();
 
 	void ChangePageToBot(wxCommandEvent& event);
-	//void ChangePageToProfile(wxCommandEvent& event);
 	void ChangePageToFiles(wxCommandEvent& event);
 	void ChangePageToSettings(wxCommandEvent& event);
 
 	void FillModulesList(std::vector<Module> modules);
 
-	/*void FillStatsList(std::vector<Module> modules);
-	void UpdateStats(std::vector<Module>& modules);
-	void SaveStatsToFile(std::vector<Module>& modules);
-	void LoadStatsFromFile(std::vector<Module> modules);*/
 
 	void ShowBrowseDialog(wxCommandEvent& event);
 	std::vector<std::wstring> FillBrowseSymbolsList(std::vector<Module> modules, long item);
@@ -112,7 +107,6 @@ private:
 	void RemoveFile(wxCommandEvent& event);
 	void UpdateModuleList(std::vector<Module>& modules);	
 
-	//void KillChatRichTextFocus(wxFocusEvent& event);
 
 	void TransferModules(std::vector<Module> modules);
 
@@ -122,15 +116,10 @@ private:
 
 private:
 		
-	//void ChattingLoop();
-	//void StudyLoop();
-
 	void WriteInitialGreeting();
 	void ChooseModule(wxCommandEvent& event);
 	void FillCurrentSymbols(std::vector<Module>& modules);
 	void ChooseVocabOrKanji();
-	//void ChooseStudyMode();
-	//void ChooseAskBy();
 
 	void ReadAnswer(wxCommandEvent& event);
 	void ReadAnswerOnEnter(wxCommandEvent& event);
@@ -164,8 +153,6 @@ private:
 	std::vector<Module> localModules;	// bandaid because i fucked up and dont want to remake the whole thing
 
 	State userState = CHOOSING_MODULE;
-	//std::wstring currentModule;		// temp for storing names
-	//std::wstring currentFile;		// temp for storing names
 
 	Module currentModule;
 	VocOrKan currentVocabOrKanji;			// kanji or words
@@ -180,7 +167,6 @@ private:
 
 	wxPanel* leftPanel;
 	wxBitmapButton* botBtn;
-	//wxBitmapButton* profileBtn;
 	wxBitmapButton* filesBtn;
 	wxStaticText* fillerLabel;
 	wxBitmapButton* settingsBtn;
@@ -190,10 +176,6 @@ private:
 	wxHtmlWindow* chatHtmlWindow;
 	wxTextCtrl* answerInputTextCtrl;
 	wxBitmapButton* answerSendBtn;
-	//wxPanel* profileWorkingAreaPanel;
-	//wxStaticText* userNameLabel;
-	//wxBitmapButton* editNameBtn;
-	//wxListCtrl* statsListCtrl;
 	wxPanel* filesWorkingAreaPanel;
 	wxStaticText* filesTitleLabel;
 	wxBitmapButton* loadFileBtn;
