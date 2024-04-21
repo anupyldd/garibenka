@@ -43,12 +43,11 @@ namespace StringActions
 
     bool CompareLists(std::vector<std::wstring>& userList, std::vector<std::wstring>& correctList)
     {
-        //bool isCorrect = true;
         // clean up user answers
         for (auto elem : userList)
         {
             LeftTrim(elem);
-            RightTrim(elem);            // does not trim for some reason
+            RightTrim(elem);            
         }
 
         // clean up correct answers
@@ -60,22 +59,6 @@ namespace StringActions
 
         std::sort(userList.begin(), userList.end());
         std::sort(correctList.begin(), correctList.end());
-
-        /*for (auto elem : correctList)
-        {
-            if (std::find(userList.begin(), userList.end(), elem) == userList.end())
-            {
-                isCorrect = false;
-            }
-        }
-
-        for (auto elem : userList)
-        {
-            if (std::find(correctList.begin(), correctList.end(), elem) == correctList.end())
-            {
-                isCorrect = false;
-            }
-        }*/
 
         return (userList == correctList);
     }

@@ -2,8 +2,6 @@
 
 #include "FileLoader.h"
 
-//#include <Python.h>
-
 #include <string>
 #include <string_view>
 #include <vector>
@@ -18,62 +16,13 @@
 #include <codecvt>
 
 
-//#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-//#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
-//#define _CRT_SECURE_NO_WARNINGS
-
 using namespace std::literals;
 
-
-
-//void FileHandler::RunPythonScript(int argc, const char* argv[])
-//{
-//	wchar_t* program = Py_DecodeLocale(argv[0], NULL);
-//
-//	if (program == NULL)
-//	{
-//		exit(1);
-//	}
-//
-//	//Py_SetProgramName(program);
-//
-//	Py_Initialize();
-//
-//	//PyConfig config;
-//	//PyConfig_InitPythonConfig(&config);
-//	//config.isolated = 1;
-//	////std::filesystem::path cwd;
-//	////cwd = std::filesystem::current_path();
-//	////cwd.c_str();
-//	//wchar_t pyPath[] = { L'\\Python\\' };
-//	//config.pythonpath_env = pyPath;
-//
-//	PyObject* obj = Py_BuildValue("s", "Tables.py");
-//	FILE* file = _Py_fopen_obj(obj, "r+");
-//
-//	a = PyRun_SimpleFile(file, "Tables.py");
-//	std::cout << a;
-//
-//	//PyRun_SimpleFileExFlags(file, "Tables.py", 1, )
-//
-//	/*if (file != NULL) 
-//	{
-//	}*/
-//
-//	if (Py_FinalizeEx() < 0)
-//	{
-//		exit(120);
-//	}
-//
-//	PyMem_RawFree(program);
-//
-//}
 
 void FileHandler::ReadTsvFiles(std::vector<Module>& inModules)
 {
 	std::filesystem::path pathToCwd = std::filesystem::current_path();
 	std::filesystem::path pathToTables = pathToCwd / "Tables";
-	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 	std::vector<Module> readModules;
 	moduleCounter = -1;
 
@@ -90,26 +39,10 @@ void FileHandler::ReadTsvFiles(std::vector<Module>& inModules)
 				std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
 				std::string::size_type const p(baseFilename.find_last_of('.'));
 				std::string fileWithoutExtention = baseFilename.substr(0, p);
-				//std::wstring wFilePath = std::wstring(filePath);
-				//std::wstring revFilePath = 
-				//std::wstring wBaseName = wFilePath.substr(wFilePath.find_last_of("/\\") + 1)
-				//std::string strFilePath = filePath.string();
-				/*std::string baseFilename = strFilePath.substr(strFilePath.find_last_of("/\\") + 1);
-				std::string::size_type const p(baseFilename.find_last_of('.'));
-				std::string fileWithoutExtention = baseFilename.substr(0, p);
-				std::wstring wFileWithoutExtention;
-				wFileWithoutExtention = converter.from_bytes(fileWithoutExtention.c_str());*/
-
-
-				/*int wchars_num = MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, NULL, 0);
-				wchar_t* wFileWithoutExtention = new wchar_t[wchars_num];
-				MultiByteToWideChar(CP_UTF8, 0, fileWithoutExtention.c_str(), -1, wFileWithoutExtention, wchars_num);
-				std::wstring wFileName(wFileWithoutExtention);*/
 
 				readModules.push_back(Module{ fileWithoutExtention });
 				moduleCounter++;
 
-				//delete[] wFileWithoutExtention;
 
 				std::wifstream infile(dirEntry.path());
 				infile.imbue(std::locale("en_US.UTF8"));
@@ -207,91 +140,6 @@ void FileHandler::SplitWide(const std::wstring& s, wchar_t delim, std::vector<st
 	}
 }
 
-
-//void FileHandler::ReadTablesFile(std::vector<Module>& modules)
-//{
-//	std::wifstream infile("./Tables/PyOutput.txt");
-//	infile.imbue(std::locale("en_US.UTF8"));
-//	std::wstring line;
-//	std::vector<std::wstring> allFileContents;
-//
-//	while (std::getline(infile, line))
-//	{
-//		
-//		SplitWide(line, '\t', allFileContents);
-//
-//	}
-//	
-//	int moduleCounter = -1; //counts modules in the for loop for referencing
-//	int size = allFileContents.size();
-//
-//	for (size_t i = 0; i < size; i++)
-//	{
-//		if (allFileContents[i].at(0) == '@')
-//		{
-//			modules.push_back(Module{ allFileContents[i].substr(1) });
-//			moduleCounter++;
-//		}
-//
-//		else if (allFileContents[i].at(0) == '#')
-//		{
-//			modules[moduleCounter].SetFromFile(allFileContents[i].substr(1));
-//		}
-//
-//		else if (allFileContents[i].at(0) == '!')
-//		{
-//			modules[moduleCounter].AddToWords(Symbol{ allFileContents[i].substr(1), 
-//				allFileContents[i + 1],allFileContents[i + 2] });
-//		}
-//		
-//		else if (allFileContents[i].at(0) == '?')
-//		{
-//			modules[moduleCounter].AddToKanji(Symbol{ allFileContents[i].substr(1), 
-//				allFileContents[i + 1],allFileContents[i + 2] });
-//		}
-//
-//		else
-//		{
-//			continue;
-//		}
-//
-//	}
-//
-//
-//}
-
-//void FileHandler::LoadModuleStats(std::vector<Module>& inModules)
-//{
-//	
-//
-//	std::wifstream infile("./Settings/stats.tsv");
-//	//infile.imbue(std::locale("en_US.UTF8"));
-//	std::wstring line;
-//	std::vector<std::wstring> statsFileContents;
-//
-//	while (std::getline(infile, line))
-//	{
-//
-//		SplitWide(line, '\t', statsFileContents);
-//
-//	}
-//
-//	
-//	for (auto mod : inModules)
-//	{
-//		int size = statsFileContents.size();
-//		for (size_t i = 0; i < size; i += 4)
-//		{
-//			if (statsFileContents[i] == mod.GetFileName() &&
-//				statsFileContents[i + 1] == mod.GetModuleName())
-//			{
-//				mod.timesAsked = stoi(statsFileContents[i + 2]);
-//				mod.answeredCorrectly = stoi(statsFileContents[i + 3]);
-//
-//			}
-//		}
-//	}
-//}
 
 
 void FileHandler::ReadUserSettingsFile(std::unordered_map<std::string, std::string>& userSettings)
@@ -464,12 +312,6 @@ std::string& Module::GetModuleName()
 {
 	return moduleName;
 }
-
-//void Module::SetStats(int inAsked, int inCorrect)
-//{
-//	timesAsked += inAsked;
-//	answeredCorrectly += inCorrect;
-//}
 
 std::vector<Symbol>& Module::GetWordList()
 {
